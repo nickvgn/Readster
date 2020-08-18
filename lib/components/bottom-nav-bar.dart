@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
@@ -47,12 +46,6 @@ class BottomNavBar extends StatelessWidget {
     }
 
     return;
-
-//    if (!mounted) return;
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
   }
 
   _showModalBottomSheet(context, apiType) {

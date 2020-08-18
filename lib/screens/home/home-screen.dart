@@ -16,10 +16,14 @@ import 'package:untitled_goodreads_project/controller/firestore-controller.dart'
 import 'package:untitled_goodreads_project/controller/weekday-controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
+import 'package:untitled_goodreads_project/models/book.dart';
+import 'package:untitled_goodreads_project/models/quote.dart';
 import 'package:untitled_goodreads_project/models/user.dart';
 import 'package:untitled_goodreads_project/screens/home/components/app-bar-title.dart';
+import 'package:untitled_goodreads_project/screens/home/components/at-a-glance-card.dart';
 import 'package:untitled_goodreads_project/screens/home/components/circular-progress-widget.dart';
 import 'package:untitled_goodreads_project/screens/home/components/my-books-card.dart';
+import 'package:untitled_goodreads_project/screens/home/components/quote-card.dart';
 import 'package:untitled_goodreads_project/screens/home/components/weekly-read-chart.dart';
 import 'package:untitled_goodreads_project/screens/login/login-screen.dart';
 import 'package:untitled_goodreads_project/services/auth.dart';
@@ -296,7 +300,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   )
                                 : Container(),
                             user != null
-                                ? StreamBuilder(
+                                ? StreamBuilder<List<Book>>(
                                     stream:
                                         FirestoreController.streamBooksByStatus(
                                             user.uid, READING),
@@ -307,11 +311,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                       return snapshot.hasData
                                           ? buildCarousel(
                                               autoPlay: true,
-                                              items: books,
-                                              itemBuilder: (context, index) =>
-                                                  MyBooksCard(
-                                                    book: books[index],
-                                                  ))
+                                              items: books.length == 0
+                                                  ? quotes
+                                                  : books,
+                                              itemBuilder: books.length != 0
+                                                  ? (context, index) =>
+                                                      MyBooksCard(
+                                                        book: books[index],
+                                                      )
+                                                  : (context, index) =>
+                                                      QuoteCard(
+                                                        quote: quotes[index],
+                                                      ))
                                           : Container();
                                     })
                                 : SpinkitWidget()
