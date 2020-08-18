@@ -14,6 +14,9 @@ import 'package:untitled_goodreads_project/controller/book-controller.dart';
 import 'package:flutter_fadein/flutter_fadein.dart';
 
 class DetailsScreen extends StatefulWidget {
+  final String isbn;
+
+  const DetailsScreen({Key key, this.isbn}) : super(key: key);
   @override
   _DetailsScreenState createState() => _DetailsScreenState();
 }
@@ -39,9 +42,11 @@ class _DetailsScreenState extends State<DetailsScreen> {
 
     return Scaffold(
       body: FutureBuilder<Book>(
-        future: TextHelper.isGoodreads(bookId)
-            ? fetchBook(http.Client(), bookId)
-            : fetchGoogleBook(http.Client(), bookId),
+        future: widget.isbn == null
+            ? TextHelper.isGoodreads(bookId)
+                ? fetchBook(http.Client(), bookId)
+                : fetchGoogleBook(http.Client(), bookId)
+            : fetchBookByIsbn(http.Client(), widget.isbn),
         builder: (context, snapshot) {
           if (snapshot.hasError) print(snapshot.error);
           var book = snapshot.data;
@@ -72,7 +77,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                 title: 'You might like these too',
                                 book: book,
                                 books:
-                                    fetchBooksByIsbn(http.Client(), book.isbn),
+                                    fetchSimilarBooks(http.Client(), book.isbn),
                               ),
                             if (book.seriesId != '' && book.isGoodreads == true)
                               BookSuggestionList(

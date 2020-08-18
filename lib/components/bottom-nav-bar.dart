@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:page_transition/page_transition.dart';
@@ -8,13 +9,51 @@ import 'package:provider/provider.dart';
 import 'package:untitled_goodreads_project/constants.dart';
 import 'package:untitled_goodreads_project/controller/book-controller.dart';
 import 'package:untitled_goodreads_project/screens/collection/collection-screen.dart';
+import 'package:untitled_goodreads_project/screens/details/details-screen.dart';
 import 'package:untitled_goodreads_project/screens/home/home-screen.dart';
 import 'package:untitled_goodreads_project/screens/search/search-screen.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'dart:async';
 
 class BottomNavBar extends StatelessWidget {
   const BottomNavBar({
     Key key,
   }) : super(key: key);
+
+  startBarcodeScanStream(context) async {
+    FlutterBarcodeScanner.getBarcodeStreamReceiver(
+            "#ff6666", "Cancel", true, ScanMode.BARCODE)
+        .listen((barcode) {
+      Navigator.of(context).push(PageTransition(
+          type: PageTransitionType.scale,
+          child: DetailsScreen(
+            isbn: barcode,
+          )));
+    });
+  }
+
+  Future<void> scanBarcodeNormal(context) async {
+    String barcodeScanRes;
+    try {
+      barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+          "#ff6666", "Cancel", true, ScanMode.BARCODE);
+      Navigator.of(context).push(PageTransition(
+          type: PageTransitionType.scale,
+          child: DetailsScreen(
+            isbn: barcodeScanRes,
+          )));
+    } on PlatformException {
+      barcodeScanRes = 'Failed to get platform version.';
+    }
+
+    return;
+
+//    if (!mounted) return;
+
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+  }
 
   _showModalBottomSheet(context, apiType) {
     showModalBottomSheet(
@@ -125,17 +164,21 @@ class BottomNavBar extends StatelessWidget {
           right: 170,
           bottom: 20,
           child: NeumorphicButton(
-            padding: EdgeInsets.all(25),
-            style: kNeumorphicStyle.copyWith(
-              boxShape: NeumorphicBoxShape.circle(),
-            ),
-            child: Icon(
-              MdiIcons.bookSearch,
-              color: kSecondaryColor,
-              size: 35,
-            ),
-            onPressed: () => _showModalBottomSheet(context, GOODREADS),
-          ),
+              padding: EdgeInsets.all(25),
+              style: kNeumorphicStyle.copyWith(
+                boxShape: NeumorphicBoxShape.circle(),
+              ),
+              child: Icon(
+                MdiIcons.barcodeScan,
+                color: kSecondaryColor,
+                size: 35,
+              ),
+              onPressed: () {
+                scanBarcodeNormal(context);
+              }
+
+//            => _showModalBottomSheet(context, GOODREADS),
+              ),
         ),
       ],
     );

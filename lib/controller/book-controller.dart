@@ -1,7 +1,5 @@
 import 'dart:convert';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:untitled_goodreads_project/constants.dart';
 import 'package:untitled_goodreads_project/models/book.dart';
 import 'package:http/http.dart' as http;
@@ -47,6 +45,14 @@ Future<Book> fetchBook(http.Client client, String bookId) async {
   return compute(parseBook, jsonString);
 }
 
+Future<Book> fetchBookByIsbn(http.Client client, String isbn) async {
+  final url = '$goodReadsUrlShowBookIsbn/$isbn?key=$apiKey';
+  final response = await client.get(url);
+
+  final jsonString = TextHelper.getJsonFromXMLUrl(response.body);
+  return compute(parseBook, jsonString);
+}
+
 Book parseBook(String responseBody) {
   final parsed = jsonDecode(responseBody);
   var book = parsed['GoodreadsResponse']['book'];
@@ -84,15 +90,15 @@ List<Genre> parseGenres(String responseBody) {
 //
 //
 
-Future<List<Book>> fetchBooksByIsbn(http.Client client, String isbn) async {
+Future<List<Book>> fetchSimilarBooks(http.Client client, String isbn) async {
   final url = '$goodReadsUrlShowBookIsbn/$isbn?key=$apiKey';
   final response = await client.get(url);
 
   final jsonString = TextHelper.getJsonFromXMLUrl(response.body);
-  return compute(parseBooksIsbn, jsonString);
+  return compute(parseSimilarBooks, jsonString);
 }
 
-List<Book> parseBooksIsbn(String responseBody) {
+List<Book> parseSimilarBooks(String responseBody) {
   final parsed = jsonDecode(responseBody);
   final data = parsed['GoodreadsResponse']['book']['similar_books']['book']
       .cast<Map<String, dynamic>>();
