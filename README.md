@@ -12,7 +12,7 @@ A minimal reading tracker app that aims to keap the bloat out and focus on what 
 
 | Booklist     | Bookshelf      |
 |------------|-------------|
-| <img src="./screenshots/booklist.jpg" width="400"> | <img src="./screenshots/bookshelf.jpg" width="400"> |
+| <img src="./screenshots/booklist.png" width="400"> | <img src="./screenshots/bookshelf.png" width="400"> |
 
 
 ### Details
