@@ -29,7 +29,7 @@ class CollectionBook extends StatefulWidget {
 class _CollectionBookState extends State<CollectionBook> {
   bool isUpdate = false;
   var sliderValue = 0.5;
-  String readStatus = TOREAD;
+  String readStatus;
 
   @override
   void initState() {

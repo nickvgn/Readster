@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
@@ -57,17 +58,27 @@ class CollectionScreen extends StatelessWidget {
           backgroundColor: Colors.transparent,
           actions: [
             NeumorphicButton(
-                style: NeumorphicStyle(
-                  boxShape: NeumorphicBoxShape.circle(),
-                  depth: 0,
-                ),
-                child: Icon(
-                  MdiIcons.filterVariant,
-                  color: kSecondaryColor,
-                ),
-                onPressed: () =>
-                    Provider.of<BookController>(context, listen: false)
-                        .updateReadStatusState()),
+              style: NeumorphicStyle(
+                boxShape: NeumorphicBoxShape.circle(),
+                depth: 0,
+              ),
+              child: Icon(
+                MdiIcons.filterVariant,
+                color: kSecondaryColor,
+              ),
+              onPressed: () {
+                Provider.of<BookController>(context, listen: false)
+                    .updateReadStatusState();
+                Fluttertoast.showToast(
+                  backgroundColor: kSecondaryColor,
+                  msg: Provider.of<BookController>(context, listen: false)
+                      .readStatus,
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.TOP,
+                  timeInSecForIosWeb: 1,
+                );
+              },
+            ),
             SizedBox(width: 15)
           ],
         ),

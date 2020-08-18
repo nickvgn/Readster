@@ -1,7 +1,5 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:untitled_goodreads_project/constants.dart';
 
 PageRouteBuilder buildBlurredModal(
     {Size size, Widget child, double height = 360, double width = 340}) {
