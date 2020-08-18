@@ -4,6 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:untitled_goodreads_project/components/spinkit-widget.dart';
+import 'package:untitled_goodreads_project/constants.dart';
+import 'package:untitled_goodreads_project/controller/book-controller.dart';
 import 'package:untitled_goodreads_project/controller/firestore-controller.dart';
 import 'package:untitled_goodreads_project/screens/collection/components/collection-book.dart';
 import 'package:flutter_fadein/flutter_fadein.dart';
@@ -37,7 +39,10 @@ class _BookListState extends State<BookList> {
     return Scaffold(
         body: user != null
             ? StreamBuilder(
-                stream: FirestoreController.streamBooks(user.uid),
+                stream: Provider.of<BookController>(context).readStatus != ALL
+                    ? FirestoreController.streamBooksByStatus(user.uid,
+                        Provider.of<BookController>(context).readStatus)
+                    : FirestoreController.streamBooks(user.uid),
                 builder: (context, snapshot) {
                   var books = snapshot.data;
                   return snapshot.hasData && isFadeIn

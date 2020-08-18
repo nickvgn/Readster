@@ -19,28 +19,21 @@ class BottomNavBar extends StatelessWidget {
     Key key,
   }) : super(key: key);
 
-  startBarcodeScanStream(context) async {
-    FlutterBarcodeScanner.getBarcodeStreamReceiver(
-            "#ff6666", "Cancel", true, ScanMode.BARCODE)
-        .listen((barcode) {
-      Navigator.of(context).push(PageTransition(
-          type: PageTransitionType.scale,
-          child: DetailsScreen(
-            isbn: barcode,
-          )));
-    });
-  }
-
   Future<void> scanBarcodeNormal(context) async {
     String barcodeScanRes;
     try {
       barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
           "#ff6666", "Cancel", true, ScanMode.BARCODE);
-      Navigator.of(context).push(PageTransition(
-          type: PageTransitionType.scale,
-          child: DetailsScreen(
-            isbn: barcodeScanRes,
-          )));
+
+      if (barcodeScanRes != '-1') {
+        Navigator.of(context).push(PageTransition(
+            type: PageTransitionType.scale,
+            child: DetailsScreen(
+              isbn: barcodeScanRes,
+            )));
+      } else {
+        return;
+      }
     } on PlatformException {
       barcodeScanRes = 'Failed to get platform version.';
     }
@@ -154,7 +147,7 @@ class BottomNavBar extends StatelessWidget {
           ),
         ),
         Positioned(
-          right: 170,
+          right: 220,
           bottom: 20,
           child: NeumorphicButton(
               padding: EdgeInsets.all(25),
@@ -172,6 +165,22 @@ class BottomNavBar extends StatelessWidget {
 
 //            => _showModalBottomSheet(context, GOODREADS),
               ),
+        ),
+        Positioned(
+          right: 120,
+          bottom: 20,
+          child: NeumorphicButton(
+            padding: EdgeInsets.all(25),
+            style: kNeumorphicStyle.copyWith(
+              boxShape: NeumorphicBoxShape.circle(),
+            ),
+            child: Icon(
+              MdiIcons.bookSearch,
+              color: kSecondaryColor,
+              size: 35,
+            ),
+            onPressed: () => _showModalBottomSheet(context, GOODREADS),
+          ),
         ),
       ],
     );

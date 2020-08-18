@@ -4,8 +4,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:untitled_goodreads_project/components/bottom-nav-bar.dart';
 import 'package:untitled_goodreads_project/constants.dart';
+import 'package:untitled_goodreads_project/controller/book-controller.dart';
 import 'package:untitled_goodreads_project/screens/collection/booklist.dart';
 import 'package:untitled_goodreads_project/screens/collection/bookshelf.dart';
 
@@ -36,6 +39,7 @@ class CollectionScreen extends StatelessWidget {
                     child: NeumorphicButton(
                       style: NeumorphicStyle(
                         boxShape: NeumorphicBoxShape.circle(),
+                        depth: 0,
                       ),
                       child: Icon(
                         FontAwesomeIcons.angleLeft,
@@ -53,15 +57,17 @@ class CollectionScreen extends StatelessWidget {
           backgroundColor: Colors.transparent,
           actions: [
             NeumorphicButton(
-              style: NeumorphicStyle(
-                boxShape: NeumorphicBoxShape.circle(),
-              ),
-              child: Icon(
-                FontAwesomeIcons.ellipsisV,
-                color: kSecondaryColor,
-              ),
-              onPressed: () {},
-            ),
+                style: NeumorphicStyle(
+                  boxShape: NeumorphicBoxShape.circle(),
+                  depth: 0,
+                ),
+                child: Icon(
+                  MdiIcons.filterVariant,
+                  color: kSecondaryColor,
+                ),
+                onPressed: () =>
+                    Provider.of<BookController>(context, listen: false)
+                        .updateReadStatusState()),
             SizedBox(width: 15)
           ],
         ),

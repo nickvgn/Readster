@@ -77,45 +77,45 @@ class _BookshelfState extends State<Bookshelf> {
                                   ),
                                 ),
                               ),
-                              Align(
-                                alignment: Alignment.bottomRight,
-                                child: NeumorphicButton(
-                                  margin:
-                                      EdgeInsets.only(right: 15, bottom: 25),
-                                  style: kNeumorphicStyle.copyWith(
-                                    boxShape: NeumorphicBoxShape.roundRect(
-                                        BorderRadius.circular(25)),
-                                  ),
-                                  onPressed: () {
-                                    setState(() {
-                                      Provider.of<BookController>(context,
-                                              listen: false)
-                                          .updateReadStatusState();
-                                    });
-                                  },
-                                  child: SizedBox(
-                                    width: 100,
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Icon(
-                                          MdiIcons.filterVariant,
-                                          color: kSecondaryColor,
-                                          size: 30,
-                                        ),
-                                        SizedBox(width: 10),
-                                        Flexible(
-                                          child: Text(
-                                              Provider.of<BookController>(
-                                                      context)
-                                                  .readStatus),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
+//                              Align(
+//                                alignment: Alignment.bottomRight,
+//                                child: NeumorphicButton(
+//                                  margin:
+//                                      EdgeInsets.only(right: 15, bottom: 25),
+//                                  style: kNeumorphicStyle.copyWith(
+//                                    boxShape: NeumorphicBoxShape.roundRect(
+//                                        BorderRadius.circular(25)),
+//                                  ),
+//                                  onPressed: () {
+//                                    setState(() {
+//                                      Provider.of<BookController>(context,
+//                                              listen: false)
+//                                          .updateReadStatusState();
+//                                    });
+//                                  },
+//                                  child: SizedBox(
+//                                    width: 100,
+//                                    child: Row(
+//                                      mainAxisAlignment:
+//                                          MainAxisAlignment.center,
+//                                      children: [
+//                                        Icon(
+//                                          MdiIcons.filterVariant,
+//                                          color: kSecondaryColor,
+//                                          size: 30,
+//                                        ),
+//                                        SizedBox(width: 10),
+//                                        Flexible(
+//                                          child: Text(
+//                                              Provider.of<BookController>(
+//                                                      context)
+//                                                  .readStatus),
+//                                        )
+//                                      ],
+//                                    ),
+//                                  ),
+//                                ),
+//                              ),
                             ],
                           )
                         : Container();
