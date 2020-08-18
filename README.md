@@ -4,6 +4,8 @@ A minimal reading tracker app that aims to keap the bloat out and focus on what 
 
 ..and its best not to grab your attention for too long so you have more time to read.
 
+##### This app is being built using Flutter
+
 ## Screenshots (as of Aug 18)
 
 ## Home
