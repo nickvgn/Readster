@@ -37,7 +37,6 @@ class BottomNavBar extends StatelessWidget {
     } on PlatformException {
       barcodeScanRes = 'Failed to get platform version.';
     }
-
     return;
   }
 
@@ -112,7 +111,37 @@ class BottomNavBar extends StatelessWidget {
                   );
                 },
               ),
-              SizedBox(width: 120),
+              NeumorphicButton(
+                  padding: EdgeInsets.all(25),
+                  style: kNeumorphicStyle.copyWith(
+                    boxShape: NeumorphicBoxShape.circle(),
+                    depth: 0,
+                  ),
+                  child: Icon(
+                    MdiIcons.barcodeScan,
+                    color: kSecondaryColor,
+                    size: 35,
+                  ),
+                  onPressed: () {
+                    scanBarcodeNormal(context);
+                  }
+
+//            => _showModalBottomSheet(context, GOODREADS),
+                  ),
+              NeumorphicButton(
+                padding: EdgeInsets.all(25),
+                style: kNeumorphicStyle.copyWith(
+                  boxShape: NeumorphicBoxShape.circle(),
+                  depth: 0,
+                ),
+                child: Icon(
+                  MdiIcons.bookSearch,
+                  color: kSecondaryColor,
+                  size: 35,
+                ),
+                onPressed: () => _showModalBottomSheet(context, GOODREADS),
+              ),
+//              SizedBox(width: 120),
               NeumorphicButton(
                 child: NeumorphicIcon(
                   MdiIcons.bookshelf,
@@ -146,42 +175,42 @@ class BottomNavBar extends StatelessWidget {
             ],
           ),
         ),
-        Positioned(
-          right: 220,
-          bottom: 20,
-          child: NeumorphicButton(
-              padding: EdgeInsets.all(25),
-              style: kNeumorphicStyle.copyWith(
-                boxShape: NeumorphicBoxShape.circle(),
-              ),
-              child: Icon(
-                MdiIcons.barcodeScan,
-                color: kSecondaryColor,
-                size: 35,
-              ),
-              onPressed: () {
-                scanBarcodeNormal(context);
-              }
-
-//            => _showModalBottomSheet(context, GOODREADS),
-              ),
-        ),
-        Positioned(
-          right: 120,
-          bottom: 20,
-          child: NeumorphicButton(
-            padding: EdgeInsets.all(25),
-            style: kNeumorphicStyle.copyWith(
-              boxShape: NeumorphicBoxShape.circle(),
-            ),
-            child: Icon(
-              MdiIcons.bookSearch,
-              color: kSecondaryColor,
-              size: 35,
-            ),
-            onPressed: () => _showModalBottomSheet(context, GOODREADS),
-          ),
-        ),
+//        Positioned(
+//          right: 220,
+//          bottom: 20,
+//          child: NeumorphicButton(
+//              padding: EdgeInsets.all(25),
+//              style: kNeumorphicStyle.copyWith(
+//                boxShape: NeumorphicBoxShape.circle(),
+//              ),
+//              child: Icon(
+//                MdiIcons.barcodeScan,
+//                color: kSecondaryColor,
+//                size: 35,
+//              ),
+//              onPressed: () {
+//                scanBarcodeNormal(context);
+//              }
+//
+////            => _showModalBottomSheet(context, GOODREADS),
+//              ),
+//        ),
+//        Positioned(
+//          right: 120,
+//          bottom: 20,
+//          child: NeumorphicButton(
+//            padding: EdgeInsets.all(25),
+//            style: kNeumorphicStyle.copyWith(
+//              boxShape: NeumorphicBoxShape.circle(),
+//            ),
+//            child: Icon(
+//              MdiIcons.bookSearch,
+//              color: kSecondaryColor,
+//              size: 35,
+//            ),
+//            onPressed: () => _showModalBottomSheet(context, GOODREADS),
+//          ),
+//        ),
       ],
     );
   }

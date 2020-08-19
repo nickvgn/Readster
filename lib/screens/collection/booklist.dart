@@ -51,7 +51,7 @@ class _BookListState extends State<BookList> {
                           child: FadingEdgeScrollView.fromScrollView(
                             child: ListView.builder(
                               controller: controller,
-//                              physics: BouncingScrollPhysics(),
+                              physics: BouncingScrollPhysics(),
                               itemCount: books.length,
                               itemBuilder: (context, index) => CollectionBook(
                                 book: books[index],

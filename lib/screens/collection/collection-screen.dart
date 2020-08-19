@@ -96,8 +96,7 @@ class CollectionScreen extends StatelessWidget {
                 unselectedLabelColor: Colors.grey,
                 indicator: UnderlineTabIndicator(
                     borderSide: BorderSide(
-                  color: Theme.of(context).indicatorColor,
-                  style: BorderStyle.solid,
+                  color: Colors.transparent,
                 )),
                 tabs: [
                   Tab(text: 'Recent'),
@@ -106,12 +105,15 @@ class CollectionScreen extends StatelessWidget {
               ),
             ),
             Expanded(
-              child: TabBarView(
-                physics: NeverScrollableScrollPhysics(),
-                children: [
-                  BookList(),
-                  Bookshelf(),
-                ],
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: TabBarView(
+                  physics: BouncingScrollPhysics(),
+                  children: [
+                    BookList(),
+                    Bookshelf(),
+                  ],
+                ),
               ),
             ),
           ],

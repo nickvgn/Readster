@@ -6,11 +6,15 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
+import 'package:untitled_goodreads_project/components/blurred-modal.dart';
+import 'package:untitled_goodreads_project/components/book-3d.dart';
+import 'package:untitled_goodreads_project/components/confirmation-button.dart';
 import 'package:untitled_goodreads_project/constants.dart';
 import 'package:untitled_goodreads_project/controller/book-controller.dart';
 import 'package:untitled_goodreads_project/controller/firestore-controller.dart';
 import 'package:untitled_goodreads_project/models/book.dart';
-import 'package:untitled_goodreads_project/screens/collection/components/progress-slider.dart';
+import 'package:untitled_goodreads_project/screens/collection/components/blurred-modal-fade.dart';
+import 'package:untitled_goodreads_project/screens/collection/components/progress-modal-content.dart';
 import 'package:untitled_goodreads_project/screens/collection/components/read-status-radio.dart';
 import 'package:untitled_goodreads_project/screens/details/details-screen.dart';
 
@@ -62,22 +66,26 @@ class _CollectionBookState extends State<CollectionBook> {
                       Provider.of<BookController>(context, listen: false)
                           .updateBookId(widget.book.id);
                       Navigator.push(
-                          context,
-                          PageTransition(
-                            curve: Curves.easeInOutSine,
-                            type: PageTransitionType.scale,
-                            alignment: Alignment.center,
-                            duration: Duration(milliseconds: 100),
-                            child: DetailsScreen(),
-                          ));
+                        context,
+                        PageTransition(
+                          curve: Curves.easeInOutSine,
+                          type: PageTransitionType.scale,
+                          alignment: Alignment.center,
+                          duration: Duration(milliseconds: 100),
+                          child: DetailsScreen(),
+                        ),
+                      );
                     },
                     style: kNeumorphicStyle,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
-                      child: CachedNetworkImage(
-                        imageUrl: widget.book.imageUrl,
-                        placeholder: (context, __) => Image.asset(
-                            'assets/images/book_cover_placeholder.jpg'),
+                      child: Hero(
+                        tag: 'cover${widget.book.id}',
+                        child: CachedNetworkImage(
+                          imageUrl: widget.book.imageUrl,
+                          placeholder: (context, __) => Image.asset(
+                              'assets/images/book_cover_placeholder.jpg'),
+                        ),
                       ),
                     ),
                   ),
@@ -97,84 +105,43 @@ class _CollectionBookState extends State<CollectionBook> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.baseline,
                       children: [
-                        isUpdate && readStatus == READING
-                            ? Row(
-                                children: [
-                                  RichText(
-                                    text: TextSpan(
-                                      children: [
-                                        TextSpan(
-                                          text: ((sliderValue / 10) *
-                                                  widget.book.pageCount)
-                                              .toInt()
-                                              .toString(),
-                                          style: TextStyle(
-                                            color: kSecondaryColor,
-                                            fontSize: 20,
-                                          ),
-                                        ),
-                                        TextSpan(
-                                          text: ' pages    ',
-                                          style: TextStyle(
-                                            color: kTextLightColor,
-                                            fontSize: 15,
-                                          ),
-                                        ),
-                                        TextSpan(
-                                          text: (sliderValue * 10)
-                                              .toInt()
-                                              .toString(),
-                                          style: TextStyle(
-                                            color: kSecondaryColor,
-                                            fontSize: 20,
-                                          ),
-                                        ),
-                                        TextSpan(
-                                          text: ' percent',
-                                          style: TextStyle(
-                                            color: kTextLightColor,
-                                            fontSize: 15,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              )
-                            : Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  SizedBox(
-                                    width: size.width * .5,
-                                    child: AutoSizeText(
-                                      widget.book.title,
-                                      style: TextStyle(fontSize: 15),
-                                      maxLines: 2,
-                                      minFontSize: 8,
-                                      maxFontSize: 15,
-                                    ),
-                                  ),
-                                  SizedBox(height: 5),
-                                  AutoSizeText(
-                                    widget.book.author,
-                                    style: TextStyle(
-                                        fontSize: 13, color: kTextLightColor),
-                                    maxLines: 2,
-                                    minFontSize: 8,
-                                    maxFontSize: 13,
-                                  ),
-                                ],
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              width: size.width * .5,
+                              child: AutoSizeText(
+                                widget.book.title,
+                                style: TextStyle(fontSize: 15),
+                                maxLines: 2,
+                                minFontSize: 8,
+                                maxFontSize: 15,
                               ),
+                            ),
+                            SizedBox(height: 5),
+                            SizedBox(
+                              width: size.width * .5,
+                              child: AutoSizeText(
+                                widget.book.author,
+                                style: TextStyle(
+                                    fontSize: 13, color: kTextLightColor),
+                                maxLines: 2,
+                                minFontSize: 8,
+                                maxFontSize: 13,
+                              ),
+                            ),
+                          ],
+                        ),
                         if (readStatus == READ)
                           Neumorphic(
                             padding: EdgeInsets.all(6),
                             style: kNeumorphicStyle.copyWith(
-                                depth: 3,
-                                boxShape: NeumorphicBoxShape.circle(),
-                                border: NeumorphicBorder(
-                                    width: 5, color: kLightPrimaryColor)),
+                              depth: 0,
+                              boxShape: NeumorphicBoxShape.circle(),
+//                              border: NeumorphicBorder(
+//                                  width: 5, color: kLightPrimaryColor),
+                            ),
                             child: NeumorphicIcon(
                               FontAwesomeIcons.check,
                               style: kNeumorphicStyle.copyWith(
@@ -183,55 +150,89 @@ class _CollectionBookState extends State<CollectionBook> {
                           ),
                         if (readStatus == READING)
                           NeumorphicButton(
-                            padding: EdgeInsets.all(6),
-                            style: kNeumorphicStyle.copyWith(
-                                boxShape: NeumorphicBoxShape.circle(),
-                                border: NeumorphicBorder(
-                                    width: 6, color: kLightPrimaryColor)),
-                            child: NeumorphicIcon(
-                              isUpdate
-                                  ? FontAwesomeIcons.solidSave
-                                  : FontAwesomeIcons.pen,
+                              padding: EdgeInsets.all(6),
                               style: kNeumorphicStyle.copyWith(
-                                  color: kSecondaryColor),
-                            ),
-                            onPressed: () {
-                              setState(() {
-                                isUpdate = !isUpdate;
-                              });
-                              if (!isUpdate) {
-                                Provider.of<FirestoreController>(context,
-                                        listen: false)
-                                    .updateFinishedPages(
-                                        ((sliderValue / 10) *
-                                                widget.book.pageCount)
-                                            .toInt(),
-                                        widget.book);
-                              }
-                            },
-                          )
+                                depth: 0,
+                                boxShape: NeumorphicBoxShape.circle(),
+//                                border: NeumorphicBorder(
+//                                  width: 6,
+//                                  color: kLightPrimaryColor,
+//                                ),
+                              ),
+                              child: NeumorphicIcon(
+                                FontAwesomeIcons.pen,
+                                style: kNeumorphicStyle.copyWith(
+                                    color: kSecondaryColor),
+                              ),
+                              onPressed: () {
+//                              setState(() {
+//                                isUpdate = !isUpdate;
+//                              });
+//                              if (isUpdate) {
+                                Navigator.of(context)
+                                    .push(buildBlurredModalFade(
+                                        child: ProgressModalContent(
+                                  book: widget.book,
+                                  sliderValue: sliderValue,
+                                )
+//                                Provider.of<FirestoreController>(context,
+//                                        listen: false)
+//                                    .updateFinishedPages(
+//                                        ((sliderValue / 10) *
+//                                                widget.book.pageCount)
+//                                            .toInt(),
+//                                        widget.book);
+//                              }
+//                            },
+                                        ));
+                              })
                       ],
                     ),
                     SizedBox(height: 10),
                     readStatus == READING
-                        ? ProgressSlider(
-                            isUpdate: isUpdate,
-                            sliderValue: sliderValue,
-                            onChanged: (value) {
-                              setState(() {
-                                sliderValue = value;
-                              });
-                            },
-                            onChangedEnd: (value) {
-                              if (value == 10) {
-                                setState(() {
-                                  readStatus = READ;
-                                });
-                                Provider.of<FirestoreController>(context,
-                                        listen: false)
-                                    .updateBookStatus(READ, widget.book);
-                              }
-                            },
+                        ? SizedBox(
+                            width: size.width * .65,
+//                            child: isUpdate == true
+//                                ? NeumorphicSlider(
+//                                    style: SliderStyle(
+//                                      thumbBorder: NeumorphicBorder(
+//                                        color: kSecondaryColor,
+//                                        width: 16,
+//                                      ),
+//                                    ),
+//                                    thumb: NeumorphicIcon(
+//                                      FontAwesomeIcons.font,
+//                                    ),
+//                                    value: sliderValue,
+//                                    height: 5,
+//                                    onChanged: (value) {
+//                                      setState(() {
+//                                        sliderValue = value;
+//                                      });
+//                                    },
+//                                    onChangeEnd: (value) {
+//                                      if (value == 10) {
+//                                        setState(() {
+//                                          readStatus = READ;
+//                                        });
+//                                        Provider.of<FirestoreController>(
+//                                                context,
+//                                                listen: false)
+//                                            .updateBookStatus(
+//                                                READ, widget.book);
+//                                      }
+//                                    })
+                            child: Hero(
+                              tag: 'slider${widget.book.id}',
+                              child: NeumorphicProgress(
+                                style: ProgressStyle(
+                                  depth: 1,
+                                ),
+                                duration: Duration(seconds: 2),
+                                height: 15,
+                                percent: sliderValue / 10,
+                              ),
+                            ),
                           )
                         : SizedBox(height: 7.5),
                     SizedBox(height: 10),
