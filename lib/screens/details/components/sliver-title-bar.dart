@@ -67,6 +67,7 @@ class _SliverTitleBarState extends State<SliverTitleBar> {
                           setState(() {
                             isChanged = false;
                           });
+                          Navigator.pop(context);
                           Fluttertoast.showToast(
                             backgroundColor: kSecondaryColor,
                             msg: "..is sentence",
@@ -90,6 +91,7 @@ class _SliverTitleBarState extends State<SliverTitleBar> {
                           setState(() {
                             isChanged = true;
                           });
+                          Navigator.pop(context);
                           Fluttertoast.showToast(
                             backgroundColor: kSecondaryColor,
                             msg: "Poof!",

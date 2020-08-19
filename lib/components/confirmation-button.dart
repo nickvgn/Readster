@@ -25,7 +25,7 @@ Widget buildConfirmationButton(String title, context, press) {
         if (title == 'Yes' || title == 'Save') {
           press();
         }
-        Navigator.of(context).pop();
+//        Navigator.of(context).pop();
       },
     ),
   );

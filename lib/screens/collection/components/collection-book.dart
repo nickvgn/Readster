@@ -164,17 +164,18 @@ class _CollectionBookState extends State<CollectionBook> {
                                 style: kNeumorphicStyle.copyWith(
                                     color: kSecondaryColor),
                               ),
-                              onPressed: () {
+                              onPressed: () async {
 //                              setState(() {
 //                                isUpdate = !isUpdate;
 //                              });
 //                              if (isUpdate) {
-                                Navigator.of(context)
+                                dynamic received = await Navigator.of(context)
                                     .push(buildBlurredModalFade(
                                         child: ProgressModalContent(
                                   book: widget.book,
                                   sliderValue: sliderValue,
                                 )
+
 //                                Provider.of<FirestoreController>(context,
 //                                        listen: false)
 //                                    .updateFinishedPages(
@@ -185,6 +186,9 @@ class _CollectionBookState extends State<CollectionBook> {
 //                              }
 //                            },
                                         ));
+                                setState(() {
+                                  sliderValue = received;
+                                });
                               })
                       ],
                     ),

@@ -108,6 +108,7 @@ class _ProgressModalContentState extends State<ProgressModalContent> {
               .updateFinishedPages(
                   ((sliderVal / 10) * widget.book.pageCount).toInt(),
                   widget.book);
+          Navigator.pop(context, sliderVal);
         }),
       ],
     );
