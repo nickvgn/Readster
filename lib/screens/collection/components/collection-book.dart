@@ -6,9 +6,6 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
-import 'package:untitled_goodreads_project/components/blurred-modal.dart';
-import 'package:untitled_goodreads_project/components/book-3d.dart';
-import 'package:untitled_goodreads_project/components/confirmation-button.dart';
 import 'package:untitled_goodreads_project/constants.dart';
 import 'package:untitled_goodreads_project/controller/book-controller.dart';
 import 'package:untitled_goodreads_project/controller/firestore-controller.dart';
@@ -139,8 +136,6 @@ class _CollectionBookState extends State<CollectionBook> {
                             style: kNeumorphicStyle.copyWith(
                               depth: 0,
                               boxShape: NeumorphicBoxShape.circle(),
-//                              border: NeumorphicBorder(
-//                                  width: 5, color: kLightPrimaryColor),
                             ),
                             child: NeumorphicIcon(
                               FontAwesomeIcons.check,
@@ -150,107 +145,83 @@ class _CollectionBookState extends State<CollectionBook> {
                           ),
                         if (readStatus == READING)
                           NeumorphicButton(
-                              padding: EdgeInsets.all(6),
+                            padding: EdgeInsets.all(6),
+                            style: kNeumorphicStyle.copyWith(
+                              depth: 0,
+                              boxShape: NeumorphicBoxShape.circle(),
+                            ),
+                            child: NeumorphicIcon(
+                              FontAwesomeIcons.pen,
                               style: kNeumorphicStyle.copyWith(
-                                depth: 0,
-                                boxShape: NeumorphicBoxShape.circle(),
-//                                border: NeumorphicBorder(
-//                                  width: 6,
-//                                  color: kLightPrimaryColor,
-//                                ),
-                              ),
-                              child: NeumorphicIcon(
-                                FontAwesomeIcons.pen,
-                                style: kNeumorphicStyle.copyWith(
-                                    color: kSecondaryColor),
-                              ),
-                              onPressed: () async {
-//                              setState(() {
-//                                isUpdate = !isUpdate;
-//                              });
-//                              if (isUpdate) {
-                                dynamic received = await Navigator.of(context)
-                                    .push(buildBlurredModalFade(
-                                        child: ProgressModalContent(
-                                  book: widget.book,
-                                  sliderValue: sliderValue,
-                                )
-
-//                                Provider.of<FirestoreController>(context,
-//                                        listen: false)
-//                                    .updateFinishedPages(
-//                                        ((sliderValue / 10) *
-//                                                widget.book.pageCount)
-//                                            .toInt(),
-//                                        widget.book);
-//                              }
-//                            },
-                                        ));
+                                  color: kSecondaryColor),
+                            ),
+                            onPressed: () async {
+                              dynamic received =
+                                  await Navigator.of(context).push(
+                                buildBlurredModalFade(
+                                  child: ProgressModalContent(
+                                    book: widget.book,
+                                    sliderValue: sliderValue,
+                                  ),
+                                ),
+                              );
+                              if (received != null)
                                 setState(() {
                                   sliderValue = received;
                                 });
-                              })
+                            },
+                          ),
                       ],
                     ),
                     SizedBox(height: 10),
-                    readStatus == READING
-                        ? SizedBox(
-                            width: size.width * .65,
-//                            child: isUpdate == true
-//                                ? NeumorphicSlider(
-//                                    style: SliderStyle(
-//                                      thumbBorder: NeumorphicBorder(
-//                                        color: kSecondaryColor,
-//                                        width: 16,
-//                                      ),
-//                                    ),
-//                                    thumb: NeumorphicIcon(
-//                                      FontAwesomeIcons.font,
-//                                    ),
-//                                    value: sliderValue,
-//                                    height: 5,
-//                                    onChanged: (value) {
-//                                      setState(() {
-//                                        sliderValue = value;
-//                                      });
-//                                    },
-//                                    onChangeEnd: (value) {
-//                                      if (value == 10) {
-//                                        setState(() {
-//                                          readStatus = READ;
-//                                        });
-//                                        Provider.of<FirestoreController>(
-//                                                context,
-//                                                listen: false)
-//                                            .updateBookStatus(
-//                                                READ, widget.book);
-//                                      }
-//                                    })
-                            child: Hero(
-                              tag: 'slider${widget.book.id}',
-                              child: NeumorphicProgress(
-                                style: ProgressStyle(
-                                  depth: 1,
-                                ),
-                                duration: Duration(seconds: 2),
-                                height: 15,
-                                percent: sliderValue / 10,
-                              ),
+                    if (readStatus == READING)
+                      SizedBox(
+                        width: size.width * .65,
+                        child: Hero(
+                          tag: 'slider${widget.book.id}',
+                          child: NeumorphicProgress(
+                            style: ProgressStyle(
+                              depth: 1,
                             ),
-                          )
-                        : SizedBox(height: 7.5),
+                            duration: Duration(seconds: 2),
+                            height: 15,
+                            percent: sliderValue / 10,
+                          ),
+                        ),
+                      ),
                     SizedBox(height: 10),
-                    ReadStatusRadio(
-                      readStatus: readStatus,
-                      onChanged: (value) {
-                        setState(() {
-                          readStatus = value;
+                    if (readStatus == TOREAD)
+                      NeumorphicButton(
+                        style: kNeumorphicStyle.copyWith(
+                            boxShape: NeumorphicBoxShape.roundRect(
+                                BorderRadius.circular(25))),
+                        child: Text(
+                          'Start Reading',
+                          style: Theme.of(context).textTheme.caption.copyWith(
+                                color: kSecondaryColor,
+                                fontWeight: FontWeight.bold,
+                              ),
+                        ),
+                        onPressed: () {
                           Provider.of<FirestoreController>(context,
                                   listen: false)
-                              .updateBookStatus(value, widget.book);
-                        });
-                      },
-                    ),
+                              .updateBookStatus(READING, widget.book);
+                          setState(() {
+                            readStatus = READING;
+                          });
+                        },
+                      ),
+//                    ReadStatusRadio(
+//                      readStatus: readStatus,
+//                      onChanged: (value) {
+//                        setState(() {
+//                          readStatus = value;
+//                          Provider.of<FirestoreController>(context,
+//                                  listen: false)
+//                              .updateBookStatus(value, widget.book);
+//                        });
+//                      },
+//                    ),
                     SizedBox(height: 5),
                   ],
                 ),

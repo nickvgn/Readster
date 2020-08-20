@@ -8,38 +8,34 @@ import 'package:untitled_goodreads_project/screens/collection/components/progres
 
 PageRouteBuilder buildBlurredModalFade(
     {Size size, Widget child, double height = 360, double width = 340}) {
-  var sliderValue = 0.5;
   return PageRouteBuilder(
       barrierDismissible: true,
-      transitionDuration: Duration(milliseconds: 2000),
+      reverseTransitionDuration: Duration(milliseconds: 100),
+      transitionDuration: Duration(milliseconds: 1000),
       opaque: false,
       pageBuilder: (BuildContext context, __, ___) {
-        return StatefulBuilder(builder: (context, StateSetter setModalState) {
-          return FadeIn(
-              duration: Duration(milliseconds: 2000),
-              child: Scaffold(
-                backgroundColor: Colors.black45,
-                body: BackdropFilter(
-                    filter: ImageFilter.blur(
-                      sigmaX: 10,
-                      sigmaY: 10,
+        return Scaffold(
+          backgroundColor: Colors.black45,
+          body: BackdropFilter(
+              filter: ImageFilter.blur(
+                sigmaX: 10,
+                sigmaY: 10,
+              ),
+              child: FadeIn(
+                duration: Duration(milliseconds: 1000),
+                child: Center(
+                  child: Container(
+                    padding: EdgeInsets.all(20),
+                    height: height,
+                    width: width,
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).scaffoldBackgroundColor,
+                      borderRadius: BorderRadius.circular(25),
                     ),
-                    child: FadeIn(
-                      duration: Duration(milliseconds: 3500),
-                      child: Center(
-                        child: Container(
-                          padding: EdgeInsets.all(20),
-                          height: height,
-                          width: width,
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).scaffoldBackgroundColor,
-                            borderRadius: BorderRadius.circular(25),
-                          ),
-                          child: child,
-                        ),
-                      ),
-                    )),
-              ));
-        });
+                    child: child,
+                  ),
+                ),
+              )),
+        );
       });
 }

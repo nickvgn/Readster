@@ -87,20 +87,23 @@ class _ProgressModalContentState extends State<ProgressModalContent> {
         ),
         SizedBox(
             width: size.width * .65,
-            child: NeumorphicSlider(
-              style: SliderStyle(
-                  thumbBorder: NeumorphicBorder(
-                    color: kSecondaryColor,
-                    width: 16,
-                  ),
-                  depth: 5),
-              value: sliderVal,
-              height: 15,
-              onChanged: (value) {
-                setState(() {
-                  sliderVal = value;
-                });
-              },
+            child: Hero(
+              tag: 'slider${widget.book.id}',
+              child: NeumorphicSlider(
+                style: SliderStyle(
+                    thumbBorder: NeumorphicBorder(
+                      color: kSecondaryColor,
+                      width: 16,
+                    ),
+                    depth: 5),
+                value: sliderVal,
+                height: 15,
+                onChanged: (value) {
+                  setState(() {
+                    sliderVal = value;
+                  });
+                },
+              ),
             )),
         SizedBox(height: 20),
         buildConfirmationButton('Save', context, () {
