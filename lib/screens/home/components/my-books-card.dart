@@ -44,7 +44,7 @@ class MyBooksCard extends StatelessWidget {
           alignment: Alignment.centerRight,
           children: [
             Neumorphic(
-              margin: EdgeInsets.only(top: 30, bottom: 10),
+              margin: EdgeInsets.only(top: 30, bottom: 20, left: 3, right: 3),
               style: kNeumorphicStyle.copyWith(
                 boxShape: NeumorphicBoxShape.roundRect(
                   BorderRadius.circular(25),
@@ -54,7 +54,7 @@ class MyBooksCard extends StatelessWidget {
               child: Container(
                 padding: EdgeInsets.all(20),
                 decoration: BoxDecoration(
-                  color: kLightPrimaryColor,
+                  color: kLightBackgroundColor,
                   gradient: LinearGradient(
                     colors:
                         snapshot.hasData ? colors : [Colors.white, Colors.grey],
@@ -151,7 +151,7 @@ class MyBooksCard extends StatelessWidget {
               ),
             ),
             Positioned(
-              bottom: 30,
+              bottom: 35,
               left: 30,
               child: Align(
                 alignment: Alignment.bottomLeft,
@@ -159,7 +159,7 @@ class MyBooksCard extends StatelessWidget {
                   book.title,
                   style: Theme.of(context).textTheme.subtitle1.copyWith(
                         fontWeight: FontWeight.w900,
-                        color: kLightPrimaryColor,
+                        color: kLightBackgroundColor,
                       ),
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,

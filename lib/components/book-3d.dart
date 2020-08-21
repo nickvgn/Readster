@@ -20,7 +20,7 @@ class Book3D extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<Color>(
-      initialData: kLightPrimaryColor,
+      initialData: kLightBackgroundColor,
       future: ImageHelper.getImagePaletteDominantColor(
         NetworkImage(book.imageUrl),
       ),
@@ -78,7 +78,7 @@ class Book3D extends StatelessWidget {
                           imageUrl: book.imageUrl,
                           fit: BoxFit.fill,
                           placeholder: (context, __) => Container(
-                            color: kLightPrimaryColor,
+                            color: kLightBackgroundColor,
                           ),
                         ),
                       ),

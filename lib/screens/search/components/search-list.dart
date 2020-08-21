@@ -99,7 +99,7 @@ class SearchList extends StatelessWidget {
                                   height: 22,
                                   width: 54,
                                   decoration: BoxDecoration(
-                                    color: kSecondaryColor,
+                                    color: kPrimaryColor,
                                     borderRadius: BorderRadius.circular(20),
                                   ),
                                   child: Text(

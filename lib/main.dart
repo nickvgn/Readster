@@ -52,8 +52,9 @@ class MyApp extends StatelessWidget {
         title: 'Readster',
         themeMode: ThemeMode.light,
         theme: NeumorphicThemeData(
-          baseColor: kLightPrimaryColor,
-          accentColor: kSecondaryColor,
+          baseColor: kLightBackgroundColor,
+          accentColor: kPrimaryColor,
+          variantColor: kLightPrimaryColor,
           lightSource: LightSource.topLeft,
           depth: 5,
           textTheme: GoogleFonts.quicksandTextTheme(),

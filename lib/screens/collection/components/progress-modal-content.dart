@@ -61,7 +61,7 @@ class _ProgressModalContentState extends State<ProgressModalContent> {
                           .toInt()
                           .toString(),
                       style: Theme.of(context).textTheme.bodyText1.copyWith(
-                            color: kSecondaryColor,
+                            color: kPrimaryColor,
                             fontSize: 30,
                           )),
                   TextSpan(
@@ -72,7 +72,7 @@ class _ProgressModalContentState extends State<ProgressModalContent> {
                   TextSpan(
                       text: (sliderVal * 10).toInt().toString(),
                       style: Theme.of(context).textTheme.bodyText1.copyWith(
-                            color: kSecondaryColor,
+                            color: kPrimaryColor,
                             fontSize: 30,
                           )),
                   TextSpan(
@@ -91,14 +91,14 @@ class _ProgressModalContentState extends State<ProgressModalContent> {
               tag: 'slider${widget.book.id}',
               child: NeumorphicSlider(
                 style: SliderStyle(
-                    accent: kSecondaryColor,
+                    accent: kPrimaryColor,
                     thumbBorder: NeumorphicBorder(
-                      color: kSecondaryColor,
+                      color: kPrimaryColor,
                       width: 16,
                     ),
                     depth: 5),
                 value: sliderVal,
-                height: 15,
+                height: 21,
                 onChanged: (value) {
                   setState(() {
                     sliderVal = value;

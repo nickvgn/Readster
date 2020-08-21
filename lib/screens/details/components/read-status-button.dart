@@ -31,7 +31,7 @@ class ReadStatusButton extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
                 gradient: LinearGradient(
                   colors: [
-                    kSecondaryColor.withOpacity(0.9),
+                    kPrimaryColor.withOpacity(0.9),
                     Colors.black.withOpacity(0.2)
                   ],
                 ),

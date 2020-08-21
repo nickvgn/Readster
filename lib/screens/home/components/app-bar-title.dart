@@ -17,7 +17,8 @@ class AppBarTitle extends StatelessWidget {
         tag: 'Readster',
         child: NeumorphicText(
           'Readster',
-          style: kNeumorphicStyle.copyWith(color: kLightPrimaryColor, depth: 2),
+          style:
+              kNeumorphicStyle.copyWith(color: kLightBackgroundColor, depth: 2),
           textStyle: NeumorphicTextStyle(
             fontSize: 40,
             fontFamily: GoogleFonts.satisfy().fontFamily,

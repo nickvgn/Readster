@@ -33,39 +33,39 @@ class Dashboard extends StatelessWidget {
                         text: 'Hello \n',
                         style: Theme.of(context).textTheme.bodyText1.copyWith(
                               fontSize: 19,
-                              color: kLightPrimaryColor,
+                              color: kLightBackgroundColor,
                             )),
                     TextSpan(
                         text: snapshot.hasData ? snapshot.data : 'stranger',
                         style: Theme.of(context).textTheme.bodyText1.copyWith(
                               fontSize: 17,
-                              color: kLightPrimaryColor,
+                              color: kLightBackgroundColor,
                               fontWeight: FontWeight.bold,
                             )),
                     TextSpan(
                         text: '\n\n\nYou\'ve read\n',
                         style: Theme.of(context).textTheme.bodyText1.copyWith(
                               fontSize: 19,
-                              color: kLightPrimaryColor,
+                              color: kLightBackgroundColor,
                             )),
                     TextSpan(
                         text: '42',
                         style: Theme.of(context).textTheme.bodyText1.copyWith(
                               fontSize: 35,
-                              color: kLightPrimaryColor,
+                              color: kLightBackgroundColor,
                               fontWeight: FontWeight.bold,
                             )),
                     TextSpan(
                         text: ' pages\n',
                         style: Theme.of(context).textTheme.bodyText1.copyWith(
                               fontSize: 19,
-                              color: kLightPrimaryColor,
+                              color: kLightBackgroundColor,
                             )),
                     TextSpan(
                       text: 'today',
                       style: Theme.of(context).textTheme.bodyText1.copyWith(
                             fontSize: 19,
-                            color: kLightPrimaryColor,
+                            color: kLightBackgroundColor,
                           ),
                     ),
                   ],
@@ -86,7 +86,7 @@ class Dashboard extends StatelessWidget {
                   'and that is',
                   style: Theme.of(context).textTheme.bodyText1.copyWith(
                         fontSize: 19,
-                        color: kLightPrimaryColor,
+                        color: kLightBackgroundColor,
                       ),
                 ),
                 SizedBox(height: 5),
@@ -103,7 +103,7 @@ class Dashboard extends StatelessWidget {
                   'percent of your daily goal of',
                   style: Theme.of(context).textTheme.bodyText1.copyWith(
                         fontSize: 19,
-                        color: kLightPrimaryColor,
+                        color: kLightBackgroundColor,
                       ),
                 ),
                 Row(
@@ -116,7 +116,7 @@ class Dashboard extends StatelessWidget {
                             style:
                                 Theme.of(context).textTheme.bodyText1.copyWith(
                                       fontSize: 25,
-                                      color: kLightPrimaryColor,
+                                      color: kLightBackgroundColor,
                                       fontWeight: FontWeight.bold,
                                     ),
                           ),
@@ -125,7 +125,7 @@ class Dashboard extends StatelessWidget {
                             style:
                                 Theme.of(context).textTheme.bodyText1.copyWith(
                                       fontSize: 19,
-                                      color: kLightPrimaryColor,
+                                      color: kLightBackgroundColor,
                                     ),
                           )
                         ],
@@ -141,7 +141,7 @@ class Dashboard extends StatelessWidget {
                         MdiIcons.leadPencil,
                         size: 30,
                         style: kNeumorphicStyle.copyWith(
-                            color: kLightPrimaryColor, depth: 3),
+                            color: kLightBackgroundColor, depth: 3),
                       ),
                       onPressed: () {},
                     ),

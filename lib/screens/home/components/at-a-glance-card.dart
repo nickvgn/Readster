@@ -32,7 +32,7 @@ class AtAGlanceCard extends StatelessWidget {
             gradient: LinearGradient(
               colors: [
                 Colors.tealAccent[400],
-                kSecondaryColor,
+                kPrimaryColor,
               ],
             ),
           ),

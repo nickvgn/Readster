@@ -33,7 +33,7 @@ class WeeklyReadChart extends StatelessWidget {
       barRods: [
         BarChartRodData(
           y: isTouched ? y + 1 : y,
-          color: checkIfToday(x) ? kSecondaryColor : Colors.grey,
+          color: checkIfToday(x) ? kPrimaryColor : Colors.grey,
 //        isTouched ? Colors.yellow : barColor,
           width: width,
           backDrawRodData: BackgroundBarChartRodData(
@@ -86,7 +86,7 @@ class WeeklyReadChart extends StatelessWidget {
         barTouchData: BarTouchData(
           touchTooltipData: BarTouchTooltipData(
               tooltipRoundedRadius: 25,
-              tooltipBgColor: kSecondaryColor.withOpacity(.7),
+              tooltipBgColor: kPrimaryColor.withOpacity(.7),
               getTooltipItem: (group, groupIndex, rod, rodIndex) {
                 String weekDay;
                 switch (group.x.toInt()) {
@@ -115,7 +115,7 @@ class WeeklyReadChart extends StatelessWidget {
                 return BarTooltipItem(
                     weekDay + ' ' + (rod.y - 1).toInt().toString(),
                     Theme.of(context).textTheme.bodyText1.copyWith(
-                        color: kLightPrimaryColor,
+                        color: kLightBackgroundColor,
                         fontWeight: FontWeight.bold));
               }),
 //        touchCallback: (barTouchResponse) {

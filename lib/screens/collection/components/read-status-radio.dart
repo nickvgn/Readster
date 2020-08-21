@@ -34,9 +34,8 @@ class ReadStatusRadio extends StatelessWidget {
                 style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.bold,
-                    color: readStatus == TOREAD
-                        ? kSecondaryColor
-                        : kDarkTextColor),
+                    color:
+                        readStatus == TOREAD ? kPrimaryColor : kDarkTextColor),
               ),
             ),
             value: TOREAD,
@@ -56,9 +55,8 @@ class ReadStatusRadio extends StatelessWidget {
                 style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.bold,
-                    color: readStatus == READING
-                        ? kSecondaryColor
-                        : kDarkTextColor),
+                    color:
+                        readStatus == READING ? kPrimaryColor : kDarkTextColor),
               ),
             ),
             value: READING,
@@ -78,8 +76,7 @@ class ReadStatusRadio extends StatelessWidget {
                 style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.bold,
-                    color:
-                        readStatus == READ ? kSecondaryColor : kDarkTextColor),
+                    color: readStatus == READ ? kPrimaryColor : kDarkTextColor),
               ),
             ),
             value: READ,

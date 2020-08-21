@@ -23,8 +23,8 @@ class CircularProgressWidget extends StatelessWidget {
           trackWidth: 10,
         ),
         customColors: CustomSliderColors(
-            progressBarColors: [kSecondaryColor, kSecondaryColor],
-            shadowColor: kLightPrimaryColor,
+            progressBarColors: [kPrimaryColor, kPrimaryColor],
+            shadowColor: kLightBackgroundColor,
             trackColor: Colors.grey.withOpacity(.2),
             dotColor: Colors.transparent),
       ),

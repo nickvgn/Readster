@@ -34,7 +34,7 @@ class DogEarButton extends StatelessWidget {
             children: [
               Icon(
                 icon,
-                color: kSecondaryColor,
+                color: kPrimaryColor,
                 size: 20,
               ),
               SizedBox(width: 10),

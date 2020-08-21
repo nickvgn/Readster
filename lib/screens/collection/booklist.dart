@@ -24,7 +24,7 @@ class _BookListState extends State<BookList> {
   void initState() {
     super.initState();
 
-    Future.delayed(const Duration(milliseconds: 400), () {
+    Future.delayed(const Duration(milliseconds: 100), () {
       setState(() {
         isFadeIn = true;
       });

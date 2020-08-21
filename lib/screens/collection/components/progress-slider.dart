@@ -27,7 +27,7 @@ class ProgressSlider extends StatelessWidget {
           ? NeumorphicSlider(
               style: SliderStyle(
                 thumbBorder: NeumorphicBorder(
-                  color: kSecondaryColor,
+                  color: kPrimaryColor,
                   width: 16,
                 ),
               ),

@@ -140,7 +140,7 @@ class _CollectionBookState extends State<CollectionBook> {
                             child: NeumorphicIcon(
                               FontAwesomeIcons.check,
                               style: kNeumorphicStyle.copyWith(
-                                  color: kSecondaryColor),
+                                  color: kPrimaryColor),
                             ),
                           ),
                         if (readStatus == READING)
@@ -153,7 +153,7 @@ class _CollectionBookState extends State<CollectionBook> {
                             child: NeumorphicIcon(
                               FontAwesomeIcons.pen,
                               style: kNeumorphicStyle.copyWith(
-                                  color: kSecondaryColor),
+                                  color: kPrimaryColor),
                             ),
                             onPressed: () async {
                               dynamic received =
@@ -176,16 +176,16 @@ class _CollectionBookState extends State<CollectionBook> {
                     SizedBox(height: 10),
                     if (readStatus == READING)
                       SizedBox(
-                        width: size.width * .65,
+                        width: size.width * .55,
                         child: Hero(
                           tag: 'slider${widget.book.id}',
                           child: NeumorphicProgress(
                             style: ProgressStyle(
-                              accent: kSecondaryColor,
+                              accent: kPrimaryColor,
                               depth: 1,
                             ),
                             duration: Duration(seconds: 2),
-                            height: 15,
+                            height: 20,
                             percent: sliderValue / 10,
                           ),
                         ),
@@ -199,7 +199,7 @@ class _CollectionBookState extends State<CollectionBook> {
                         child: Text(
                           'Start Reading',
                           style: Theme.of(context).textTheme.caption.copyWith(
-                                color: kSecondaryColor,
+                                color: kPrimaryColor,
                                 fontWeight: FontWeight.bold,
                               ),
                         ),

@@ -69,7 +69,7 @@ class _SliverTitleBarState extends State<SliverTitleBar> {
                           });
                           Navigator.pop(context);
                           Fluttertoast.showToast(
-                            backgroundColor: kSecondaryColor,
+                            backgroundColor: kPrimaryColor,
                             msg: "..is sentence",
                             toastLength: Toast.LENGTH_SHORT,
                             gravity: ToastGravity.BOTTOM,
@@ -93,7 +93,7 @@ class _SliverTitleBarState extends State<SliverTitleBar> {
                           });
                           Navigator.pop(context);
                           Fluttertoast.showToast(
-                            backgroundColor: kSecondaryColor,
+                            backgroundColor: kPrimaryColor,
                             msg: "Poof!",
                             toastLength: Toast.LENGTH_SHORT,
                             gravity: ToastGravity.BOTTOM,
@@ -116,7 +116,7 @@ class _SliverTitleBarState extends State<SliverTitleBar> {
           ),
           child: Icon(
             FontAwesomeIcons.angleLeft,
-            color: kSecondaryColor,
+            color: kPrimaryColor,
           ),
           onPressed: () {},
         ),
@@ -129,7 +129,7 @@ class _SliverTitleBarState extends State<SliverTitleBar> {
         style: Theme.of(context)
             .textTheme
             .bodyText1
-            .copyWith(fontSize: 20, color: kLightPrimaryColor),
+            .copyWith(fontSize: 20, color: kLightBackgroundColor),
       ),
       flexibleSpace: FlexibleSpaceBar(
         stretchModes: [

@@ -19,7 +19,7 @@ class BottomSelectedIndicator extends StatelessWidget {
       decoration: BoxDecoration(
         color: Provider.of<BookController>(context, listen: false).apiType ==
                 apiType
-            ? kSecondaryColor
+            ? kPrimaryColor
             : Colors.white,
         borderRadius: BorderRadius.circular(10),
       ),

@@ -47,8 +47,9 @@ class _SplashScreenState extends State<SplashScreen>
 
 //    animation =
 //        CurvedAnimation(parent: controller, curve: Curves.easeInOutSine);
-    colorAnimation = ColorTween(begin: kLightPrimaryColor, end: kSecondaryColor)
-        .animate(controller);
+    colorAnimation =
+        ColorTween(begin: kLightBackgroundColor, end: kPrimaryColor)
+            .animate(controller);
     depthAnimation = Tween<double>(begin: 0, end: 15).animate(controller);
 
     controller.forward();

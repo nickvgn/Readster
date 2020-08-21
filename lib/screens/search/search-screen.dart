@@ -88,7 +88,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   title: 'oogle Books',
                   icon: FontAwesomeIcons.google,
                   apiType: GOOGLEBOOKS,
-                  color: kSecondaryColor,
+                  color: kPrimaryColor,
                 ),
                 background: APISelectorTab(
                   title: 'oogle Books',
@@ -102,7 +102,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   title: 'oodreads',
                   icon: FontAwesomeIcons.goodreadsG,
                   apiType: GOODREADS,
-                  color: kSecondaryColor,
+                  color: kPrimaryColor,
                 ),
                 background: APISelectorTab(
                   title: 'oodreads',

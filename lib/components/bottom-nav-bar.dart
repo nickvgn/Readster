@@ -76,7 +76,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
               ),
               child: Container(
                 decoration: BoxDecoration(
-                  color: kLightPrimaryColor,
+                  color: kLightBackgroundColor,
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(25),
                     topRight: Radius.circular(25),
@@ -104,29 +104,13 @@ class _BottomNavBarState extends State<BottomNavBar> {
                 child: Neumorphic(
 //                  padding: EdgeInsets.symmetric(horizontal: 20),
                   style: kNeumorphicStyle.copyWith(
-                      color: kSecondaryColor,
+                      color: kPrimaryColor,
 //                    border: NeumorphicBorder(color: kSecondaryColor, width: 2),
                       boxShape: NeumorphicBoxShape.roundRect(
                           BorderRadius.circular(35))),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      NeumorphicButton(
-//                      padding: EdgeInsets.all(25),
-                        style: kNeumorphicStyle.copyWith(
-                          boxShape: NeumorphicBoxShape.circle(),
-                          depth: 0,
-                          color: Colors.transparent,
-                        ),
-                        child: Icon(
-                          MdiIcons.barcodeScan,
-                          color: kLightPrimaryColor,
-                          size: 30,
-                        ),
-                        onPressed: () {
-                          scanBarcodeNormal(context);
-                        },
-                      ),
                       SizedBox(
                         height: 60,
                         width: 70,
@@ -140,7 +124,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
                           child: FlareActor("assets/icons/search-4.flr",
                               alignment: Alignment.center,
                               fit: BoxFit.contain,
-                              color: kLightPrimaryColor,
+                              color: kLightBackgroundColor,
                               animation: "tabbar_search"),
 //                        Icon(
 //                          MdiIcons.bookSearch,
@@ -153,6 +137,22 @@ class _BottomNavBarState extends State<BottomNavBar> {
                                       listen: false)
                                   .apiType),
                         ),
+                      ),
+                      NeumorphicButton(
+//                      padding: EdgeInsets.all(25),
+                        style: kNeumorphicStyle.copyWith(
+                          boxShape: NeumorphicBoxShape.circle(),
+                          depth: 0,
+                          color: Colors.transparent,
+                        ),
+                        child: Icon(
+                          MdiIcons.barcodeScan,
+                          color: kLightBackgroundColor,
+                          size: 30,
+                        ),
+                        onPressed: () {
+                          scanBarcodeNormal(context);
+                        },
                       ),
 //                    SizedBox(
 //                      height: 70,

@@ -12,7 +12,7 @@ AppBar buildAppBar(BuildContext context) {
     leading: IconButton(
       icon: Icon(
         Icons.menu,
-        color: kSecondaryColor,
+        color: kPrimaryColor,
       ),
       onPressed: () {},
     ),
@@ -23,15 +23,14 @@ AppBar buildAppBar(BuildContext context) {
     ),
     title: Text(
       'better           ',
-      style: Theme.of(context).textTheme.headline6.copyWith(color: kSecondaryColor,
-          fontWeight: FontWeight.w300,
-          fontSize: 25),
+      style: Theme.of(context).textTheme.headline6.copyWith(
+          color: kPrimaryColor, fontWeight: FontWeight.w300, fontSize: 25),
     ),
     actions: <Widget>[
       IconButton(
         icon: Icon(
           Icons.message,
-          color: kSecondaryColor,
+          color: kPrimaryColor,
         ),
         onPressed: () {},
       )

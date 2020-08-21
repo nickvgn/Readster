@@ -11,7 +11,7 @@ class SpinkitWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SpinKitChasingDots(
-      color: kSecondaryColor,
+      color: kPrimaryColor,
       size: 100.0,
     );
   }

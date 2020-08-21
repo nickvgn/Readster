@@ -33,7 +33,7 @@ class HomeNavBar extends StatelessWidget {
               ),
               child: Container(
                 decoration: BoxDecoration(
-                  color: kLightPrimaryColor,
+                  color: kLightBackgroundColor,
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(25),
                     topRight: Radius.circular(25),
@@ -57,7 +57,7 @@ class HomeNavBar extends StatelessWidget {
           icon: Icon(
             FontAwesomeIcons.user,
             size: 30,
-            color: kSecondaryColor,
+            color: kPrimaryColor,
           ),
           isLeft: true,
           press: () {},
@@ -79,7 +79,7 @@ class HomeNavBar extends StatelessWidget {
               child: Text(
                 'Collection',
                 style: Theme.of(context).textTheme.headline6.copyWith(
-                      color: kSecondaryColor,
+                      color: kPrimaryColor,
                       fontWeight: FontWeight.bold,
                     ),
                 textAlign: TextAlign.center,
@@ -100,7 +100,7 @@ class HomeNavBar extends StatelessWidget {
           icon: Icon(
             Icons.search,
             size: 35,
-            color: kSecondaryColor,
+            color: kPrimaryColor,
           ),
           isLeft: false,
           press: () => _showModalBottomSheet(context, GOODREADS),

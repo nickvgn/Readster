@@ -23,7 +23,7 @@ class _AnimatedLogoState extends State<AnimatedLogo> {
         textStyle: Theme.of(context)
             .textTheme
             .headline5
-            .copyWith(color: kSecondaryColor),
+            .copyWith(color: kPrimaryColor),
         onFinished: () {
           setState(() {});
         },

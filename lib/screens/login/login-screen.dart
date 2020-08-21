@@ -67,7 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     Icon(
                       MdiIcons.google,
-                      color: kSecondaryColor,
+                      color: kPrimaryColor,
                     ),
                     SizedBox(width: 10),
                     Text('Login with Google'),

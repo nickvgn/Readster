@@ -48,7 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     FirestoreController().setReadCountList();
 
-    Future.delayed(const Duration(milliseconds: 1800), () {
+    Future.delayed(const Duration(milliseconds: 20), () {
       setState(() {
         isFadeIn = true;
       });
@@ -68,14 +68,14 @@ class _HomeScreenState extends State<HomeScreen> {
             height: size.height * .52,
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [kSecondaryColor, kSecondaryColor],
+                colors: [kPrimaryColor, kPrimaryColor],
               ),
             ),
           ),
         ),
         SafeArea(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
@@ -156,7 +156,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         Container(
                           width: 52,
                           decoration: BoxDecoration(
-                            color: kLightPrimaryColor,
+                            color: kLightBackgroundColor,
                             shape: BoxShape.circle,
                           ),
                         ),
@@ -206,7 +206,7 @@ class _HomeScreenState extends State<HomeScreen> {
               if (isFadeIn)
                 Expanded(
                   child: FadeIn(
-                    duration: Duration(milliseconds: 2000),
+                    duration: Duration(milliseconds: 100),
                     child: Column(
                       children: [
                         Expanded(
@@ -261,7 +261,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     NeverScrollableScrollPhysics(),
 //                                mainAxisAlignment: MainAxisAlignment.center,
                                                 padding: EdgeInsets.only(
-                                                    top: 20,
+                                                    top: 25,
                                                     bottom: 5,
                                                     left: 20,
                                                     right: 20),
@@ -296,31 +296,34 @@ class _HomeScreenState extends State<HomeScreen> {
                             : Container(),
                         user != null
                             ? Expanded(
-                                child: StreamBuilder<List<Book>>(
-                                    stream:
-                                        FirestoreController.streamBooksByStatus(
-                                            user.uid, READING),
-                                    builder: (context, snapshot) {
-                                      if (snapshot.hasError)
-                                        print(snapshot.error);
-                                      var books = snapshot.data;
-                                      return snapshot.hasData
-                                          ? buildCarousel(
-                                              autoPlay: true,
-                                              items: books.length == 0
-                                                  ? quotes
-                                                  : books,
-                                              itemBuilder: books.length != 0
-                                                  ? (context, index) =>
-                                                      MyBooksCard(
-                                                        book: books[index],
-                                                      )
-                                                  : (context, index) =>
-                                                      QuoteCard(
-                                                        quote: quotes[index],
-                                                      ))
-                                          : Container();
-                                    }),
+                                child: FadeIn(
+                                  duration: Duration(milliseconds: 2000),
+                                  child: StreamBuilder<List<Book>>(
+                                      stream: FirestoreController
+                                          .streamBooksByStatus(
+                                              user.uid, READING),
+                                      builder: (context, snapshot) {
+                                        if (snapshot.hasError)
+                                          print(snapshot.error);
+                                        var books = snapshot.data;
+                                        return snapshot.hasData
+                                            ? buildCarousel(
+                                                autoPlay: true,
+                                                items: books.length == 0
+                                                    ? quotes
+                                                    : books,
+                                                itemBuilder: books.length != 0
+                                                    ? (context, index) =>
+                                                        MyBooksCard(
+                                                          book: books[index],
+                                                        )
+                                                    : (context, index) =>
+                                                        QuoteCard(
+                                                          quote: quotes[index],
+                                                        ))
+                                            : Container();
+                                      }),
+                                ),
                               )
                             : SpinkitWidget()
                       ],
@@ -449,7 +452,7 @@ class NeumorphicTextField extends StatelessWidget {
           suffixIcon: IconButton(
             icon: Icon(
               icon,
-              color: kSecondaryColor,
+              color: kPrimaryColor,
             ),
             onPressed: () {
               _controller.clear();

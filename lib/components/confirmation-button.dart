@@ -10,13 +10,13 @@ Widget buildConfirmationButton(String title, context, press) {
       child: Text(
         title,
         style: Theme.of(context).textTheme.subtitle1.copyWith(
-              color: kLightPrimaryColor,
+              color: kLightBackgroundColor,
               fontWeight: FontWeight.bold,
             ),
         textAlign: TextAlign.center,
       ),
       style: kNeumorphicStyle.copyWith(
-        color: kSecondaryColor,
+        color: kPrimaryColor,
         boxShape: NeumorphicBoxShape.roundRect(
           BorderRadius.circular(25),
         ),

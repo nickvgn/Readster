@@ -45,7 +45,7 @@ class AddOrRemoveButton extends StatelessWidget {
                   children: [
                     Icon(
                       icon,
-                      color: kSecondaryColor,
+                      color: kPrimaryColor,
                     ),
                     SizedBox(width: 10),
                     Flexible(

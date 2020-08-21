@@ -30,7 +30,7 @@ class SearchBox extends StatelessWidget {
           suffixIcon: IconButton(
             icon: Icon(
               Icons.search,
-              color: kSecondaryColor,
+              color: kPrimaryColor,
             ),
             onPressed: () {
               function();

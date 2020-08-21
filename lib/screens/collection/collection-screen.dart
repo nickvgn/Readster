@@ -24,7 +24,6 @@ class CollectionScreen extends StatefulWidget {
 
 class _CollectionScreenState extends State<CollectionScreen> {
   final controller = ScrollController();
-  int _selectedItemPosition = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +55,7 @@ class _CollectionScreenState extends State<CollectionScreen> {
                         ),
                         child: Icon(
                           FontAwesomeIcons.angleLeft,
-                          color: kSecondaryColor,
+                          color: kPrimaryColor,
                         ),
                         onPressed: () {},
                       ),
@@ -76,13 +75,13 @@ class _CollectionScreenState extends State<CollectionScreen> {
                 ),
                 child: Icon(
                   MdiIcons.filterVariant,
-                  color: kSecondaryColor,
+                  color: kPrimaryColor,
                 ),
                 onPressed: () {
                   Provider.of<BookController>(context, listen: false)
                       .updateReadStatusState();
                   Fluttertoast.showToast(
-                    backgroundColor: kSecondaryColor,
+                    backgroundColor: kPrimaryColor,
                     msg: Provider.of<BookController>(context, listen: false)
                         .readStatus,
                     toastLength: Toast.LENGTH_SHORT,
@@ -97,7 +96,7 @@ class _CollectionScreenState extends State<CollectionScreen> {
           SizedBox(
             height: 50,
             child: TabBar(
-              labelColor: kSecondaryColor,
+              labelColor: kPrimaryColor,
               indicatorSize: TabBarIndicatorSize.label,
               labelStyle: Theme.of(context)
                   .textTheme
