@@ -74,10 +74,9 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           SafeArea(
             child: Padding(
-              padding: const EdgeInsets.only(
-                  top: 15, left: 15, right: 15, bottom: 30),
+              padding: const EdgeInsets.only(top: 15, bottom: 30),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
@@ -252,79 +251,86 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             user != null
                                 ? Expanded(
-                                    child: StreamBuilder<User>(
-                                        stream:
-                                            FirestoreController.streamUserData(
-                                                user.uid),
-                                        builder: (context, snapshot) {
-                                          if (snapshot.hasError)
-                                            print(snapshot.error);
-                                          var userData = snapshot.data;
-                                          return snapshot.hasData
-                                              ? GridView(
-                                                  physics:
-                                                      NeverScrollableScrollPhysics(),
+                                    child: Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 13),
+                                      child: StreamBuilder<User>(
+                                          stream: FirestoreController
+                                              .streamUserData(user.uid),
+                                          builder: (context, snapshot) {
+                                            if (snapshot.hasError)
+                                              print(snapshot.error);
+                                            var userData = snapshot.data;
+                                            return snapshot.hasData
+                                                ? GridView(
+                                                    physics:
+                                                        NeverScrollableScrollPhysics(),
 //                                mainAxisAlignment: MainAxisAlignment.center,
-                                                  padding: EdgeInsets.only(
-                                                      top: 5,
-                                                      bottom: 0,
-                                                      left: 20,
-                                                      right: 20),
-                                                  gridDelegate:
-                                                      SliverGridDelegateWithFixedCrossAxisCount(
-                                                    crossAxisCount: 2,
-                                                    childAspectRatio: 1,
-                                                    mainAxisSpacing: 10,
-                                                    crossAxisSpacing: 10,
-                                                  ),
-                                                  children: [
-                                                    buildProgressCard(
-                                                        context,
-                                                        'Today',
-                                                        'pages to read',
-                                                        userData.dailyGoal,
-                                                        userData.weeklyReadCount[
-                                                            DateTime.now()
-                                                                    .weekday -
-                                                                1]),
-                                                    buildProgressCard(
-                                                        context,
-                                                        '2020',
-                                                        'books to finish',
-                                                        userData.yearlyGoal,
-                                                        userData.finishedBooks),
-                                                  ],
-                                                )
-                                              : Container();
-                                        }),
+                                                    padding: EdgeInsets.only(
+                                                        top: 5,
+                                                        bottom: 0,
+                                                        left: 20,
+                                                        right: 20),
+                                                    gridDelegate:
+                                                        SliverGridDelegateWithFixedCrossAxisCount(
+                                                      crossAxisCount: 2,
+                                                      childAspectRatio: 1,
+                                                      mainAxisSpacing: 10,
+                                                      crossAxisSpacing: 10,
+                                                    ),
+                                                    children: [
+                                                      buildProgressCard(
+                                                          context,
+                                                          'Today',
+                                                          'pages to read',
+                                                          userData.dailyGoal,
+                                                          userData.weeklyReadCount[
+                                                              DateTime.now()
+                                                                      .weekday -
+                                                                  1]),
+                                                      buildProgressCard(
+                                                          context,
+                                                          '2020',
+                                                          'books to finish',
+                                                          userData.yearlyGoal,
+                                                          userData
+                                                              .finishedBooks),
+                                                    ],
+                                                  )
+                                                : Container();
+                                          }),
+                                    ),
                                   )
                                 : Container(),
                             user != null
-                                ? StreamBuilder<List<Book>>(
-                                    stream:
-                                        FirestoreController.streamBooksByStatus(
-                                            user.uid, READING),
-                                    builder: (context, snapshot) {
-                                      if (snapshot.hasError)
-                                        print(snapshot.error);
-                                      var books = snapshot.data;
-                                      return snapshot.hasData
-                                          ? buildCarousel(
-                                              autoPlay: true,
-                                              items: books.length == 0
-                                                  ? quotes
-                                                  : books,
-                                              itemBuilder: books.length != 0
-                                                  ? (context, index) =>
-                                                      MyBooksCard(
-                                                        book: books[index],
-                                                      )
-                                                  : (context, index) =>
-                                                      QuoteCard(
-                                                        quote: quotes[index],
-                                                      ))
-                                          : Container();
-                                    })
+                                ? Expanded(
+                                    child: StreamBuilder<List<Book>>(
+                                        stream: FirestoreController
+                                            .streamBooksByStatus(
+                                                user.uid, READING),
+                                        builder: (context, snapshot) {
+                                          if (snapshot.hasError)
+                                            print(snapshot.error);
+                                          var books = snapshot.data;
+                                          return snapshot.hasData
+                                              ? buildCarousel(
+                                                  autoPlay: true,
+                                                  items: books.length == 0
+                                                      ? quotes
+                                                      : books,
+                                                  itemBuilder: books.length != 0
+                                                      ? (context, index) =>
+                                                          MyBooksCard(
+                                                            book: books[index],
+                                                          )
+                                                      : (context, index) =>
+                                                          QuoteCard(
+                                                            quote:
+                                                                quotes[index],
+                                                          ))
+                                              : Container();
+                                        }),
+                                  )
                                 : SpinkitWidget()
                           ],
                         ),
@@ -395,29 +401,29 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Expanded buildCarousel(
+  Widget buildCarousel(
       {List<dynamic> items,
       Function itemBuilder,
       bool autoPlay,
       Function onPageChanged,
       Function color}) {
-    return Expanded(
-      child: SizedBox(
-        width: double.infinity,
-        child: CarouselSlider.builder(
-          itemCount: items.length,
-          itemBuilder: itemBuilder,
-          options: CarouselOptions(
-            enlargeCenterPage: true,
-            autoPlayAnimationDuration: Duration(milliseconds: 800),
-            autoPlayInterval: Duration(seconds: 10),
-            autoPlayCurve: Curves.easeInOutSine,
-            autoPlay: autoPlay,
-            pauseAutoPlayOnManualNavigate: true,
-            initialPage: 0,
-            viewportFraction: 0.95,
-            onPageChanged: onPageChanged,
-          ),
+    return SizedBox(
+      width: double.infinity,
+      child: CarouselSlider.builder(
+        itemCount: items.length,
+        itemBuilder: itemBuilder,
+        options: CarouselOptions(
+          enlargeCenterPage: true,
+          autoPlayAnimationDuration: Duration(milliseconds: 800),
+          autoPlayInterval: Duration(seconds: 10),
+          autoPlayCurve: Curves.easeInOutSine,
+          autoPlay: autoPlay,
+          pauseAutoPlayOnManualNavigate: true,
+          initialPage: 0,
+          aspectRatio: 1.2,
+//            viewportFraction: 0.95,
+          viewportFraction: 0.85,
+          onPageChanged: onPageChanged,
         ),
       ),
     );
@@ -449,6 +455,7 @@ class NeumorphicTextField extends StatelessWidget {
       ),
       child: TextField(
         controller: _controller,
+        keyboardType: TextInputType.number,
         decoration: InputDecoration(
           border: InputBorder.none,
           suffixIcon: IconButton(

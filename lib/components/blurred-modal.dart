@@ -8,29 +8,23 @@ PageRouteBuilder buildBlurredModal(
       transitionDuration: Duration(milliseconds: 2000),
       opaque: false,
       pageBuilder: (BuildContext context, __, ___) {
-        return FadeIn(
-          duration: Duration(milliseconds: 2000),
-          child: Scaffold(
-            backgroundColor: Colors.black45,
-            body: BackdropFilter(
-              filter: ImageFilter.blur(
-                sigmaX: 10,
-                sigmaY: 10,
-              ),
-              child: FadeIn(
-                duration: Duration(milliseconds: 3500),
-                child: Center(
-                  child: Container(
-                    padding: EdgeInsets.all(20),
-                    height: height,
-                    width: width,
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).scaffoldBackgroundColor,
-                      borderRadius: BorderRadius.circular(25),
-                    ),
-                    child: child,
-                  ),
+        return Scaffold(
+          backgroundColor: Colors.black45,
+          body: BackdropFilter(
+            filter: ImageFilter.blur(
+              sigmaX: 10,
+              sigmaY: 10,
+            ),
+            child: Center(
+              child: Container(
+                padding: EdgeInsets.all(20),
+                height: height,
+                width: width,
+                decoration: BoxDecoration(
+                  color: Theme.of(context).scaffoldBackgroundColor,
+                  borderRadius: BorderRadius.circular(25),
                 ),
+                child: child,
               ),
             ),
           ),

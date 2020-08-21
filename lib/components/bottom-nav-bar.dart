@@ -82,6 +82,33 @@ class BottomNavBar extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               NeumorphicButton(
+                  padding: EdgeInsets.all(25),
+                  style: kNeumorphicStyle.copyWith(
+                    boxShape: NeumorphicBoxShape.circle(),
+                    depth: 0,
+                  ),
+                  child: Icon(
+                    MdiIcons.barcodeScan,
+                    color: kSecondaryColor,
+                    size: 35,
+                  ),
+                  onPressed: () {
+                    scanBarcodeNormal(context);
+                  }),
+              NeumorphicButton(
+                padding: EdgeInsets.all(25),
+                style: kNeumorphicStyle.copyWith(
+                  boxShape: NeumorphicBoxShape.circle(),
+                  depth: 0,
+                ),
+                child: Icon(
+                  MdiIcons.bookSearch,
+                  color: kSecondaryColor,
+                  size: 35,
+                ),
+                onPressed: () => _showModalBottomSheet(context, GOODREADS),
+              ),
+              NeumorphicButton(
                 child: NeumorphicIcon(
                   MdiIcons.homeVariant,
                   size: 35,
@@ -110,36 +137,6 @@ class BottomNavBar extends StatelessWidget {
                     ),
                   );
                 },
-              ),
-              NeumorphicButton(
-                  padding: EdgeInsets.all(25),
-                  style: kNeumorphicStyle.copyWith(
-                    boxShape: NeumorphicBoxShape.circle(),
-                    depth: 0,
-                  ),
-                  child: Icon(
-                    MdiIcons.barcodeScan,
-                    color: kSecondaryColor,
-                    size: 35,
-                  ),
-                  onPressed: () {
-                    scanBarcodeNormal(context);
-                  }
-
-//            => _showModalBottomSheet(context, GOODREADS),
-                  ),
-              NeumorphicButton(
-                padding: EdgeInsets.all(25),
-                style: kNeumorphicStyle.copyWith(
-                  boxShape: NeumorphicBoxShape.circle(),
-                  depth: 0,
-                ),
-                child: Icon(
-                  MdiIcons.bookSearch,
-                  color: kSecondaryColor,
-                  size: 35,
-                ),
-                onPressed: () => _showModalBottomSheet(context, GOODREADS),
               ),
 //              SizedBox(width: 120),
               NeumorphicButton(
