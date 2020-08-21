@@ -65,7 +65,7 @@ class MyBooksCard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    SizedBox(width: 80),
+                    SizedBox(width: 90),
                     Flexible(
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -145,7 +145,7 @@ class MyBooksCard extends StatelessWidget {
               child: Align(
                 alignment: Alignment.topLeft,
                 child: SizedBox(
-                  height: 180,
+                  height: 200,
                   child: Book3D(book: book),
                 ),
               ),

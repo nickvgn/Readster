@@ -181,6 +181,7 @@ class _CollectionBookState extends State<CollectionBook> {
                           tag: 'slider${widget.book.id}',
                           child: NeumorphicProgress(
                             style: ProgressStyle(
+                              accent: kSecondaryColor,
                               depth: 1,
                             ),
                             duration: Duration(seconds: 2),

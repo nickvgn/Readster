@@ -46,6 +46,8 @@ dependencies:
   fl_chart: ^0.11.0
   flutter_fadein: ^1.1.1
   flutter_barcode_scanner: ^1.0.1
+  flare_flutter: ^2.0.6
+  flutter_snake_navigationbar:
 
   cloud_firestore: ^0.13.7
   firebase_auth: ^0.16.1

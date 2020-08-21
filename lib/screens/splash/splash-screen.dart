@@ -6,6 +6,7 @@ import 'package:page_transition/page_transition.dart';
 import 'package:untitled_goodreads_project/constants.dart';
 import 'package:untitled_goodreads_project/my_flutter_app_icons.dart';
 import 'package:untitled_goodreads_project/screens/home/home-screen.dart';
+import 'package:untitled_goodreads_project/screens/index/index.dart';
 import 'package:untitled_goodreads_project/screens/login/login-screen.dart';
 import 'dart:async';
 
@@ -94,7 +95,7 @@ class _SplashScreenState extends State<SplashScreen>
               PageTransition(
                 duration: Duration(seconds: 2),
                 type: PageTransitionType.fade,
-                child: HomeScreen(),
+                child: IndexScreen(),
               ),
             ),
           );

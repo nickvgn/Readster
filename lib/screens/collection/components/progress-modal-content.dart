@@ -91,6 +91,7 @@ class _ProgressModalContentState extends State<ProgressModalContent> {
               tag: 'slider${widget.book.id}',
               child: NeumorphicSlider(
                 style: SliderStyle(
+                    accent: kSecondaryColor,
                     thumbBorder: NeumorphicBorder(
                       color: kSecondaryColor,
                       width: 16,
