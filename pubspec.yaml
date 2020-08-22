@@ -48,6 +48,8 @@ dependencies:
   flutter_barcode_scanner: ^1.0.1
   flare_flutter: ^2.0.6
   flutter_snake_navigationbar:
+  kenburns: ^1.0.3
+
 
   cloud_firestore: ^0.13.7
   firebase_auth: ^0.16.1

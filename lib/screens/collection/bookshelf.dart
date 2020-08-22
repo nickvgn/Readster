@@ -62,7 +62,8 @@ class _BookshelfState extends State<Bookshelf> {
                                     cacheExtent: 70,
                                     controller: controller,
                                     physics: BouncingScrollPhysics(),
-                                    padding: EdgeInsets.all(20),
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: 20, horizontal: 10),
                                     gridDelegate:
                                         SliverGridDelegateWithFixedCrossAxisCount(
                                       crossAxisCount: 4,

@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:untitled_goodreads_project/components/blurred-modal.dart';
@@ -28,67 +29,51 @@ class AddOrRemoveButton extends StatelessWidget {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
 
-    return Padding(
-        padding: const EdgeInsets.only(bottom: 20, right: 15),
-        child: Align(
-          alignment: Alignment.centerRight,
-          child: SizedBox(
-            width: 190,
-            child: NeumorphicButton(
-                style: kNeumorphicStyle.copyWith(
-                  boxShape: NeumorphicBoxShape.roundRect(
-                    BorderRadius.circular(25),
-                  ),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      icon,
-                      color: kPrimaryColor,
-                    ),
-                    SizedBox(width: 10),
-                    Flexible(
-                      child: AutoSizeText(
-                        title,
-                        maxFontSize: 20,
-                        minFontSize: 8,
-                        maxLines: 1,
+    return Align(
+      alignment: Alignment.bottomRight,
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 40, right: 5),
+        child: MaterialButton(
+            color: kLightBackgroundColor,
+            padding: EdgeInsets.all(10),
+//            style: kNeumorphicStyle.copyWith(
+//              boxShape: NeumorphicBoxShape.circle(),
+//            ),
+            shape: CircleBorder(),
+            child: Container(
+              padding: EdgeInsets.all(8.0),
+              child: Icon(
+                icon,
+                color: kPrimaryColor,
+              ),
+            ),
+            onPressed: () {
+              Navigator.of(context).push(
+                buildBlurredModal(
+                  height: size.height / 3.5,
+                  width: size.width / 1.2,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        modalText,
+                        style: Theme.of(context).textTheme.headline6.copyWith(),
                         textAlign: TextAlign.center,
                       ),
-                    ),
-                  ],
-                ),
-                onPressed: () {
-                  Navigator.of(context).push(
-                    buildBlurredModal(
-                      height: size.height / 3.5,
-                      width: size.width / 1.2,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                      SizedBox(height: 50),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Text(
-                            modalText,
-                            style: Theme.of(context)
-                                .textTheme
-                                .headline6
-                                .copyWith(),
-                            textAlign: TextAlign.center,
-                          ),
-                          SizedBox(height: 50),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              buildConfirmationButton('Yes', context, press),
-                              buildConfirmationButton('No', context, press),
-                            ],
-                          )
+                          buildConfirmationButton('Yes', context, press),
+                          buildConfirmationButton('No', context, press),
                         ],
-                      ),
-                    ),
-                  );
-                }),
-          ),
-        ));
+                      )
+                    ],
+                  ),
+                ),
+              );
+            }),
+      ),
+    );
   }
 }

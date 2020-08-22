@@ -45,7 +45,7 @@ class _SliverTitleBarState extends State<SliverTitleBar> {
       backgroundColor: Colors.transparent,
       shadowColor: Colors.transparent,
       expandedHeight: 540,
-      collapsedHeight: 320,
+      collapsedHeight: 310,
       toolbarHeight: 90,
       bottom: PreferredSize(
           child: FutureBuilder<bool>(
@@ -107,19 +107,17 @@ class _SliverTitleBarState extends State<SliverTitleBar> {
                   return Container();
                 }
               })),
-      leading: Padding(
-        padding: const EdgeInsets.all(15),
-        child: NeumorphicButton(
-          style: NeumorphicStyle(
-            boxShape: NeumorphicBoxShape.circle(),
-            depth: 3,
-          ),
-          child: Icon(
-            FontAwesomeIcons.angleLeft,
-            color: kPrimaryColor,
-          ),
-          onPressed: () {},
+      leading: NeumorphicButton(
+        style: NeumorphicStyle(
+          boxShape: NeumorphicBoxShape.circle(),
+          color: Colors.transparent,
+          depth: 0,
         ),
+        child: Icon(
+          FontAwesomeIcons.angleLeft,
+          color: kLightBackgroundColor,
+        ),
+        onPressed: () {},
       ),
       floating: true,
       pinned: true,
@@ -147,14 +145,14 @@ class _SliverTitleBarState extends State<SliverTitleBar> {
               alignment: Alignment.bottomCenter,
               child: SafeArea(
                 child: Container(
-                  margin: EdgeInsets.only(top: 100),
+                  margin: EdgeInsets.only(top: 20),
                   padding: const EdgeInsets.only(
-                      left: 20, right: 20, bottom: 0, top: 31),
+                      left: 20, right: 20, bottom: 5, top: 31),
                   child: Wrap(
                     alignment: WrapAlignment.center,
                     crossAxisAlignment: WrapCrossAlignment.center,
-                    runSpacing: -5,
-                    spacing: 30,
+                    runSpacing: -10,
+                    spacing: 0,
                     children: [
                       //BOOK COVER
                       FadeIn(
@@ -176,8 +174,8 @@ class _SliverTitleBarState extends State<SliverTitleBar> {
                       ),
                       Container(
                         padding: EdgeInsets.only(
-                          top: 15,
-                          bottom: 22,
+                          top: 29,
+                          bottom: 6,
                         ),
                         margin: EdgeInsets.only(bottom: 30),
                         height: 100,

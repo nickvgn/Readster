@@ -6,6 +6,7 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:untitled_goodreads_project/models/book.dart';
 import 'package:untitled_goodreads_project/services/clip-shadow-path.dart';
 import 'package:untitled_goodreads_project/services/image-helper.dart';
+import 'package:kenburns/kenburns.dart';
 
 class TitleCard extends StatelessWidget {
   final Book book;
@@ -25,24 +26,42 @@ class TitleCard extends StatelessWidget {
         var colors = snapshot.data;
 
         return Container(
-          child: ClipShadowPath(
-            clipper: WaveClipperOne(),
-            shadow: Shadow(
-              blurRadius: 10,
-              color: Colors.black26,
-              offset: Offset(3, 3),
-            ),
-            child: Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: snapshot.hasData
-                      ? colors
-                      : [Colors.grey[200], Colors.grey[700]],
-                ),
+            padding: EdgeInsets.only(bottom: 15),
+            child: ClipShadowPath(
+              clipper: OvalBottomBorderClipper(),
+              shadow: Shadow(
+                blurRadius: 10,
+                color: Colors.black26,
+                offset: Offset(3, 3),
               ),
-            ),
-          ),
-        );
+              child: Stack(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.transparent,
+                    ),
+                    child: KenBurns(
+                        maxScale: 2,
+                        child: Image.network(
+                          book.imageUrl,
+                          fit: BoxFit.cover,
+                        )),
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: snapshot.hasData
+                            ? [
+                                colors[0].withOpacity(.8),
+                                colors[1].withOpacity(.9),
+                              ]
+                            : [Colors.grey[200], Colors.grey[700]],
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ));
       },
     );
   }
