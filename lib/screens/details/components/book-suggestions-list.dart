@@ -29,8 +29,11 @@ class BookSuggestionList extends StatelessWidget {
         if (snapshot.hasError) print(snapshot.error);
         return snapshot.hasData
             ? Neumorphic(
-                style: kNeumorphicStyle.copyWith(depth: 2),
-                margin: EdgeInsets.only(bottom: 20),
+                style: kNeumorphicStyle.copyWith(
+                  depth: -3,
+                  boxShape: NeumorphicBoxShape.rect(),
+                ),
+                margin: EdgeInsets.only(bottom: 30),
                 padding: const EdgeInsets.only(bottom: 20, top: 20),
                 child: SizedBox(
                   height: 180,
@@ -47,7 +50,7 @@ class BookSuggestionList extends StatelessWidget {
                           itemCount: snapshot.data.length,
                           itemBuilder: (context2, index) => Container(
                             margin:
-                                EdgeInsets.only(left: 15, top: 20, bottom: 20),
+                                EdgeInsets.only(left: 20, top: 20, bottom: 20),
                             decoration: BoxDecoration(
                               boxShadow: [
                                 BoxShadow(
@@ -58,24 +61,27 @@ class BookSuggestionList extends StatelessWidget {
                                 )
                               ],
                             ),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(10),
-                              child: GestureDetector(
-                                onTap: () {
-                                  Provider.of<BookController>(context,
-                                          listen: false)
-                                      .updateBookId(similarBooks[index].id);
-                                  Navigator.push(
-                                    context,
-                                    PageTransition(
-                                      child: DetailsScreen(),
-                                      type: PageTransitionType.fade,
-                                    ),
-                                  );
-                                },
-                                child:
-                                    Image.network(similarBooks[index].imageUrl),
+                            child: NeumorphicButton(
+                              style: kNeumorphicStyle.copyWith(
+                                boxShape: NeumorphicBoxShape.roundRect(
+                                  BorderRadius.circular(10),
+                                ),
                               ),
+                              padding: EdgeInsets.zero,
+                              onPressed: () {
+                                Provider.of<BookController>(context,
+                                        listen: false)
+                                    .updateBookId(similarBooks[index].id);
+                                Navigator.push(
+                                  context,
+                                  PageTransition(
+                                    child: DetailsScreen(),
+                                    type: PageTransitionType.fade,
+                                  ),
+                                );
+                              },
+                              child:
+                                  Image.network(similarBooks[index].imageUrl),
                             ),
                           ),
                         ),

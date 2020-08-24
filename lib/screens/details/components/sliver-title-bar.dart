@@ -47,7 +47,9 @@ class _SliverTitleBarState extends State<SliverTitleBar> {
       expandedHeight: 540,
       collapsedHeight: 310,
       toolbarHeight: 90,
-      bottom: PreferredSize(
+      actions: [
+        Padding(
+          padding: const EdgeInsets.only(right: 15),
           child: FutureBuilder<bool>(
               future: FirestoreController().checkIfAdded(widget.book.id),
               builder: (context, snapshot) {
@@ -56,7 +58,7 @@ class _SliverTitleBarState extends State<SliverTitleBar> {
                   if (!isAdded || isChanged == true) {
                     return AddOrRemoveButton(
                         book: widget.book,
-                        icon: MdiIcons.bookPlus,
+                        icon: Icons.library_add,
                         title: 'Add to Library',
                         modalText:
                             'Just press "Yes" and it will be in your library before you can finish reading th..',
@@ -80,7 +82,7 @@ class _SliverTitleBarState extends State<SliverTitleBar> {
                   if (isAdded || isChanged == false) {
                     return AddOrRemoveButton(
                         book: widget.book,
-                        icon: MdiIcons.bookMinus,
+                        icon: Icons.remove,
                         title: 'Remove from library',
                         modalText:
                             'Just press "Yes" and it will disappear from your library like magic.',
@@ -106,7 +108,9 @@ class _SliverTitleBarState extends State<SliverTitleBar> {
                 } else {
                   return Container();
                 }
-              })),
+              }),
+        )
+      ],
       leading: NeumorphicButton(
         style: NeumorphicStyle(
           boxShape: NeumorphicBoxShape.circle(),

@@ -4,6 +4,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:untitled_goodreads_project/components/blurred-modal.dart';
 import 'package:untitled_goodreads_project/components/confirmation-button.dart';
 import 'package:untitled_goodreads_project/constants.dart';
@@ -29,51 +30,41 @@ class AddOrRemoveButton extends StatelessWidget {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
 
-    return Align(
-      alignment: Alignment.bottomRight,
-      child: Padding(
-        padding: const EdgeInsets.only(bottom: 40, right: 5),
-        child: MaterialButton(
-            color: kLightBackgroundColor,
-            padding: EdgeInsets.all(10),
-//            style: kNeumorphicStyle.copyWith(
-//              boxShape: NeumorphicBoxShape.circle(),
-//            ),
-            shape: CircleBorder(),
-            child: Container(
-              padding: EdgeInsets.all(8.0),
-              child: Icon(
-                icon,
-                color: kPrimaryColor,
+    return NeumorphicButton(
+        style: NeumorphicStyle(
+          boxShape: NeumorphicBoxShape.circle(),
+          color: Colors.transparent,
+          depth: 0,
+        ),
+        child: Icon(
+          icon,
+          color: kLightBackgroundColor,
+        ),
+        onPressed: () {
+          Navigator.of(context).push(
+            buildBlurredModal(
+              height: size.height / 3.5,
+              width: size.width / 1.2,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    modalText,
+                    style: Theme.of(context).textTheme.headline6.copyWith(),
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: 50),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      buildConfirmationButton('Yes', context, press),
+                      buildConfirmationButton('No', context, press),
+                    ],
+                  )
+                ],
               ),
             ),
-            onPressed: () {
-              Navigator.of(context).push(
-                buildBlurredModal(
-                  height: size.height / 3.5,
-                  width: size.width / 1.2,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        modalText,
-                        style: Theme.of(context).textTheme.headline6.copyWith(),
-                        textAlign: TextAlign.center,
-                      ),
-                      SizedBox(height: 50),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          buildConfirmationButton('Yes', context, press),
-                          buildConfirmationButton('No', context, press),
-                        ],
-                      )
-                    ],
-                  ),
-                ),
-              );
-            }),
-      ),
-    );
+          );
+        });
   }
 }

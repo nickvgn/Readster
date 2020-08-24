@@ -69,6 +69,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                                     snapshot.hasData ? snapshot.data : null,
                               ),
                             ),
+                            SizedBox(height: 10),
                             DescriptionCard(
                               description: book.description,
                             ),

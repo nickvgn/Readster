@@ -31,6 +31,7 @@ class MoreInfo extends StatelessWidget {
       height: 160,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -152,7 +153,7 @@ class MoreInfo extends StatelessWidget {
                   if (book.isEbook != null)
                     book.isEbook
                         ? DogEarButton(
-                            title: 'Sample',
+                            title: 'Sample eBook',
                             icon: FontAwesomeIcons.google,
                             press: () {
                               Navigator.of(context).push(
