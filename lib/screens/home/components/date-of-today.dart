@@ -13,22 +13,16 @@ class DateOfToday extends StatelessWidget {
       text: TextSpan(
         children: [
           TextSpan(
-            text: '${DateFormat('EEEE').format(
+            text: '${DateFormat('EEEE,').format(
               DateTime.now(),
             )}',
-            style: Theme.of(context).textTheme.headline6.copyWith(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
+            style: Theme.of(context).textTheme.headline6.copyWith(fontSize: 24),
           ),
           TextSpan(
-            text: '${DateFormat('  MMMM dd, yyyy').format(
+            text: '${DateFormat(' MMMM dd').format(
               DateTime.now(),
             )}',
-            style: Theme.of(context).textTheme.headline6.copyWith(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
+            style: Theme.of(context).textTheme.headline6.copyWith(fontSize: 24),
           ),
         ],
       ),

@@ -25,6 +25,7 @@ import 'package:untitled_goodreads_project/screens/collection/collection-screen.
 import 'package:untitled_goodreads_project/screens/home/components/app-bar-title.dart';
 import 'package:untitled_goodreads_project/screens/home/components/at-a-glance-card.dart';
 import 'package:untitled_goodreads_project/screens/home/components/circular-progress-widget.dart';
+import 'package:untitled_goodreads_project/screens/home/components/date-of-today.dart';
 import 'package:untitled_goodreads_project/screens/home/components/my-books-card.dart';
 import 'package:untitled_goodreads_project/screens/home/components/quote-card.dart';
 import 'package:untitled_goodreads_project/screens/home/components/weekly-read-chart.dart';
@@ -48,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     FirestoreController().setReadCountList();
 
-    Future.delayed(const Duration(milliseconds: 20), () {
+    Future.delayed(const Duration(milliseconds: 800), () {
       setState(() {
         isFadeIn = true;
       });
@@ -80,76 +81,100 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 20),
-                height: 80,
+                height: 100,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    AppBarTitle(),
-                    Spacer(),
-                    NeumorphicButton(
-                      style: kNeumorphicStyle.copyWith(
-                          depth: 0, color: Colors.transparent),
-                      child: NeumorphicIcon(
-                        MdiIcons.accountEdit,
-                        style: kNeumorphicStyle.copyWith(depth: 3),
-                        size: 30,
-                      ),
-                      onPressed: () {
-                        Navigator.of(context).push(
-                          buildBlurredModal(
-                            height: size.height / 3,
-                            width: size.width / 1.2,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                SizedBox(height: 10),
-                                Text(
-                                  'Set a goal',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .headline6
-                                      .copyWith(),
-                                  textAlign: TextAlign.center,
-                                ),
-                                Spacer(),
-                                NeumorphicTextField(
-                                  hintText: 'Daily pages',
-                                  icon: MdiIcons.bookOpen,
-                                ),
-                                SizedBox(height: 20),
-                                NeumorphicTextField(
-                                  hintText: 'Yearly books',
-                                  icon: MdiIcons.bookMultiple,
-                                ),
-                                Spacer(),
-                                buildConfirmationButton('Save', context, () {})
-                              ],
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(height: 25),
+                        AppBarTitle(),
+                        if (isFadeIn)
+                          Padding(
+                            padding: const EdgeInsets.only(left: 15),
+                            child: Text(
+                              'What are we reading today?',
+                              textAlign: TextAlign.start,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .subtitle1
+                                  .copyWith(
+                                      color: kLightBackgroundColor,
+                                      fontSize: 16),
                             ),
                           ),
-                        );
-                      },
+                        Spacer(),
+                      ],
                     ),
-                    NeumorphicButton(
-                      style: kNeumorphicStyle.copyWith(
-                          depth: 0, color: Colors.transparent),
-                      child: NeumorphicIcon(
-                        FontAwesomeIcons.signOutAlt,
-                        style: kNeumorphicStyle.copyWith(depth: 3),
-                        size: 30,
-                      ),
-                      onPressed: () async {
-                        await auth.signOut();
-                        Navigator.pushAndRemoveUntil(
-                            context,
-                            PageTransition(
-                              child: LoginScreen(),
-                              type: PageTransitionType.scale,
-                            ),
-                            (route) => false);
-                      },
-                    ),
-                    SizedBox(width: 5),
+
+                    Spacer(),
+//                        NeumorphicButton(
+//                          style: kNeumorphicStyle.copyWith(
+//                              depth: 0, color: Colors.transparent),
+//                          child: NeumorphicIcon(
+//                            MdiIcons.accountEdit,
+//                            style: kNeumorphicStyle.copyWith(depth: 3),
+//                            size: 30,
+//                          ),
+//                          onPressed: () {
+//                            Navigator.of(context).push(
+//                              buildBlurredModal(
+//                                height: size.height / 3,
+//                                width: size.width / 1.2,
+//                                child: Column(
+//                                  mainAxisAlignment:
+//                                      MainAxisAlignment.spaceEvenly,
+//                                  children: [
+//                                    SizedBox(height: 10),
+//                                    Text(
+//                                      'Set a goal',
+//                                      style: Theme.of(context)
+//                                          .textTheme
+//                                          .headline6
+//                                          .copyWith(),
+//                                      textAlign: TextAlign.center,
+//                                    ),
+//                                    Spacer(),
+//                                    NeumorphicTextField(
+//                                      hintText: 'Daily pages',
+//                                      icon: MdiIcons.bookOpen,
+//                                    ),
+//                                    SizedBox(height: 20),
+//                                    NeumorphicTextField(
+//                                      hintText: 'Yearly books',
+//                                      icon: MdiIcons.bookMultiple,
+//                                    ),
+//                                    Spacer(),
+//                                    buildConfirmationButton(
+//                                        'Save', context, () {})
+//                                  ],
+//                                ),
+//                              ),
+//                            );
+//                          },
+//                        ),
+//                        NeumorphicButton(
+//                          style: kNeumorphicStyle.copyWith(
+//                              depth: 0, color: Colors.transparent),
+//                          child: NeumorphicIcon(
+//                            FontAwesomeIcons.signOutAlt,
+//                            style: kNeumorphicStyle.copyWith(depth: 3),
+//                            size: 30,
+//                          ),
+//                          onPressed: () async {
+//                            await auth.signOut();
+//                            Navigator.pushAndRemoveUntil(
+//                                context,
+//                                PageTransition(
+//                                  child: LoginScreen(),
+//                                  type: PageTransitionType.scale,
+//                                ),
+//                                (route) => false);
+//                          },
+//                        ),
+//                        SizedBox(width: 5),
                     Stack(
                       alignment: Alignment.center,
                       children: [
@@ -194,7 +219,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ),
                                       ),
                                     ),
-                                    radius: 23,
+                                    radius: 30,
                                   )
                                 : Container()),
                       ],
@@ -232,11 +257,19 @@ class _HomeScreenState extends State<HomeScreen> {
                                     if (snapshot.hasError)
                                       print(snapshot.error);
                                     return snapshot.hasData
-                                        ? WeeklyReadChart(
-                                            readCounts:
-                                                snapshot.data.weeklyReadCount,
-                                            goal: snapshot.data.dailyGoal
-                                                .toDouble(),
+                                        ? Column(
+                                            children: [
+                                              DateOfToday(),
+                                              SizedBox(height: 8),
+                                              Flexible(
+                                                child: WeeklyReadChart(
+                                                  readCounts: snapshot
+                                                      .data.weeklyReadCount,
+                                                  goal: snapshot.data.dailyGoal
+                                                      .toDouble(),
+                                                ),
+                                              ),
+                                            ],
                                           )
                                         : Container();
                                   }),
@@ -403,6 +436,7 @@ class _HomeScreenState extends State<HomeScreen> {
         itemCount: items.length,
         itemBuilder: itemBuilder,
         options: CarouselOptions(
+          height: 400,
           enlargeStrategy: CenterPageEnlargeStrategy.scale,
           enlargeCenterPage: true,
           autoPlayAnimationDuration: Duration(milliseconds: 800),

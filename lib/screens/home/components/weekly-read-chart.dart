@@ -139,7 +139,7 @@ class WeeklyReadChart extends StatelessWidget {
                   color: Colors.black26,
                   fontWeight: FontWeight.w900,
                 ),
-            margin: 16,
+            margin: 8,
             getTitles: (double value) {
               switch (value.toInt()) {
                 case 0:

@@ -84,7 +84,7 @@ class MyBooksCard extends StatelessWidget {
                                         .textTheme
                                         .subtitle2
                                         .copyWith(
-                                          fontSize: 20,
+                                          fontSize: 24,
                                         ),
                                   ),
                                   TextSpan(
@@ -92,9 +92,7 @@ class MyBooksCard extends StatelessWidget {
                                     style: Theme.of(context)
                                         .textTheme
                                         .subtitle2
-                                        .copyWith(
-                                          fontSize: 12,
-                                        ),
+                                        .copyWith(),
                                   ),
                                 ],
                               ),
@@ -129,7 +127,7 @@ class MyBooksCard extends StatelessWidget {
                                   ),
                             ),
                             Spacer(),
-                            SizedBox(height: 30),
+                            SizedBox(height: 20),
                           ],
                         ),
                       ),
