@@ -44,7 +44,7 @@ class MyBooksCard extends StatelessWidget {
           alignment: Alignment.centerRight,
           children: [
             Neumorphic(
-              margin: EdgeInsets.only(top: 30, bottom: 20, left: 3, right: 3),
+              margin: EdgeInsets.only(top: 40, bottom: 20, left: 10, right: 10),
               style: kNeumorphicStyle.copyWith(
                 boxShape: NeumorphicBoxShape.roundRect(
                   BorderRadius.circular(25),
@@ -55,10 +55,10 @@ class MyBooksCard extends StatelessWidget {
                 padding: EdgeInsets.all(20),
                 decoration: BoxDecoration(
                   color: kLightBackgroundColor,
-                  gradient: LinearGradient(
-                    colors:
-                        snapshot.hasData ? colors : [Colors.white, Colors.grey],
-                  ),
+//                  gradient: LinearGradient(
+//                    colors:
+//                        snapshot.hasData ? colors : [Colors.white, Colors.grey],
+//                  ),
                   borderRadius: BorderRadius.circular(25),
                 ),
                 child: Row(
@@ -68,13 +68,12 @@ class MyBooksCard extends StatelessWidget {
                     SizedBox(width: 90),
                     Flexible(
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-//                          SizedBox(height: 8),
                             RichText(
                               text: TextSpan(
                                 children: [
@@ -86,7 +85,6 @@ class MyBooksCard extends StatelessWidget {
                                         .subtitle2
                                         .copyWith(
                                           fontSize: 20,
-                                          color: Colors.white,
                                         ),
                                   ),
                                   TextSpan(
@@ -96,7 +94,6 @@ class MyBooksCard extends StatelessWidget {
                                         .subtitle2
                                         .copyWith(
                                           fontSize: 12,
-                                          color: Colors.white,
                                         ),
                                   ),
                                 ],
@@ -108,11 +105,13 @@ class MyBooksCard extends StatelessWidget {
                                 style: RoundedProgressBarStyle(
                                   colorBorder: Colors.transparent,
                                   colorProgressDark: snapshot.hasData
+                                      ? colors[1]
+                                      : kPrimaryColor,
+                                  colorProgress: snapshot.hasData
                                       ? colors[0]
-                                      : Colors.white,
-                                  colorProgress: Colors.white,
+                                      : kPrimaryColor,
                                   backgroundProgress:
-                                      Colors.white.withOpacity(.2),
+                                      Colors.grey.withOpacity(.2),
                                 ),
                                 milliseconds: 2000,
                                 height: 17,
@@ -121,16 +120,16 @@ class MyBooksCard extends StatelessWidget {
                             ),
                             Text(
                               '${book.lastRead != null ? ' Last read: ${getTimeAgo()} ' : ''}',
-                              textAlign: TextAlign.center,
+//                              textAlign: TextAlign.center,
                               style: Theme.of(context)
                                   .textTheme
                                   .subtitle2
                                   .copyWith(
-                                    color: Colors.white54,
+                                    color: Colors.black26,
                                   ),
                             ),
                             Spacer(),
-                            SizedBox(height: 35),
+                            SizedBox(height: 30),
                           ],
                         ),
                       ),
@@ -146,7 +145,10 @@ class MyBooksCard extends StatelessWidget {
                 alignment: Alignment.topLeft,
                 child: SizedBox(
                   height: 200,
-                  child: Book3D(book: book),
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 10, left: 5),
+                    child: Book3D(book: book),
+                  ),
                 ),
               ),
             ),
@@ -159,7 +161,7 @@ class MyBooksCard extends StatelessWidget {
                   book.title,
                   style: Theme.of(context).textTheme.subtitle1.copyWith(
                         fontWeight: FontWeight.w900,
-                        color: kLightBackgroundColor,
+                        color: Colors.black26,
                       ),
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,

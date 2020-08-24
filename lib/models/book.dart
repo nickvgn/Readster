@@ -131,15 +131,16 @@ class Book {
       title: TextHelper.parseHtmlStringAsText(book['title']) ?? '',
       imageUrl: book['image_url'].replaceAll('SX98', 'SX475'),
       description: TextHelper.parseHtmlStringAsText(book['description']) ?? '',
-      isbn: book['isbn'] ?? '',
+      isbn: book['isbn'] ?? 'not available',
       rating: double.parse(book['average_rating']) ?? 0.0,
       ratingCount: int.parse(book['work']['ratings_count']) ?? 0,
       reviewCount: int.parse(book['work']['text_reviews_count']) ?? 0,
       pageCount: int.parse(book['num_pages']) ?? 0,
-      pubishedDate: '${book['publication_year']}-'
+      pubishedDate: book['publication_month'] != null
+          ? '${book['publication_year']}-'
               '${book['publication_month'].toString().padLeft(2, "0")}-'
-              '${book['publication_day'].toString().padLeft(2, "0")}' ??
-          '',
+              '${book['publication_day'].toString().padLeft(2, "0")}'
+          : book['publication_year'] ?? 'not available',
       seriesId: seriesId,
       seriesTitle: seriesTitle != ''
           ? TextHelper.parseHtmlStringAsText(

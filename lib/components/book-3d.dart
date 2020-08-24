@@ -53,6 +53,7 @@ class Book3D extends StatelessWidget {
                     },
                     padding: EdgeInsets.zero,
                     style: kNeumorphicStyle.copyWith(
+                      shadowLightColor: Colors.transparent,
                       boxShape: NeumorphicBoxShape.beveled(
                         BorderRadius.only(
                           bottomLeft: Radius.elliptical(11, 5),
