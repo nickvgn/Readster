@@ -10,10 +10,6 @@ DateTime minus(days) => now.subtract(Duration(days: days));
 var today = DateTime.now().weekday;
 
 class WeekdayController extends ChangeNotifier {
-//  DateTime startTime;
-//  DateTime endTime;
-//  String date = dateOnlyFormat.format(DateTime.now());
-
   var monStart;
   var monEnd;
   var tueStart;

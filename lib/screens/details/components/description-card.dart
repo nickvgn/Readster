@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_show_more/flutter_show_more.dart';
@@ -17,9 +18,9 @@ class DescriptionCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Neumorphic(
       style: kNeumorphicStyle.copyWith(
-        depth: -3,
-        boxShape: NeumorphicBoxShape.rect(),
-      ),
+          depth: -3,
+          boxShape: NeumorphicBoxShape.rect(),
+          color: CupertinoColors.white),
       margin: EdgeInsets.only(bottom: 30),
       padding: const EdgeInsets.only(left: 5, right: 5, bottom: 20, top: 20),
       child: Column(

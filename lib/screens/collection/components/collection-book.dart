@@ -140,7 +140,9 @@ class _CollectionBookState extends State<CollectionBook> {
                             child: NeumorphicIcon(
                               FontAwesomeIcons.check,
                               style: kNeumorphicStyle.copyWith(
-                                  color: kPrimaryColor),
+                                color: kPrimaryColor,
+                                depth: 1,
+                              ),
                             ),
                           ),
                         if (readStatus == READING)

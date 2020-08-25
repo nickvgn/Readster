@@ -1,42 +1,36 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
-import 'package:untitled_goodreads_project/components/blurred-modal.dart';
-import 'package:untitled_goodreads_project/components/bottom-nav-bar.dart';
-import 'package:untitled_goodreads_project/components/confirmation-button.dart';
 import 'package:untitled_goodreads_project/components/spinkit-widget.dart';
 import 'package:untitled_goodreads_project/constants.dart';
 import 'package:untitled_goodreads_project/controller/firestore-controller.dart';
-import 'package:untitled_goodreads_project/controller/weekday-controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:untitled_goodreads_project/models/book.dart';
 import 'package:untitled_goodreads_project/models/quote.dart';
 import 'package:untitled_goodreads_project/models/user.dart';
-import 'package:untitled_goodreads_project/screens/collection/collection-screen.dart';
 import 'package:untitled_goodreads_project/screens/home/components/app-bar-title.dart';
-import 'package:untitled_goodreads_project/screens/home/components/at-a-glance-card.dart';
 import 'package:untitled_goodreads_project/screens/home/components/circular-progress-widget.dart';
 import 'package:untitled_goodreads_project/screens/home/components/date-of-today.dart';
 import 'package:untitled_goodreads_project/screens/home/components/my-books-card.dart';
+import 'package:untitled_goodreads_project/screens/home/components/pop-up-settings.dart';
 import 'package:untitled_goodreads_project/screens/home/components/quote-card.dart';
 import 'package:untitled_goodreads_project/screens/home/components/weekly-read-chart.dart';
-import 'package:untitled_goodreads_project/screens/login/login-screen.dart';
 import 'package:untitled_goodreads_project/services/auth.dart';
 import 'package:flutter_fadein/flutter_fadein.dart';
-import 'package:intl/intl.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();
+}
+
+class Item {
+  const Item(this.name, this.icon);
+  final String name;
+  final Icon icon;
 }
 
 class _HomeScreenState extends State<HomeScreen> {
@@ -83,7 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 height: 100,
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Column(
@@ -108,73 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         Spacer(),
                       ],
                     ),
-
                     Spacer(),
-//                        NeumorphicButton(
-//                          style: kNeumorphicStyle.copyWith(
-//                              depth: 0, color: Colors.transparent),
-//                          child: NeumorphicIcon(
-//                            MdiIcons.accountEdit,
-//                            style: kNeumorphicStyle.copyWith(depth: 3),
-//                            size: 30,
-//                          ),
-//                          onPressed: () {
-//                            Navigator.of(context).push(
-//                              buildBlurredModal(
-//                                height: size.height / 3,
-//                                width: size.width / 1.2,
-//                                child: Column(
-//                                  mainAxisAlignment:
-//                                      MainAxisAlignment.spaceEvenly,
-//                                  children: [
-//                                    SizedBox(height: 10),
-//                                    Text(
-//                                      'Set a goal',
-//                                      style: Theme.of(context)
-//                                          .textTheme
-//                                          .headline6
-//                                          .copyWith(),
-//                                      textAlign: TextAlign.center,
-//                                    ),
-//                                    Spacer(),
-//                                    NeumorphicTextField(
-//                                      hintText: 'Daily pages',
-//                                      icon: MdiIcons.bookOpen,
-//                                    ),
-//                                    SizedBox(height: 20),
-//                                    NeumorphicTextField(
-//                                      hintText: 'Yearly books',
-//                                      icon: MdiIcons.bookMultiple,
-//                                    ),
-//                                    Spacer(),
-//                                    buildConfirmationButton(
-//                                        'Save', context, () {})
-//                                  ],
-//                                ),
-//                              ),
-//                            );
-//                          },
-//                        ),
-//                        NeumorphicButton(
-//                          style: kNeumorphicStyle.copyWith(
-//                              depth: 0, color: Colors.transparent),
-//                          child: NeumorphicIcon(
-//                            FontAwesomeIcons.signOutAlt,
-//                            style: kNeumorphicStyle.copyWith(depth: 3),
-//                            size: 30,
-//                          ),
-//                          onPressed: () async {
-//                            await auth.signOut();
-//                            Navigator.pushAndRemoveUntil(
-//                                context,
-//                                PageTransition(
-//                                  child: LoginScreen(),
-//                                  type: PageTransitionType.scale,
-//                                ),
-//                                (route) => false);
-//                          },
-//                        ),
-//                        SizedBox(width: 5),
                     Stack(
                       alignment: Alignment.center,
                       children: [
@@ -224,6 +152,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 : Container()),
                       ],
                     ),
+                    PopUpSettings(user: user),
                   ],
                 ),
               ),
@@ -292,7 +221,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                             ? GridView(
                                                 physics:
                                                     NeverScrollableScrollPhysics(),
-//                                mainAxisAlignment: MainAxisAlignment.center,
                                                 padding: EdgeInsets.only(
                                                     top: 25,
                                                     bottom: 5,
@@ -408,17 +336,6 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ],
           ),
-//          Align(
-//            alignment: Alignment.bottomRight,
-//            child: Padding(
-//              padding: const EdgeInsets.only(bottom: 10),
-//              child: NeumorphicIcon(
-//                MdiIcons.leadPencil,
-//                style: kNeumorphicStyle.copyWith(color: kSecondaryColor),
-//                size: 25,
-//              ),
-//            ),
-//          )
         ],
       ),
     );
@@ -446,55 +363,8 @@ class _HomeScreenState extends State<HomeScreen> {
           pauseAutoPlayOnManualNavigate: true,
           initialPage: 0,
           aspectRatio: 0.9,
-//            viewportFraction: 0.95,
           viewportFraction: 0.87,
           onPageChanged: onPageChanged,
-        ),
-      ),
-    );
-  }
-}
-
-class NeumorphicTextField extends StatelessWidget {
-  const NeumorphicTextField({
-    Key key,
-    this.icon,
-    this.hintText,
-  }) : super(key: key);
-
-  final IconData icon;
-  final String hintText;
-
-  @override
-  Widget build(BuildContext context) {
-    var _controller = TextEditingController();
-
-    return Neumorphic(
-      padding: EdgeInsets.symmetric(horizontal: 25, vertical: 5),
-      style: kNeumorphicStyle.copyWith(
-        boxShape: NeumorphicBoxShape.roundRect(
-          BorderRadius.circular(25),
-        ),
-        depth: -5,
-        shape: NeumorphicShape.concave,
-      ),
-      child: TextField(
-        controller: _controller,
-        keyboardType: TextInputType.number,
-        decoration: InputDecoration(
-          border: InputBorder.none,
-          suffixIcon: IconButton(
-            icon: Icon(
-              icon,
-              color: kPrimaryColor,
-            ),
-            onPressed: () {
-              _controller.clear();
-              FocusScope.of(context).unfocus();
-            },
-          ),
-          hintText: hintText,
-          hintStyle: TextStyle(color: kDarkTextColor),
         ),
       ),
     );
