@@ -148,7 +148,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
                         child: Icon(
                           MdiIcons.barcodeScan,
                           color: kLightBackgroundColor,
-                          size: 30,
+                          size: 35,
                         ),
                         onPressed: () {
                           scanBarcodeNormal(context);

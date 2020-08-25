@@ -38,6 +38,7 @@ class _IndexScreenState extends State<IndexScreen> {
             ),
           ),
           SnakeNavigationBar(
+            elevation: 0,
             style: SnakeBarStyle.pinned,
             snakeShape: SnakeShape.circle,
             snakeColor: kPrimaryColor,
@@ -53,18 +54,17 @@ class _IndexScreenState extends State<IndexScreen> {
             },
             items: [
               BottomNavigationBarItem(
-                  icon: FlareActor("assets/icons/home-4.flr",
-                      alignment: Alignment.center,
+                icon: FlareActor("assets/icons/home-4.flr",
+                    alignment: Alignment.center,
 //                  isPaused: isPaused,
-                      fit: BoxFit.contain,
-                      animation: "Untitled"),
-                  title: Text('tickets')),
+                    fit: BoxFit.contain,
+                    animation: "Untitled"),
+              ),
               BottomNavigationBarItem(
                 icon: Icon(
                   MdiIcons.bookshelf,
-                  size: 35,
+                  size: 40,
                 ),
-                title: Text('calendar'),
               ),
             ],
           ),
