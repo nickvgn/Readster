@@ -33,7 +33,9 @@ class WeeklyReadChart extends StatelessWidget {
       barRods: [
         BarChartRodData(
           y: isTouched ? y + 1 : y,
-          color: checkIfToday(x) ? kPrimaryColor : Colors.grey,
+          color: checkIfToday(x)
+              ? kPrimaryColor
+              : y >= goal ? kSecondaryColor : Colors.grey,
 //        isTouched ? Colors.yellow : barColor,
           width: width,
           backDrawRodData: BackgroundBarChartRodData(

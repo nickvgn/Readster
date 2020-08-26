@@ -25,6 +25,7 @@ class PopUpSettings extends StatelessWidget {
 
     return Expanded(
       child: PopupMenuButton(
+        padding: EdgeInsets.zero,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
         color: kLightBackgroundColor,
         icon: NeumorphicIcon(

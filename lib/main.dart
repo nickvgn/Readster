@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
         theme: NeumorphicThemeData(
           baseColor: kLightBackgroundColor,
           accentColor: kPrimaryColor,
-          variantColor: kLightPrimaryColor,
+          variantColor: kSecondaryColor,
           lightSource: LightSource.topLeft,
           depth: 5,
           textTheme: GoogleFonts.quicksandTextTheme(),

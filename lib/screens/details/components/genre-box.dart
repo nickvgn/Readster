@@ -20,7 +20,7 @@ class GenreBox extends StatelessWidget {
           BorderRadius.circular(25),
         ),
         depth: 1,
-        color: kPrimaryColor,
+        color: kSecondaryColor,
       ),
       child: Center(
         child: AutoSizeText(

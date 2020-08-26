@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:untitled_goodreads_project/constants.dart';
 
-Widget buildConfirmationButton(String title, context, press) {
+Widget buildConfirmationButton(String title, context, press,
+    {Color color = kPrimaryColor, Color textColor = kLightBackgroundColor}) {
   return SizedBox(
     height: 40,
     width: 130,
@@ -10,22 +11,23 @@ Widget buildConfirmationButton(String title, context, press) {
       child: Text(
         title,
         style: Theme.of(context).textTheme.subtitle1.copyWith(
-              color: kLightBackgroundColor,
+              color: textColor,
               fontWeight: FontWeight.bold,
             ),
         textAlign: TextAlign.center,
       ),
       style: kNeumorphicStyle.copyWith(
-        color: kPrimaryColor,
+        color: color,
         boxShape: NeumorphicBoxShape.roundRect(
           BorderRadius.circular(25),
         ),
       ),
       onPressed: () {
-        if (title == 'Yes' || title == 'Save') {
+        if (title == 'Yes' || title == 'Save' || title == 'Finished') {
           press();
+        } else {
+          Navigator.of(context).pop();
         }
-//        Navigator.of(context).pop();
       },
     ),
   );

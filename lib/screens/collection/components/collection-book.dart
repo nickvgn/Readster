@@ -140,7 +140,7 @@ class _CollectionBookState extends State<CollectionBook> {
                             child: NeumorphicIcon(
                               FontAwesomeIcons.check,
                               style: kNeumorphicStyle.copyWith(
-                                color: kPrimaryColor,
+                                color: kSecondaryColor,
                                 depth: 1,
                               ),
                             ),
@@ -168,9 +168,13 @@ class _CollectionBookState extends State<CollectionBook> {
                                 ),
                               );
                               if (received != null)
-                                setState(() {
-                                  sliderValue = received;
-                                });
+                                received != READ
+                                    ? setState(() {
+                                        sliderValue = received;
+                                      })
+                                    : setState(() {
+                                        readStatus = received;
+                                      });
                             },
                           ),
                       ],

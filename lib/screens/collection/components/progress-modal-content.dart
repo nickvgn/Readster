@@ -107,13 +107,23 @@ class _ProgressModalContentState extends State<ProgressModalContent> {
               ),
             )),
         SizedBox(height: 20),
-        buildConfirmationButton('Save', context, () {
-          Provider.of<FirestoreController>(context, listen: false)
-              .updateFinishedPages(
-                  ((sliderVal / 10) * widget.book.pageCount).toInt(),
-                  widget.book);
-          Navigator.pop(context, sliderVal);
-        }),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            buildConfirmationButton('Finished', context, () {
+              Provider.of<FirestoreController>(context, listen: false)
+                  .updateBookStatus(READ, widget.book);
+              Navigator.pop(context, READ);
+            }, color: kLightBackgroundColor, textColor: kSecondaryColor),
+            buildConfirmationButton('Save', context, () {
+              Provider.of<FirestoreController>(context, listen: false)
+                  .updateFinishedPages(
+                      ((sliderVal / 10) * widget.book.pageCount).toInt(),
+                      widget.book);
+              Navigator.pop(context, sliderVal);
+            }),
+          ],
+        ),
       ],
     );
   }

@@ -57,7 +57,8 @@ class _IndexScreenState extends State<IndexScreen> {
               BottomNavigationBarItem(
                 icon: FlareActor("assets/icons/home-4.flr",
                     alignment: Alignment.center,
-//                  isPaused: isPaused,
+                    color: kSecondaryColor,
+//                    isPaused: isPaused,
                     fit: BoxFit.contain,
                     animation: "Untitled"),
               ),
@@ -65,6 +66,7 @@ class _IndexScreenState extends State<IndexScreen> {
                 icon: Icon(
                   MdiIcons.bookshelf,
                   size: 40,
+                  color: kSecondaryColor,
                 ),
               ),
             ],

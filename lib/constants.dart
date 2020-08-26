@@ -3,9 +3,10 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 //const kPrimaryColor = Color(0xff84dcc6);
-const kLightBackgroundColor = Color(0xffefebe9);
-const kPrimaryColor = Color(0xff00acc1);
-const kLightPrimaryColor = Colors.lightBlueAccent;
+const kLightBackgroundColor = Color(0xfffcfcfc);
+const kPrimaryColor = Color(0xfff28482);
+const kSecondaryColor = Color(0xffdec0f1);
+//const kLightPrimaryColor = Colors.lightBlueAccent;
 //const kLightPrimaryColor = Colors.deepPurpleAccent;
 //const kPrimaryColor = Colors.teal;
 //const kSecondaryColor = Color(0xFF00cc99);

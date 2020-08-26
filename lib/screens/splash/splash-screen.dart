@@ -48,9 +48,12 @@ class _SplashScreenState extends State<SplashScreen>
 //    animation =
 //        CurvedAnimation(parent: controller, curve: Curves.easeInOutSine);
     colorAnimation =
-        ColorTween(begin: kLightBackgroundColor, end: kPrimaryColor)
-            .animate(controller);
-    depthAnimation = Tween<double>(begin: 0, end: 15).animate(controller);
+        ColorTween(begin: kLightBackgroundColor, end: kPrimaryColor).animate(
+            CurvedAnimation(
+                parent: controller,
+                curve: Interval(0.7, 1, curve: Curves.easeIn)));
+    depthAnimation = Tween<double>(begin: 0, end: 15).animate(
+        CurvedAnimation(parent: controller, curve: Curves.easeInOutExpo));
 
     controller.forward();
     controller.addListener(() {
@@ -94,7 +97,7 @@ class _SplashScreenState extends State<SplashScreen>
             () => Navigator.pushReplacement(
               context,
               PageTransition(
-                duration: Duration(seconds: 2),
+//                duration: Duration(seconds: 2),
                 type: PageTransitionType.fade,
                 child: IndexScreen(),
               ),

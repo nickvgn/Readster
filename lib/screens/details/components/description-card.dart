@@ -18,9 +18,9 @@ class DescriptionCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Neumorphic(
       style: kNeumorphicStyle.copyWith(
-          depth: -3,
-          boxShape: NeumorphicBoxShape.rect(),
-          color: CupertinoColors.white),
+        depth: -3,
+        boxShape: NeumorphicBoxShape.rect(),
+      ),
       margin: EdgeInsets.only(bottom: 30),
       padding: const EdgeInsets.only(left: 5, right: 5, bottom: 20, top: 20),
       child: Column(
