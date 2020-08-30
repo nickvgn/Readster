@@ -1,8 +1,7 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:untitled_goodreads_project/constants.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:untitled_goodreads_project/constants.dart';
 
 class AppBarTitle extends StatefulWidget {
   const AppBarTitle({
@@ -24,13 +23,13 @@ class _AppBarTitleState extends State<AppBarTitle> {
       child: TyperAnimatedTextKit(
         isRepeatingAnimation: false,
         textAlign: TextAlign.start,
-        speed: Duration(milliseconds: 100),
+        speed: Duration(milliseconds: 60),
         alignment: Alignment.centerLeft,
         text: ['Hi, Nick Von'],
         textStyle: Theme.of(context).textTheme.headline6.copyWith(
             color: kLightBackgroundColor,
             fontWeight: FontWeight.bold,
-            fontSize: 23),
+            fontSize: 24),
         onFinished: () {
           setState(() {});
         },

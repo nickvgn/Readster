@@ -1,4 +1,6 @@
 import 'dart:collection';
+import 'dart:ui';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:untitled_goodreads_project/services/text-helper.dart';
 
@@ -14,6 +16,7 @@ class Book {
       imageUrl,
       pubishedDate,
       readStatus;
+  final Color spineColor;
   final double rating;
   final int reviewCount, ratingCount, pageCount, pageRead;
   final bool isEbook, isGoodreads;
@@ -34,6 +37,7 @@ class Book {
     this.imageUrl = '',
     this.pubishedDate = '',
     this.readStatus,
+    this.spineColor,
     this.reviewCount,
     this.ratingCount,
     this.pageCount,
@@ -47,6 +51,11 @@ class Book {
 
   factory Book.fromFirestore(DocumentSnapshot doc) {
     Map book = doc.data;
+
+    String valueString = book['color'].toString().split('(0x')[1].split(')')[0];
+    int value = int.parse(valueString, radix: 16);
+    print(value);
+
     return Book(
       id: book['id'],
       title: book['title'],
@@ -58,6 +67,7 @@ class Book {
       isbn: book['isbn'],
       isGoodreads: book['isGoodreads'],
       lastRead: book['lastRead'] != null ? book['lastRead'].toDate() : null,
+      spineColor: new Color(value),
     );
   }
 

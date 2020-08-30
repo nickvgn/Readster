@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:provider/provider.dart';
 import 'package:untitled_goodreads_project/constants.dart';
-import 'package:untitled_goodreads_project/controller/firestore-controller.dart';
-import 'package:untitled_goodreads_project/models/book.dart';
 
 class ReadStatusRadio extends StatelessWidget {
   const ReadStatusRadio({

@@ -1,9 +1,10 @@
 import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
+import 'package:http/http.dart' as http;
 import 'package:untitled_goodreads_project/constants.dart';
 import 'package:untitled_goodreads_project/models/book.dart';
-import 'package:http/http.dart' as http;
-import 'package:flutter/foundation.dart';
 import 'package:untitled_goodreads_project/models/genre.dart';
 import 'package:untitled_goodreads_project/services/text-helper.dart';
 
@@ -170,10 +171,12 @@ class BookController with ChangeNotifier {
   String apiType = GOODREADS;
   bool isLoading = false;
   String readStatus = TOREAD;
+  String bookView = LIST;
   double sliderValue = 0.5;
   String currentScreen = HOME;
   int index = 0;
   List<String> statuses = [ALL, TOREAD, READING, READ];
+  List<String> views = [LIST, SHELF];
 
   static String getAuthors(dynamic authors) {
     List<String> names = [];
@@ -210,9 +213,9 @@ class BookController with ChangeNotifier {
     notifyListeners();
   }
 
-  void updateReadStatusState() {
-    readStatus = statuses[index];
-    index == 3 ? index = 0 : index++;
+  void updateBookView() {
+    bookView = views[index];
+    index == 1 ? index = 0 : index++;
     notifyListeners();
   }
 

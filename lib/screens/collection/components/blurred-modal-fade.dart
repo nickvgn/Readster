@@ -1,10 +1,8 @@
 import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_fadein/flutter_fadein.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:untitled_goodreads_project/constants.dart';
-import 'package:untitled_goodreads_project/models/book.dart';
-import 'package:untitled_goodreads_project/screens/collection/components/progress-modal-content.dart';
 
 PageRouteBuilder buildBlurredModalFade(
     {Size size, Widget child, double height = 360, double width = 340}) {

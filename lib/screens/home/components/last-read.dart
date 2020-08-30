@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rounded_progress_bar/flutter_rounded_progress_bar.dart';
 import 'package:flutter_rounded_progress_bar/rounded_progress_bar_style.dart';
-import 'package:untitled_goodreads_project/constants.dart';
 import 'package:intl/intl.dart';
 
 class LastRead extends StatelessWidget {

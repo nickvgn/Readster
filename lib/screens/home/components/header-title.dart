@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:untitled_goodreads_project/constants.dart';
 
 class HeaderTitle extends StatelessWidget {
   final String title;

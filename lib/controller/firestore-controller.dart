@@ -1,11 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:untitled_goodreads_project/constants.dart';
 import 'package:untitled_goodreads_project/controller/weekday-controller.dart';
 import 'package:untitled_goodreads_project/models/book.dart';
 import 'package:untitled_goodreads_project/models/user.dart';
 import 'package:untitled_goodreads_project/services/auth.dart';
-import 'package:intl/intl.dart';
+import 'package:untitled_goodreads_project/services/image-helper.dart';
 
 class FirestoreController extends ChangeNotifier {
   static Firestore db = Firestore.instance;
@@ -103,6 +104,9 @@ class FirestoreController extends ChangeNotifier {
 
   Future<void> addBook(Book book) async {
     var uid = await AuthService().getUserId;
+    Color color = await ImageHelper.getImagePaletteDominantColor(
+        NetworkImage(book.imageUrl));
+
     await db.collection('books').add({
       'id': book.id,
       'title': book.title,
@@ -114,6 +118,7 @@ class FirestoreController extends ChangeNotifier {
       'readStatus': TOREAD,
       'isGoodreads': false,
       'uid': uid,
+      'color': color.toString()
     });
     notifyListeners();
   }
@@ -192,7 +197,7 @@ class FirestoreController extends ChangeNotifier {
   void updateFinishedPages(int pageRead, Book book) async {
     DocumentSnapshot bookToUpdate = await _getDocument(book);
     print("PREVIOUS PAGE: ${bookToUpdate['pageRead']}");
-    print("CURRENT PAGE: ${pageRead}");
+    print("CURRENT PAGE: $pageRead");
     print("DIFFERENCE: ${pageRead - bookToUpdate['pageRead']} ");
 
     addReadTimestamp(pageRead - bookToUpdate['pageRead'], book.id);
@@ -206,9 +211,6 @@ class FirestoreController extends ChangeNotifier {
   }
 
   void addReadTimestamp(int pagesRead, String bookId) async {
-    DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:mm:ss");
-    DateTime dateTime = dateFormat.parse("2020-08-19 8:40:23");
-
     DocumentSnapshot userToUpdate = await _getUserDocument();
     await db
         .collection('user')

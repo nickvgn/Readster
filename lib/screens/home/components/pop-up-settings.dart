@@ -15,113 +15,110 @@ class PopUpSettings extends StatelessWidget {
   const PopUpSettings({
     Key key,
     this.user,
+    this.icon,
   }) : super(key: key);
   final FirebaseUser user;
+  final Widget icon;
 
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     final AuthService auth = AuthService();
 
-    return Expanded(
-      child: PopupMenuButton(
-        padding: EdgeInsets.zero,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
-        color: kLightBackgroundColor,
-        icon: NeumorphicIcon(
-          FontAwesomeIcons.ellipsisV,
-          size: 30,
+    return PopupMenuButton(
+      padding: EdgeInsets.zero,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+      color: kLightBackgroundColor,
+      child: icon,
+      offset: Offset(0, 60),
+      onSelected: (value) async {
+        switch (value) {
+          case 1:
+            Navigator.of(context).push(
+              buildBlurredModal(
+                height: 500,
+                width: size.width / 1.2,
+                child: Reminder(user: user),
+              ),
+            );
+            break;
+          case 2:
+            Navigator.of(context).push(
+              buildBlurredModal(
+                height: size.height / 3,
+                width: size.width / 1.2,
+                child: Goal(),
+              ),
+            );
+            break;
+          case 3:
+            await auth.signOut();
+            Navigator.pushAndRemoveUntil(
+                context,
+                PageTransition(
+                  child: LoginScreen(),
+                  type: PageTransitionType.scale,
+                ),
+                (route) => false);
+            break;
+        }
+      },
+      itemBuilder: (context) => [
+        PopupMenuItem(
+          value: 1,
+          child: Row(
+            children: [
+              Icon(
+                MdiIcons.reminder,
+                color: kPrimaryColor,
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Text(
+                'Set a reminder',
+                style: Theme.of(context).textTheme.subtitle2,
+              ),
+            ],
+          ),
         ),
-        offset: Offset(0, 60),
-        onSelected: (value) async {
-          switch (value) {
-            case 1:
-              Navigator.of(context).push(
-                buildBlurredModal(
-                  height: 500,
-                  width: size.width / 1.2,
-                  child: Reminder(user: user),
-                ),
-              );
-              break;
-            case 2:
-              Navigator.of(context).push(
-                buildBlurredModal(
-                  height: size.height / 3,
-                  width: size.width / 1.2,
-                  child: Goal(),
-                ),
-              );
-              break;
-            case 3:
-              await auth.signOut();
-              Navigator.pushAndRemoveUntil(
-                  context,
-                  PageTransition(
-                    child: LoginScreen(),
-                    type: PageTransitionType.scale,
-                  ),
-                  (route) => false);
-              break;
-          }
-        },
-        itemBuilder: (context) => [
-          PopupMenuItem(
-            value: 1,
-            child: Row(
-              children: [
-                Icon(
-                  MdiIcons.reminder,
-                  color: kPrimaryColor,
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                Text(
-                  'Set a reminder',
-                  style: Theme.of(context).textTheme.subtitle2,
-                ),
-              ],
-            ),
+        PopupMenuItem(
+          value: 2,
+          child: Row(
+            children: [
+              Icon(
+                FontAwesomeIcons.solidStar,
+                color: kPrimaryColor,
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Text(
+                'Set a goal',
+                style: Theme.of(context).textTheme.subtitle2,
+              ),
+            ],
           ),
-          PopupMenuItem(
-            value: 2,
-            child: Row(
-              children: [
-                Icon(
-                  FontAwesomeIcons.solidStar,
-                  color: kPrimaryColor,
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                Text(
-                  'Set a goal',
-                  style: Theme.of(context).textTheme.subtitle2,
-                ),
-              ],
-            ),
+        ),
+        PopupMenuItem(
+          value: 3,
+          child: Row(
+            children: [
+              Icon(
+                MdiIcons.logout,
+                color: kPrimaryColor,
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Text(
+                'Log out',
+                style: Theme.of(context).textTheme.subtitle2,
+              ),
+            ],
           ),
-          PopupMenuItem(
-            value: 3,
-            child: Row(
-              children: [
-                Icon(
-                  MdiIcons.logout,
-                  color: kPrimaryColor,
-                ),
-                SizedBox(
-                  width: 10,
-                ),
-                Text(
-                  'Log out',
-                  style: Theme.of(context).textTheme.subtitle2,
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

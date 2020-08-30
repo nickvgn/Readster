@@ -1,10 +1,10 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:untitled_goodreads_project/constants.dart';
 import 'package:untitled_goodreads_project/models/quote.dart';
 import 'package:untitled_goodreads_project/services/image-helper.dart';
-import 'package:auto_size_text/auto_size_text.dart';
 
 class QuoteCard extends StatelessWidget {
   final Quote quote;

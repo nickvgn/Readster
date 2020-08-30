@@ -1,22 +1,19 @@
+import 'dart:async';
 import 'dart:ui';
+
+import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
-import 'package:untitled_goodreads_project/components/search-box.dart';
 import 'package:untitled_goodreads_project/constants.dart';
 import 'package:untitled_goodreads_project/controller/book-controller.dart';
-import 'package:untitled_goodreads_project/screens/collection/collection-screen.dart';
 import 'package:untitled_goodreads_project/screens/details/details-screen.dart';
-import 'package:untitled_goodreads_project/screens/home/home-screen.dart';
 import 'package:untitled_goodreads_project/screens/search/search-screen.dart';
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
-import 'dart:async';
-import 'package:flare_flutter/flare_actor.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({
@@ -29,7 +26,6 @@ class BottomNavBar extends StatefulWidget {
 
 class _BottomNavBarState extends State<BottomNavBar> {
   bool isPaused = false;
-  int _selectedItemPosition = 1;
   @override
   void initState() {
     super.initState();

@@ -1,12 +1,13 @@
 import 'dart:ui';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_fadein/flutter_fadein.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:untitled_goodreads_project/constants.dart';
 import 'package:untitled_goodreads_project/controller/firestore-controller.dart';
@@ -14,7 +15,6 @@ import 'package:untitled_goodreads_project/models/book.dart';
 import 'package:untitled_goodreads_project/screens/details/components/add-or-remove-button.dart';
 import 'package:untitled_goodreads_project/screens/details/components/ratings-card.dart';
 import 'package:untitled_goodreads_project/screens/details/components/title-card.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 class SliverTitleBar extends StatefulWidget {
   const SliverTitleBar({

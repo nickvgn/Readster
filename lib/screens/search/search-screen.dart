@@ -2,14 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 import 'package:untitled_goodreads_project/components/search-box.dart';
 import 'package:untitled_goodreads_project/components/spinkit-widget.dart';
 import 'package:untitled_goodreads_project/constants.dart';
 import 'package:untitled_goodreads_project/controller/book-controller.dart';
 import 'package:untitled_goodreads_project/models/book.dart';
-import 'package:http/http.dart' as http;
 import 'package:untitled_goodreads_project/screens/search/components/api-selector-tab.dart';
 import 'package:untitled_goodreads_project/screens/search/components/search-list.dart';
 
@@ -80,6 +79,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   ),
                 ),
           NeumorphicToggle(
+            thumb: Container(),
             height: 60,
             width: double.infinity,
             children: [

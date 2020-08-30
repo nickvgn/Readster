@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:untitled_goodreads_project/components/dog-ear-button.dart';
 import 'package:untitled_goodreads_project/constants.dart';
 import 'package:untitled_goodreads_project/screens/home/components/date-of-today.dart';
 import 'package:untitled_goodreads_project/screens/home/components/last-read.dart';

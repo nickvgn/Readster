@@ -1,21 +1,15 @@
-import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
-import 'package:untitled_goodreads_project/components/bottom-nav-bar.dart';
 import 'package:untitled_goodreads_project/constants.dart';
 import 'package:untitled_goodreads_project/controller/book-controller.dart';
 import 'package:untitled_goodreads_project/screens/collection/booklist.dart';
 import 'package:untitled_goodreads_project/screens/collection/bookshelf.dart';
-import 'package:untitled_goodreads_project/screens/home/home-screen.dart';
 
 class CollectionScreen extends StatefulWidget {
   @override
@@ -28,7 +22,7 @@ class _CollectionScreenState extends State<CollectionScreen> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 2,
+      length: 3,
       child: Column(
         children: [
           AppBar(
@@ -74,20 +68,14 @@ class _CollectionScreenState extends State<CollectionScreen> {
                   depth: 0,
                 ),
                 child: Icon(
-                  MdiIcons.filterVariant,
+                  Provider.of<BookController>(context).bookView == SHELF
+                      ? MdiIcons.viewList
+                      : MdiIcons.viewGrid,
                   color: kPrimaryColor,
                 ),
                 onPressed: () {
                   Provider.of<BookController>(context, listen: false)
-                      .updateReadStatusState();
-                  Fluttertoast.showToast(
-                    backgroundColor: kPrimaryColor,
-                    msg: Provider.of<BookController>(context, listen: false)
-                        .readStatus,
-                    toastLength: Toast.LENGTH_SHORT,
-                    gravity: ToastGravity.TOP,
-                    timeInSecForIosWeb: 1,
-                  );
+                      .updateBookView();
                 },
               ),
               SizedBox(width: 15)
@@ -108,21 +96,31 @@ class _CollectionScreenState extends State<CollectionScreen> {
                 color: Colors.transparent,
               )),
               tabs: [
-                Tab(text: 'Recent'),
-                Tab(text: 'Bookshelf'),
+                Tab(text: 'Reading'),
+                Tab(text: 'Read Later'),
+                Tab(text: 'Read'),
               ],
             ),
           ),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: TabBarView(
-                physics: BouncingScrollPhysics(),
-                children: [
-                  BookList(),
-                  Bookshelf(),
-                ],
-              ),
+              child: Consumer<BookController>(builder: (_, bookController, __) {
+                return TabBarView(
+                  physics: BouncingScrollPhysics(),
+                  children: [
+                    bookController.bookView == LIST
+                        ? BookList(status: READING)
+                        : Bookshelf(status: READING),
+                    bookController.bookView == LIST
+                        ? BookList(status: TOREAD)
+                        : Bookshelf(status: TOREAD),
+                    bookController.bookView == LIST
+                        ? BookList(status: READ)
+                        : Bookshelf(status: READ),
+                  ],
+                );
+              }),
             ),
           ),
         ],

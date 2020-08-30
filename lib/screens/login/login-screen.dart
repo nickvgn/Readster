@@ -4,10 +4,8 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:page_transition/page_transition.dart';
 import 'package:untitled_goodreads_project/components/animated-logo.dart';
 import 'package:untitled_goodreads_project/constants.dart';
-import 'package:untitled_goodreads_project/screens/home/home-screen.dart';
 import 'package:untitled_goodreads_project/screens/index/index.dart';
 import 'package:untitled_goodreads_project/services/auth.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   @override

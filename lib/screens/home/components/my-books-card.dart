@@ -1,20 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_fadein/flutter_fadein.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_rounded_progress_bar/flutter_rounded_progress_bar.dart';
 import 'package:flutter_rounded_progress_bar/rounded_progress_bar_style.dart';
 import 'package:untitled_goodreads_project/components/book-3d.dart';
 import 'package:untitled_goodreads_project/constants.dart';
 import 'package:untitled_goodreads_project/models/book.dart';
-import 'package:untitled_goodreads_project/services/image-helper.dart';
 
 class MyBooksCard extends StatelessWidget {
   const MyBooksCard({
     Key key,
     this.book,
+    this.isFadeIn,
   }) : super(key: key);
 
   final Book book;
+  final bool isFadeIn;
 
   String getTimeAgo() {
     var difference = DateTime.now().difference(book.lastRead);
@@ -125,7 +127,9 @@ class MyBooksCard extends StatelessWidget {
               height: 190,
               child: Padding(
                 padding: const EdgeInsets.only(top: 10, left: 5),
-                child: Book3D(book: book),
+                child: FadeIn(
+                    duration: Duration(milliseconds: 200),
+                    child: Book3D(book: book)),
               ),
             ),
           ),

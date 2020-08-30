@@ -1,10 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:provider/provider.dart';
 import 'package:untitled_goodreads_project/constants.dart';
-import 'package:untitled_goodreads_project/controller/book-controller.dart';
-import 'package:untitled_goodreads_project/screens/search/components/bottom-selector-%20indicator.dart';
 
 class APISelectorTab extends StatelessWidget {
   const APISelectorTab({

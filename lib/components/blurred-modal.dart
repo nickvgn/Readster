@@ -1,6 +1,6 @@
 import 'dart:ui';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_fadein/flutter_fadein.dart';
 
 PageRouteBuilder buildBlurredModal(
     {Size size, Widget child, double height = 360, double width = 340}) {

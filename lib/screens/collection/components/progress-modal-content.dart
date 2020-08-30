@@ -40,14 +40,12 @@ class _ProgressModalContentState extends State<ProgressModalContent> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Flexible(
-              child: SizedBox(
-                height: 210,
-                child: Hero(
-                  tag: 'cover${widget.book.id}',
-                  child: Book3D(
-                    book: widget.book,
-                  ),
+            SizedBox(
+              height: 210,
+              child: Hero(
+                tag: 'cover${widget.book.id}',
+                child: Book3D(
+                  book: widget.book,
                 ),
               ),
             ),

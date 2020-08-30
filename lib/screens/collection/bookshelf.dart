@@ -1,24 +1,21 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fading_edge_scrollview/fading_edge_scrollview.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:page_transition/page_transition.dart';
-import 'package:provider/provider.dart';
-import 'package:untitled_goodreads_project/constants.dart';
-import 'package:untitled_goodreads_project/controller/book-controller.dart';
-import 'package:untitled_goodreads_project/controller/firestore-controller.dart';
-import 'package:untitled_goodreads_project/models/book.dart';
-import 'file:///C:/Users/MSI%20GP60-2PE/Projects/IdeaProjects/untitled_goodreads_project/lib/components/book-3d.dart';
-import 'package:untitled_goodreads_project/screens/details/details-screen.dart';
-import 'package:untitled_goodreads_project/services/image-helper.dart';
 import 'package:flutter_fadein/flutter_fadein.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:provider/provider.dart';
+import 'package:untitled_goodreads_project/components/book-3d.dart';
+import 'package:untitled_goodreads_project/constants.dart';
+import 'package:untitled_goodreads_project/controller/firestore-controller.dart';
 
 class Bookshelf extends StatefulWidget {
+  const Bookshelf({Key key, this.status}) : super(key: key);
+
   @override
   _BookshelfState createState() => _BookshelfState();
+
+  final String status;
 }
 
 class _BookshelfState extends State<Bookshelf> {
@@ -27,7 +24,7 @@ class _BookshelfState extends State<Bookshelf> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(milliseconds: 400), () {
+    Future.delayed(const Duration(milliseconds: 450), () {
       setState(() {
         isFadeIn = true;
       });
@@ -46,34 +43,37 @@ class _BookshelfState extends State<Bookshelf> {
           height: size.height,
           child: isFadeIn
               ? StreamBuilder(
-                  stream: Provider.of<BookController>(context).readStatus != ALL
-                      ? FirestoreController.streamBooksByStatus(user.uid,
-                          Provider.of<BookController>(context).readStatus)
+                  stream: widget.status != ALL
+                      ? FirestoreController.streamBooksByStatus(
+                          user.uid, widget.status)
                       : FirestoreController.streamBooks(user.uid),
                   builder: (context, snapshot) {
                     var books = snapshot.data;
                     return snapshot.hasData
                         ? Stack(
                             children: [
-                              FadeIn(
-                                duration: Duration(milliseconds: 400),
-                                child: FadingEdgeScrollView.fromScrollView(
-                                  child: GridView.builder(
-                                    cacheExtent: 70,
-                                    controller: controller,
-                                    physics: BouncingScrollPhysics(),
-                                    padding: EdgeInsets.symmetric(
-                                        vertical: 20, horizontal: 10),
-                                    gridDelegate:
-                                        SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 4,
-                                      mainAxisSpacing: 20,
-                                      crossAxisSpacing: 0,
-                                      childAspectRatio: .50,
-                                    ),
-                                    itemCount: books.length,
-                                    itemBuilder: (context, index) => Book3D(
-                                      book: books[index],
+                              FadingEdgeScrollView.fromScrollView(
+                                child: GridView.builder(
+                                  controller: controller,
+                                  physics: BouncingScrollPhysics(),
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 20, horizontal: 10),
+                                  gridDelegate:
+                                      SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 4,
+                                    mainAxisSpacing: 20,
+                                    crossAxisSpacing: 0,
+                                    childAspectRatio: .50,
+                                  ),
+                                  cacheExtent: 500,
+                                  itemCount: books.length,
+                                  itemBuilder: (context, index) => FittedBox(
+                                    fit: BoxFit.contain,
+                                    child: SizedBox(
+                                      height: 190,
+                                      child: FadeIn(
+                                          duration: Duration(milliseconds: 500),
+                                          child: Book3D(book: books[index])),
                                     ),
                                   ),
                                 ),

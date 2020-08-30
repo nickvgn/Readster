@@ -15,6 +15,7 @@ class CircularProgressWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return SleekCircularSlider(
       appearance: CircularSliderAppearance(
+        spinnerDuration: 500,
         size: 85,
         startAngle: 270,
         angleRange: 365,

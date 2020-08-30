@@ -50,6 +50,9 @@ dependencies:
   flutter_snake_navigationbar:
   kenburns: ^1.0.3
   flutter_local_notifications: ^1.4.4+4
+  transparent_image: ^1.0.0
+  matrix4_transform: ^1.1.4
+  flutter_flip_view:
 
   cloud_firestore: ^0.13.7
   firebase_auth: ^0.16.1

@@ -1,17 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_fadein/flutter_fadein.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:untitled_goodreads_project/components/spinkit-widget.dart';
-import 'package:untitled_goodreads_project/models/book.dart';
+import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
+import 'package:untitled_goodreads_project/components/spinkit-widget.dart';
+import 'package:untitled_goodreads_project/controller/book-controller.dart';
+import 'package:untitled_goodreads_project/models/book.dart';
 import 'package:untitled_goodreads_project/screens/details/components/book-suggestions-list.dart';
 import 'package:untitled_goodreads_project/screens/details/components/description-card.dart';
 import 'package:untitled_goodreads_project/screens/details/components/more-info.dart';
 import 'package:untitled_goodreads_project/screens/details/components/sliver-title-bar.dart';
-import 'package:http/http.dart' as http;
 import 'package:untitled_goodreads_project/services/text-helper.dart';
-import 'package:untitled_goodreads_project/controller/book-controller.dart';
-import 'package:flutter_fadein/flutter_fadein.dart';
 
 class DetailsScreen extends StatefulWidget {
   final String isbn;
