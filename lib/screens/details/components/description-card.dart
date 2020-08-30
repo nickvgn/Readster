@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
+import 'package:untitled_goodreads_project/components/header-title.dart';
 import 'package:untitled_goodreads_project/constants.dart';
-import 'package:untitled_goodreads_project/screens/home/components/header-title.dart';
 
 class DescriptionCard extends StatelessWidget {
   final String description;

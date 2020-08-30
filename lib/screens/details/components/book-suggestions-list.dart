@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
+import 'package:untitled_goodreads_project/components/header-title.dart';
 import 'package:untitled_goodreads_project/constants.dart';
 import 'package:untitled_goodreads_project/controller/book-controller.dart';
 import 'package:untitled_goodreads_project/models/book.dart';
 import 'package:untitled_goodreads_project/screens/details/details-screen.dart';
-import 'package:untitled_goodreads_project/screens/home/components/header-title.dart';
 
 class BookSuggestionList extends StatelessWidget {
   const BookSuggestionList({

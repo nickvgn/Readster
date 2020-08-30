@@ -54,7 +54,6 @@ class Book {
 
     String valueString = book['color'].toString().split('(0x')[1].split(')')[0];
     int value = int.parse(valueString, radix: 16);
-    print(value);
 
     return Book(
       id: book['id'],

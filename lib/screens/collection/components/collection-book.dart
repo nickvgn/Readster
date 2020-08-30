@@ -53,9 +53,10 @@ class _CollectionBookState extends State<CollectionBook> {
           children: [
             Stack(
               children: [
-                SizedBox(
-                  height: 160,
+                FittedBox(
+                  fit: BoxFit.cover,
                   child: NeumorphicButton(
+                    margin: EdgeInsets.all(20),
                     padding: EdgeInsets.zero,
                     onPressed: () {
                       Provider.of<BookController>(context, listen: false)
@@ -79,7 +80,7 @@ class _CollectionBookState extends State<CollectionBook> {
                         child: FadeInImage.memoryNetwork(
                           image: widget.book.imageUrl,
                           placeholder: kTransparentImage,
-                          fit: BoxFit.cover,
+                          fit: BoxFit.fill,
                         ),
                       ),
                     ),
@@ -87,11 +88,11 @@ class _CollectionBookState extends State<CollectionBook> {
                 ),
               ],
             ),
-            SizedBox(width: 25),
-            Flexible(
+            SizedBox(width: 20),
+            Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   SizedBox(height: 10),
                   Row(
@@ -103,18 +104,18 @@ class _CollectionBookState extends State<CollectionBook> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SizedBox(
-                            width: size.width * .47,
+                            width: size.width * .45,
                             child: AutoSizeText(
                               widget.book.title,
                               style: TextStyle(fontSize: 15),
-                              maxLines: 2,
+                              maxLines: 3,
                               minFontSize: 8,
                               maxFontSize: 15,
                             ),
                           ),
                           SizedBox(height: 5),
                           SizedBox(
-                            width: size.width * .47,
+                            width: size.width * .45,
                             child: AutoSizeText(
                               widget.book.author,
                               style: TextStyle(
@@ -178,10 +179,10 @@ class _CollectionBookState extends State<CollectionBook> {
                         ),
                     ],
                   ),
-                  SizedBox(height: 10),
+                  Spacer(),
                   if (readStatus == READING)
                     SizedBox(
-                      width: size.width * .55,
+                      width: size.width * .53,
                       child: Hero(
                         tag: 'slider${widget.book.id}',
                         child: NeumorphicProgress(
@@ -195,7 +196,6 @@ class _CollectionBookState extends State<CollectionBook> {
                         ),
                       ),
                     ),
-                  SizedBox(height: 10),
                   if (readStatus == TOREAD)
                     NeumorphicButton(
                       style: kNeumorphicStyle.copyWith(
@@ -216,7 +216,7 @@ class _CollectionBookState extends State<CollectionBook> {
                         });
                       },
                     ),
-                  SizedBox(height: 5),
+                  SizedBox(height: 30),
                 ],
               ),
             ),

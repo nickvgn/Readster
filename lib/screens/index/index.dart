@@ -29,7 +29,7 @@ class _IndexScreenState extends State<IndexScreen> {
         children: [
           Positioned(
             bottom: 1,
-            left: 10,
+            left: 15,
             child: Align(
               alignment: Alignment.bottomLeft,
               child: BottomNavBar(),
@@ -37,13 +37,13 @@ class _IndexScreenState extends State<IndexScreen> {
           ),
           SnakeNavigationBar(
             elevation: 0,
-            style: SnakeBarStyle.pinned,
+            style: SnakeBarStyle.floating,
             snakeShape: SnakeShape.circle,
             snakeColor: kPrimaryColor,
             backgroundColor: kLightBackgroundColor,
             showUnselectedLabels: false,
             showSelectedLabels: false,
-            padding: EdgeInsets.only(top: 10, bottom: 10, left: 250),
+            padding: EdgeInsets.only(top: 10, bottom: 10, left: 230),
             currentIndex: _selectedItemPosition,
             onPositionChanged: (index) {
               setState(() {
@@ -52,26 +52,32 @@ class _IndexScreenState extends State<IndexScreen> {
             },
             items: [
               BottomNavigationBarItem(
-                icon: FlareActor("assets/icons/home-4.flr",
+                icon: Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: FlareActor(
+                    "assets/icons/home-4.flr",
                     alignment: Alignment.center,
                     color: kSecondaryColor,
 //                    isPaused: isPaused,
-                    fit: BoxFit.contain,
-                    animation: "Untitled"),
+                    fit: BoxFit.fitHeight,
+                    animation: "Untitled",
+                  ),
+                ),
               ),
               BottomNavigationBarItem(
-                icon: Icon(
-                  MdiIcons.bookshelf,
-                  size: 40,
-                  color: kSecondaryColor,
+                icon: Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: Icon(
+                    MdiIcons.bookshelf,
+                    size: 35,
+                    color: kSecondaryColor,
+                  ),
                 ),
               ),
             ],
           ),
         ],
       ),
-
-//      BottomNavBar(),
     );
   }
 }
