@@ -20,15 +20,22 @@ class MyBooksCard extends StatelessWidget {
 
   String getTimeAgo() {
     var difference = DateTime.now().difference(book.lastRead);
-    return difference.inDays == 0 &&
-            difference.inMinutes == 0 &&
-            difference.inHours != 0
-        ? difference.inHours.toString() + ' hour(s) ago'
-        : difference.inHours == 0 &&
-                difference.inDays == 0 &&
-                difference.inMinutes != 0
-            ? difference.inMinutes.toString() + ' minute(s) ago'
-            : difference.inDays.toString() + ' day(s) ago';
+    if (difference.inDays == 0 &&
+        difference.inHours == 0 &&
+        difference.inMinutes != 0) {
+      return difference.inMinutes > 1
+          ? difference.inMinutes.toString() + ' minutes ago'
+          : difference.inMinutes.toString() + ' minute ago';
+    } else if (difference.inDays == 0 && difference.inHours != 0) {
+      return difference.inHours > 1
+          ? difference.inHours.toString() + ' hours ago'
+          : difference.inHours.toString() + ' hour ago';
+    } else if (difference.inDays != 0) {
+      return difference.inDays > 1
+          ? difference.inDays.toString() + ' days ago'
+          : difference.inDays.toString() + ' day ago';
+    }
+    return '';
   }
 
   @override
@@ -60,7 +67,7 @@ class MyBooksCard extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 15),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Flexible(
                           child: RichText(
@@ -87,26 +94,25 @@ class MyBooksCard extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Flexible(
-                          child: RoundedProgressBar(
-                            borderRadius: BorderRadius.circular(25),
-                            style: RoundedProgressBarStyle(
-                              colorBorder: Colors.transparent,
-                              colorProgressDark: kPrimaryColor,
-                              colorProgress: kPrimaryColor,
-                              backgroundProgress: Colors.grey.withOpacity(.2),
-                            ),
-                            milliseconds: 2000,
-                            height: 11,
-                            percent: book.pageRead / book.pageCount * 100,
+                        RoundedProgressBar(
+                          borderRadius: BorderRadius.circular(25),
+                          style: RoundedProgressBarStyle(
+                            colorBorder: Colors.transparent,
+                            colorProgressDark: kPrimaryColor,
+                            colorProgress: kPrimaryColor,
+                            backgroundProgress: Colors.grey.withOpacity(.2),
                           ),
+                          milliseconds: 2000,
+                          height: 17,
+                          percent: book.pageRead / book.pageCount * 100,
                         ),
-                        Flexible(
+                        Expanded(
                           child: Text(
-                            '${book.lastRead != null ? ' Last read: ${getTimeAgo()} ' : ''}',
-                            style: Theme.of(context).textTheme.caption.copyWith(
-                                  color: Colors.black26,
-                                ),
+                            '${book.lastRead != null ? '  Last read: ${getTimeAgo()} ' : ''}',
+                            style:
+                                Theme.of(context).textTheme.subtitle2.copyWith(
+                                      color: Colors.black26,
+                                    ),
                           ),
                         ),
                         Spacer(),

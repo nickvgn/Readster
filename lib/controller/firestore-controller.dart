@@ -168,6 +168,15 @@ class FirestoreController extends ChangeNotifier {
     notifyListeners();
   }
 
+  void resetPagesRead(Book book) async {
+    DocumentSnapshot bookToUpdate = await _getDocument(book);
+    await db
+        .collection('books')
+        .document(bookToUpdate.documentID)
+        .updateData({'pageRead': 0});
+    notifyListeners();
+  }
+
   void addFinishedReadingDate(String readStatus, Book book) async {
     DocumentSnapshot bookToUpdate = await _getDocument(book);
     DocumentSnapshot userToUpdate = await _getUserDocument();

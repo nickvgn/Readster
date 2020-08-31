@@ -64,7 +64,7 @@ class BookSuggestionList extends StatelessWidget {
                             child: NeumorphicButton(
                               style: kNeumorphicStyle.copyWith(
                                 boxShape: NeumorphicBoxShape.roundRect(
-                                  BorderRadius.circular(10),
+                                  BorderRadius.circular(5),
                                 ),
                               ),
                               padding: EdgeInsets.zero,

@@ -54,6 +54,7 @@ class MyApp extends StatelessWidget {
           accentColor: kPrimaryColor,
           variantColor: kSecondaryColor,
           lightSource: LightSource.topLeft,
+          shadowLightColor: Colors.white60,
           depth: 5,
           textTheme: GoogleFonts.quicksandTextTheme(),
           appBarTheme: NeumorphicAppBarThemeData(

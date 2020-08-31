@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:transparent_image/transparent_image.dart';
@@ -80,6 +81,7 @@ class _CollectionBookState extends State<CollectionBook> {
                         child: FadeInImage.memoryNetwork(
                           image: widget.book.imageUrl,
                           placeholder: kTransparentImage,
+                          placeholderScale: 100,
                           fit: BoxFit.fill,
                         ),
                       ),
@@ -139,7 +141,7 @@ class _CollectionBookState extends State<CollectionBook> {
                             boxShape: NeumorphicBoxShape.circle(),
                           ),
                           child: NeumorphicIcon(
-                            FontAwesomeIcons.check,
+                            MdiIcons.read,
                             style: kNeumorphicStyle.copyWith(
                               color: kSecondaryColor,
                               depth: 1,
@@ -197,20 +199,24 @@ class _CollectionBookState extends State<CollectionBook> {
                       ),
                     ),
                   if (readStatus == TOREAD)
-                    NeumorphicButton(
-                      style: kNeumorphicStyle.copyWith(
-                          boxShape: NeumorphicBoxShape.roundRect(
-                              BorderRadius.circular(25))),
-                      child: Text(
-                        'Start Reading',
-                        style: Theme.of(context).textTheme.caption.copyWith(
-                              color: kPrimaryColor,
-                              fontWeight: FontWeight.bold,
-                            ),
-                      ),
-                      onPressed: () {
+                    ReadUpdateButton(
+                      title: 'Start Reading',
+                      press: () {
                         Provider.of<FirestoreController>(context, listen: false)
                             .updateBookStatus(READING, widget.book);
+                        setState(() {
+                          readStatus = READING;
+                        });
+                      },
+                    ),
+                  if (readStatus == READ)
+                    ReadUpdateButton(
+                      title: 'Read Again',
+                      press: () {
+                        Provider.of<FirestoreController>(context, listen: false)
+                            .updateBookStatus(READING, widget.book);
+                        Provider.of<FirestoreController>(context, listen: false)
+                            .resetPagesRead(widget.book);
                         setState(() {
                           readStatus = READING;
                         });
@@ -223,6 +229,33 @@ class _CollectionBookState extends State<CollectionBook> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class ReadUpdateButton extends StatelessWidget {
+  const ReadUpdateButton({
+    Key key,
+    this.title,
+    this.press,
+  }) : super(key: key);
+
+  final String title;
+  final Function press;
+
+  @override
+  Widget build(BuildContext context) {
+    return NeumorphicButton(
+      style: kNeumorphicStyle.copyWith(
+          boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(25))),
+      child: Text(
+        title,
+        style: Theme.of(context).textTheme.caption.copyWith(
+              color: kPrimaryColor,
+              fontWeight: FontWeight.bold,
+            ),
+      ),
+      onPressed: press,
     );
   }
 }

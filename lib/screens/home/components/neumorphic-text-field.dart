@@ -30,16 +30,15 @@ class NeumorphicTextField extends StatelessWidget {
         keyboardType: TextInputType.number,
         decoration: InputDecoration(
           border: InputBorder.none,
-          suffixIcon: IconButton(
-            icon: Icon(
-              icon,
-              color: kPrimaryColor,
-            ),
-            onPressed: () {
-              _controller.clear();
-              FocusScope.of(context).unfocus();
-            },
+          suffixIcon: Icon(
+            icon,
+            color: kPrimaryColor,
           ),
+//            onPressed: () {
+//              _controller.clear();
+//              FocusScope.of(context).unfocus();
+//            },
+//          ),
           hintText: hintText,
           hintStyle: TextStyle(color: kDarkTextColor),
         ),

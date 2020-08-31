@@ -53,6 +53,8 @@ dependencies:
   transparent_image: ^1.0.0
   matrix4_transform: ^1.1.4
   flutter_flip_view:
+  bitmap: ^0.0.6
+
 
   cloud_firestore: ^0.13.7
   firebase_auth: ^0.16.1

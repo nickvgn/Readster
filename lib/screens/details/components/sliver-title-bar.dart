@@ -163,7 +163,7 @@ class _SliverTitleBarState extends State<SliverTitleBar> {
                         duration: Duration(milliseconds: 5000),
                         child: Hero(
                           child: ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
+                            borderRadius: BorderRadius.circular(5),
                             child: Container(
                               height: 170,
                               child: CachedNetworkImage(

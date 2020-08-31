@@ -5,10 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:intl/intl.dart';
+import 'package:transparent_image/transparent_image.dart';
 import 'package:untitled_goodreads_project/components/confirmation-button.dart';
 import 'package:untitled_goodreads_project/constants.dart';
 import 'package:untitled_goodreads_project/controller/firestore-controller.dart';
 import 'package:untitled_goodreads_project/models/book.dart';
+import 'package:bitmap/bitmap.dart';
 
 class Reminder extends StatefulWidget {
   const Reminder({
@@ -26,37 +28,39 @@ class _ReminderState extends State<Reminder> {
   DateFormat time = DateFormat("hh:mm");
   DateTime dateTime = DateTime.now();
   String bookTitle = 'a book';
+  String imageUrl = '';
+  String day = 'today';
 
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 
-  Future onSelectNotification(String payload) async {
-    showDialog(
-      context: context,
-      builder: (_) {
-        return new AlertDialog(
-          title: Text("PayLoad"),
-          content: Text("Payload : $payload"),
-        );
-      },
-    );
-  }
+  Future onSelectNotification(String payload) async {}
 
-  showNotification(String bookTitle, DateTime dateTime) async {
+  showNotification(String bookTitle, String imageUrl, DateTime dateTime) async {
+    Bitmap bitmap = await Bitmap.fromProvider(
+        NetworkImage(imageUrl)); // Notice this is an async operation
     var android = AndroidNotificationDetails(
-        'channel id', 'channel name', 'channel description');
+        'channel id', 'channel name', 'channel description',
+        autoCancel: true,
+        styleInformation: BigTextStyleInformation(
+            'This is the book: $bookTitle. What are you waiting for?'));
     var iOS = IOSNotificationDetails();
     var platform = NotificationDetails(android, iOS);
     await flutterLocalNotificationsPlugin.schedule(
-        0,
-        '🐱‍👓 Hey! Over here.. Read this book: $bookTitle.',
-        'This message was brought to you by Readster.',
-        dateTime,
-        platform);
+        0, '📖 It\'s time to read!', '', dateTime, platform);
   }
 
   @override
   void initState() {
     super.initState();
+
+    var initializationSettingsAndroid =
+        new AndroidInitializationSettings('@mipmap/ic_launcher');
+    var initializationSettingsIOS = new IOSInitializationSettings();
+    var initializationSettings = new InitializationSettings(
+        initializationSettingsAndroid, initializationSettingsIOS);
+    flutterLocalNotificationsPlugin = new FlutterLocalNotificationsPlugin();
+    flutterLocalNotificationsPlugin.initialize(initializationSettings,
+        onSelectNotification: onSelectNotification);
   }
 
   @override
@@ -65,31 +69,61 @@ class _ReminderState extends State<Reminder> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         SizedBox(height: 10),
-        Text(
-          'Set a reminder',
-          style: Theme.of(context).textTheme.headline6.copyWith(),
+        RichText(
           textAlign: TextAlign.center,
+          text: TextSpan(children: [
+            TextSpan(
+              text: 'Remind me to read',
+              style: Theme.of(context).textTheme.subtitle1,
+            ),
+            TextSpan(
+              text: ' $bookTitle',
+              style: Theme.of(context).textTheme.subtitle1.copyWith(
+                  fontWeight: FontWeight.bold, color: kSecondaryColor),
+            ),
+            TextSpan(
+              text: ' at',
+              style: Theme.of(context).textTheme.subtitle1,
+            ),
+            TextSpan(
+              text: ' ${DateFormat().add_jm().format(dateTime)}',
+              style: Theme.of(context).textTheme.subtitle1.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: kSecondaryColor,
+                  ),
+            ),
+            TextSpan(
+              text: ' $day.',
+              style: Theme.of(context).textTheme.subtitle1,
+            ),
+          ]),
         ),
-        StreamBuilder<List<Book>>(
-            stream: FirestoreController.streamBooksByStatus(
-                widget.user.uid, READING),
-            builder: (context, snapshot) {
-              var readingBooks = snapshot.data;
-              return snapshot.hasData
-                  ? SizedBox(
-                      width: double.infinity,
-                      child: CarouselSlider.builder(
+        Spacer(),
+        if (widget.user != null)
+          StreamBuilder<List<Book>>(
+              stream: FirestoreController.streamBooksByStatus(
+                  widget.user.uid, READING),
+              builder: (context, snapshot) {
+                var readingBooks = snapshot.data;
+                return snapshot.hasData
+                    ? CarouselSlider.builder(
                         itemCount: readingBooks.length,
                         itemBuilder: (context, index) => Container(
                           margin: EdgeInsets.symmetric(vertical: 10),
+                          height: 300,
                           child: Neumorphic(
                             style: kNeumorphicStyle.copyWith(
+                              depth: 3,
                               boxShape: NeumorphicBoxShape.roundRect(
-                                BorderRadius.circular(10),
+                                BorderRadius.circular(5),
                               ),
                             ),
                             padding: EdgeInsets.zero,
-                            child: Image.network(readingBooks[index].imageUrl),
+                            child: FadeInImage.memoryNetwork(
+                              image: readingBooks[index].imageUrl,
+                              placeholder: kTransparentImage,
+                              fit: BoxFit.fill,
+                            ),
                           ),
                         ),
                         options: CarouselOptions(
@@ -97,10 +131,11 @@ class _ReminderState extends State<Reminder> {
                             if (readingBooks != null) {
                               setState(() {
                                 bookTitle = readingBooks[val].title;
+                                imageUrl = readingBooks[val].imageUrl;
                               });
                             }
                           },
-                          height: 130,
+                          height: 180,
                           enlargeStrategy: CenterPageEnlargeStrategy.height,
                           enlargeCenterPage: true,
                           autoPlayAnimationDuration:
@@ -109,62 +144,34 @@ class _ReminderState extends State<Reminder> {
                           autoPlayCurve: Curves.easeInOutSine,
                           pauseAutoPlayOnManualNavigate: true,
                           initialPage: 0,
-                          aspectRatio: 0.8,
 //            viewportFraction: 0.95,
-                          viewportFraction: 0.3,
+                          viewportFraction: 0.35,
                         ),
-                      ),
-                    )
-                  : Container();
-            }),
+                      )
+                    : Container();
+              }),
+        Spacer(),
         SizedBox(
-          height: 80,
+          height: 70,
           child: CupertinoDatePicker(
             minimumDate: DateTime.now(),
             maximumDate: DateTime.now().add(Duration(days: 1)),
             onDateTimeChanged: (DateTime datetime) {
               setState(() {
                 dateTime = datetime;
+                dateTime.day == DateTime.now().day
+                    ? day = 'today'
+                    : day = 'tomorrow';
               });
             },
           ),
         ),
-        RichText(
-          textAlign: TextAlign.center,
-          text: TextSpan(children: [
-            TextSpan(
-              text: 'Remind me to read',
-              style: Theme.of(context).textTheme.subtitle2,
-            ),
-            TextSpan(
-              text: ' $bookTitle',
-              style: Theme.of(context)
-                  .textTheme
-                  .subtitle2
-                  .copyWith(fontWeight: FontWeight.bold),
-            ),
-            TextSpan(
-              text: ' at',
-              style: Theme.of(context).textTheme.subtitle2,
-            ),
-            TextSpan(
-              text: ' ${DateFormat().add_jm().format(dateTime)}',
-              style: Theme.of(context)
-                  .textTheme
-                  .subtitle2
-                  .copyWith(fontWeight: FontWeight.bold),
-            ),
-          ]),
-        ),
-//                                SizedBox(height: 20),
-//                                NeumorphicTextField(
-//                                  hintText: 'Yearly books',
-//                                  icon: MdiIcons.bookMultiple,
-//                                ),
+        SizedBox(height: 30),
         buildConfirmationButton('Save', context, () {
-          showNotification(bookTitle, dateTime);
+          showNotification(bookTitle, imageUrl, dateTime);
           Navigator.pop(context);
-        })
+        }),
+        SizedBox(height: 10)
       ],
     );
   }

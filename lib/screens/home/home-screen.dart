@@ -3,9 +3,11 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:flutter_fadein/flutter_fadein.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:matrix4_transform/matrix4_transform.dart';
 import 'package:provider/provider.dart';
 import 'package:untitled_goodreads_project/components/spinkit-widget.dart';
@@ -91,6 +93,9 @@ class _HomeScreenState extends State<HomeScreen>
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(statusBarIconBrightness: Brightness.light));
+
     var user = Provider.of<FirebaseUser>(context);
     var size = MediaQuery.of(context).size;
 
@@ -138,10 +143,10 @@ class _HomeScreenState extends State<HomeScreen>
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(height: 32),
+//                        SizedBox(height: 32),
                         AppBarTitle(),
                         Padding(
                           padding: const EdgeInsets.only(left: 15),
@@ -183,6 +188,7 @@ class _HomeScreenState extends State<HomeScreen>
                               ),
                               child: user != null
                                   ? PopUpSettings(
+                                      user: user,
                                       icon: CircleAvatar(
                                         backgroundColor: Colors.grey,
                                         child: CachedNetworkImage(
@@ -212,10 +218,17 @@ class _HomeScreenState extends State<HomeScreen>
                                             ),
                                           ),
                                         ),
-                                        radius: 30,
+                                        radius: 26,
                                       ),
                                     )
                                   : Container()),
+                          Positioned(
+                            bottom: 30,
+                            child: NeumorphicIcon(
+                              FontAwesomeIcons.ellipsisH,
+                              style: kNeumorphicStyle.copyWith(),
+                            ),
+                          )
                         ],
                       ),
                     ),

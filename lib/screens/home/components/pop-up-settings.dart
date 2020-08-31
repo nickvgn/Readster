@@ -45,9 +45,9 @@ class PopUpSettings extends StatelessWidget {
           case 2:
             Navigator.of(context).push(
               buildBlurredModal(
-                height: size.height / 3,
+                height: 400,
                 width: size.width / 1.2,
-                child: Goal(),
+                child: Goal(user: user),
               ),
             );
             break;
