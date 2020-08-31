@@ -10,7 +10,6 @@ import 'package:untitled_goodreads_project/components/confirmation-button.dart';
 import 'package:untitled_goodreads_project/constants.dart';
 import 'package:untitled_goodreads_project/controller/firestore-controller.dart';
 import 'package:untitled_goodreads_project/models/book.dart';
-import 'package:bitmap/bitmap.dart';
 
 class Reminder extends StatefulWidget {
   const Reminder({
@@ -36,8 +35,6 @@ class _ReminderState extends State<Reminder> {
   Future onSelectNotification(String payload) async {}
 
   showNotification(String bookTitle, String imageUrl, DateTime dateTime) async {
-    Bitmap bitmap = await Bitmap.fromProvider(
-        NetworkImage(imageUrl)); // Notice this is an async operation
     var android = AndroidNotificationDetails(
         'channel id', 'channel name', 'channel description',
         autoCancel: true,

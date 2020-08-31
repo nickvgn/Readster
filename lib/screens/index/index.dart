@@ -5,7 +5,6 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:untitled_goodreads_project/components/bottom-nav-bar.dart';
 import 'package:untitled_goodreads_project/constants.dart';
 import 'package:untitled_goodreads_project/screens/collection/collection-screen.dart';
-import 'package:untitled_goodreads_project/screens/home/components/app-bar-title.dart';
 import 'package:untitled_goodreads_project/screens/home/home-screen.dart';
 
 class IndexScreen extends StatefulWidget {
