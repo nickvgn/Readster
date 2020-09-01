@@ -218,8 +218,9 @@ class BookSearch extends SearchDelegate<List<Book>> {
               if (snapshot.hasError) print(snapshot.error);
 
               final results = snapshot.data
-                  .where((book) =>
-                      book.title.toLowerCase().contains(query.toLowerCase()))
+                  .where((book) => (book.title + book.author)
+                      .toLowerCase()
+                      .contains(query.toLowerCase()))
                   .toList();
               return snapshot.hasData
                   ? FadingEdgeScrollView.fromScrollView(

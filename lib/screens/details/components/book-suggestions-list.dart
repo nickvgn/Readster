@@ -31,9 +31,10 @@ class BookSuggestionList extends StatelessWidget {
             ? Neumorphic(
                 style: kNeumorphicStyle.copyWith(
                   depth: -3,
-                  boxShape: NeumorphicBoxShape.rect(),
+                  boxShape:
+                      NeumorphicBoxShape.roundRect(BorderRadius.circular(25)),
                 ),
-                margin: EdgeInsets.only(bottom: 30),
+                margin: EdgeInsets.only(bottom: 30, left: 10, right: 10),
                 padding: const EdgeInsets.only(bottom: 20, top: 20),
                 child: SizedBox(
                   height: 180,
@@ -51,16 +52,6 @@ class BookSuggestionList extends StatelessWidget {
                           itemBuilder: (context2, index) => Container(
                             margin:
                                 EdgeInsets.only(left: 20, top: 20, bottom: 20),
-                            decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                  spreadRadius: 2,
-                                  blurRadius: 10,
-                                  color: Colors.black26,
-                                  offset: Offset(7, 7),
-                                )
-                              ],
-                            ),
                             child: NeumorphicButton(
                               style: kNeumorphicStyle.copyWith(
                                 boxShape: NeumorphicBoxShape.roundRect(
