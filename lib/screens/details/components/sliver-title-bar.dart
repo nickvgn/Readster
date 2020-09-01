@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
@@ -121,7 +120,7 @@ class _SliverTitleBarState extends State<SliverTitleBar> {
           FontAwesomeIcons.angleLeft,
           color: kLightBackgroundColor,
         ),
-        onPressed: () {},
+        onPressed: () => Navigator.pop(context),
       ),
       floating: true,
       pinned: true,

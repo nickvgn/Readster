@@ -1,3 +1,5 @@
+import 'package:fading_edge_scrollview/fading_edge_scrollview.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,8 +10,11 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:provider/provider.dart';
 import 'package:untitled_goodreads_project/constants.dart';
 import 'package:untitled_goodreads_project/controller/book-controller.dart';
+import 'package:untitled_goodreads_project/controller/firestore-controller.dart';
+import 'package:untitled_goodreads_project/models/book.dart';
 import 'package:untitled_goodreads_project/screens/collection/booklist.dart';
 import 'package:untitled_goodreads_project/screens/collection/bookshelf.dart';
+import 'package:untitled_goodreads_project/screens/collection/components/collection-book.dart';
 
 class CollectionScreen extends StatefulWidget {
   @override
@@ -47,11 +52,17 @@ class _CollectionScreenState extends State<CollectionScreen> {
                           boxShape: NeumorphicBoxShape.circle(),
                           depth: 0,
                         ),
-                        child: Icon(
-                          FontAwesomeIcons.angleLeft,
-                          color: kPrimaryColor,
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 8),
+                          child: Icon(
+                            MdiIcons.bookSearch,
+                            color: kPrimaryColor,
+                          ),
                         ),
-                        onPressed: () {},
+                        onPressed: () => showSearch(
+                          context: context,
+                          delegate: BookSearch(),
+                        ),
                       ),
                     ),
                   ),
@@ -126,5 +137,105 @@ class _CollectionScreenState extends State<CollectionScreen> {
         ],
       ),
     );
+  }
+}
+
+class BookSearch extends SearchDelegate<List<Book>> {
+  @override
+  ThemeData appBarTheme(BuildContext context) {
+    return super.appBarTheme(context).copyWith(
+          primaryColor: kLightBackgroundColor,
+        );
+  }
+
+  @override
+  List<Widget> buildActions(BuildContext context) {
+    return [
+      IconButton(
+        icon: Icon(FontAwesomeIcons.undo),
+        iconSize: 20,
+        color: kPrimaryColor,
+        onPressed: () {
+          query = '';
+        },
+      )
+    ];
+  }
+
+  @override
+  Widget buildLeading(BuildContext context) {
+    return IconButton(
+      icon: Icon(FontAwesomeIcons.angleLeft),
+      color: kPrimaryColor,
+      onPressed: () {
+        close(context, null);
+      },
+    );
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    var user = Provider.of<FirebaseUser>(context);
+    final controller = ScrollController();
+
+    return user != null
+        ? StreamBuilder<List<Book>>(
+            stream: FirestoreController.streamBooks(user.uid),
+            builder: (context, snapshot) {
+              if (snapshot.hasError) print(snapshot.error);
+
+              final results = snapshot.data
+                  .where((book) =>
+                      book.title.toLowerCase().contains(query.toLowerCase()))
+                  .toList();
+              return snapshot.hasData
+                  ? FadingEdgeScrollView.fromScrollView(
+                      child: ListView.builder(
+                        controller: controller,
+                        padding: EdgeInsets.symmetric(vertical: 20),
+                        physics: BouncingScrollPhysics(),
+                        itemCount: results.length,
+                        itemBuilder: (context, index) => CollectionBook(
+                          book: results[index],
+                        ),
+                      ),
+                    )
+                  : Container();
+            },
+          )
+        : Container();
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    final controller = ScrollController();
+    var user = Provider.of<FirebaseUser>(context);
+
+    return user != null
+        ? StreamBuilder<List<Book>>(
+            stream: FirestoreController.streamBooks(user.uid),
+            builder: (context, snapshot) {
+              if (snapshot.hasError) print(snapshot.error);
+
+              final results = snapshot.data
+                  .where((book) =>
+                      book.title.toLowerCase().contains(query.toLowerCase()))
+                  .toList();
+              return snapshot.hasData
+                  ? FadingEdgeScrollView.fromScrollView(
+                      child: ListView.builder(
+                        controller: controller,
+                        padding: EdgeInsets.symmetric(vertical: 20),
+                        physics: BouncingScrollPhysics(),
+                        itemCount: results.length,
+                        itemBuilder: (context, index) => CollectionBook(
+                          book: results[index],
+                        ),
+                      ),
+                    )
+                  : Container();
+            },
+          )
+        : Container();
   }
 }

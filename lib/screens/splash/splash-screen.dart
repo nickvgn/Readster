@@ -32,7 +32,7 @@ class _SplashScreenState extends State<SplashScreen>
     onDoneLoading();
 
     controller = AnimationController(
-      duration: Duration(seconds: 3),
+      duration: Duration(seconds: 1),
       lowerBound: 0,
       vsync: this,
     );
@@ -49,7 +49,7 @@ class _SplashScreenState extends State<SplashScreen>
         ColorTween(begin: kLightBackgroundColor, end: kPrimaryColor).animate(
             CurvedAnimation(
                 parent: controller,
-                curve: Interval(0.7, 1, curve: Curves.easeIn)));
+                curve: Interval(0.3, 1, curve: Curves.easeInOutCirc)));
     depthAnimation = Tween<double>(begin: 0, end: 15).animate(
         CurvedAnimation(parent: controller, curve: Curves.easeInOutExpo));
 

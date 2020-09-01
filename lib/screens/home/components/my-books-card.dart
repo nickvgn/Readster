@@ -20,12 +20,13 @@ class MyBooksCard extends StatelessWidget {
 
   String getTimeAgo() {
     var difference = DateTime.now().difference(book.lastRead);
-    if (difference.inDays == 0 &&
-        difference.inHours == 0 &&
-        difference.inMinutes != 0) {
-      return difference.inMinutes > 1
-          ? difference.inMinutes.toString() + ' minutes ago'
-          : difference.inMinutes.toString() + ' minute ago';
+    if (difference.inDays == 0 && difference.inHours == 0) {
+      if (difference.inMinutes == 0) {
+        return 'Just now';
+      } else
+        return difference.inMinutes > 1
+            ? difference.inMinutes.toString() + ' minutes ago'
+            : difference.inMinutes.toString() + ' minute ago';
     } else if (difference.inDays == 0 && difference.inHours != 0) {
       return difference.inHours > 1
           ? difference.inHours.toString() + ' hours ago'
@@ -34,8 +35,8 @@ class MyBooksCard extends StatelessWidget {
       return difference.inDays > 1
           ? difference.inDays.toString() + ' days ago'
           : difference.inDays.toString() + ' day ago';
-    }
-    return '';
+    } else
+      return '';
   }
 
   @override
