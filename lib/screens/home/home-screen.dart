@@ -8,6 +8,7 @@ import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:flutter_fadein/flutter_fadein.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:matrix4_transform/matrix4_transform.dart';
 import 'package:provider/provider.dart';
 import 'package:untitled_goodreads_project/components/spinkit-widget.dart';
@@ -55,7 +56,7 @@ class _HomeScreenState extends State<HomeScreen>
 
     FirestoreController().setReadCountList();
 
-    Future.delayed(const Duration(milliseconds: 500), () {
+    Future.delayed(const Duration(milliseconds: 1000), () {
       setState(() {
         isFadeIn = true;
       });
@@ -142,6 +143,60 @@ class _HomeScreenState extends State<HomeScreen>
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 15),
+                      child: Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              color: kLightBackgroundColor,
+                              shape: BoxShape.circle,
+                            ),
+                          ),
+                          Neumorphic(
+                              style: kNeumorphicStyle.copyWith(
+                                depth: 1,
+                                shape: NeumorphicShape.convex,
+                                border: NeumorphicBorder(
+                                    color: kLightBackgroundColor, width: 3),
+                                boxShape: NeumorphicBoxShape.circle(),
+                              ),
+                              child: user != null
+                                  ? CircleAvatar(
+                                      backgroundColor: Colors.grey,
+                                      child: CachedNetworkImage(
+                                        imageUrl: user.photoUrl,
+                                        imageBuilder: (context, __) =>
+                                            Container(
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                          ),
+                                          child: Image.network(
+                                            user.photoUrl,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                        fadeInDuration:
+                                            Duration(milliseconds: 100),
+                                        placeholderFadeInDuration:
+                                            Duration(microseconds: 1),
+                                        placeholder: (context, _) => Container(
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                          ),
+                                          child: Image.asset(
+                                            'assets/images/user_placeholder.png',
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      ),
+                                      radius: 24,
+                                    )
+                                  : Container()),
+                        ],
+                      ),
+                    ),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -158,10 +213,10 @@ class _HomeScreenState extends State<HomeScreen>
                               textAlign: TextAlign.start,
                               style: Theme.of(context)
                                   .textTheme
-                                  .subtitle1
+                                  .subtitle2
                                   .copyWith(
                                       color: kLightBackgroundColor,
-                                      fontSize: 19),
+                                      fontSize: 16),
                             ),
                           ),
                         ),
@@ -170,68 +225,16 @@ class _HomeScreenState extends State<HomeScreen>
                     ),
                     Spacer(),
                     Padding(
-                      padding: const EdgeInsets.only(right: 15),
-                      child: Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              color: kLightBackgroundColor,
-                              shape: BoxShape.circle,
-                            ),
-                          ),
-                          Neumorphic(
-                              style: kNeumorphicStyle.copyWith(
-                                depth: 1,
-                                shape: NeumorphicShape.convex,
-                                boxShape: NeumorphicBoxShape.circle(),
-                              ),
-                              child: user != null
-                                  ? PopUpSettings(
-                                      user: user,
-                                      icon: CircleAvatar(
-                                        backgroundColor: Colors.grey,
-                                        child: CachedNetworkImage(
-                                          imageUrl: user.photoUrl,
-                                          imageBuilder: (context, __) =>
-                                              Container(
-                                            decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                            ),
-                                            child: Image.network(
-                                              user.photoUrl,
-                                              fit: BoxFit.cover,
-                                            ),
-                                          ),
-                                          fadeInDuration:
-                                              Duration(milliseconds: 100),
-                                          placeholderFadeInDuration:
-                                              Duration(microseconds: 1),
-                                          placeholder: (context, _) =>
-                                              Container(
-                                            decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                            ),
-                                            child: Image.asset(
-                                              'assets/images/user_placeholder.png',
-                                              fit: BoxFit.cover,
-                                            ),
-                                          ),
-                                        ),
-                                        radius: 26,
-                                      ),
-                                    )
-                                  : Container()),
-                          Positioned(
-                            bottom: 30,
-                            child: NeumorphicIcon(
-                              FontAwesomeIcons.ellipsisH,
-                              style: kNeumorphicStyle.copyWith(),
-                            ),
-                          )
-                        ],
+                      padding: const EdgeInsets.only(right: 10),
+                      child: PopUpSettings(
+                        user: user,
+                        icon: Icon(
+                          MdiIcons.cog,
+                          color: kLightBackgroundColor,
+                          size: 35,
+                        ),
                       ),
-                    ),
+                    )
                   ],
                 ),
               ),
@@ -456,7 +459,7 @@ class WeeklyChartCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<User>(
-        stream: FirestoreController.streamUserData(user.uid),
+        stream: FirestoreController.streamUserData(user?.uid),
         builder: (context, snapshot) {
           if (snapshot.hasError) print(snapshot.error);
           return snapshot.hasData

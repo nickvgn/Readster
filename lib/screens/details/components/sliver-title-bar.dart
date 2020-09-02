@@ -150,7 +150,7 @@ class _SliverTitleBarState extends State<SliverTitleBar> {
                     alignment: WrapAlignment.center,
                     crossAxisAlignment: WrapCrossAlignment.center,
                     runSpacing: -10,
-                    spacing: 0,
+                    spacing: 10,
                     children: [
                       //BOOK COVER
                       FadeIn(
@@ -176,24 +176,26 @@ class _SliverTitleBarState extends State<SliverTitleBar> {
                           bottom: 6,
                         ),
                         margin: EdgeInsets.only(bottom: 30),
-                        height: 100,
+                        height: 110,
                         width: 180,
                         child: Column(
                           children: [
                             //BOOK TITLE
-                            AutoSizeText(
-                              widget.book.title,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .subtitle1
-                                  .copyWith(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white,
-                                      fontSize: 13),
-                              textAlign: TextAlign.center,
-                              maxLines: 1,
-                              maxFontSize: 13,
-                              minFontSize: 8,
+                            Flexible(
+                              child: AutoSizeText(
+                                widget.book.title,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .subtitle1
+                                    .copyWith(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
+                                        fontSize: 13),
+                                textAlign: TextAlign.center,
+                                maxLines: 2,
+                                maxFontSize: 13,
+                                minFontSize: 8,
+                              ),
                             ),
                             // BOOK AUTHOR
                             AutoSizeText(
@@ -206,9 +208,7 @@ class _SliverTitleBarState extends State<SliverTitleBar> {
                               minFontSize: 6,
                               maxLines: 1,
                             ),
-                            Flexible(
-                              flex: 1,
-                              fit: FlexFit.tight,
+                            FittedBox(
                               child: RatingsCard(book: widget.book),
                             ),
                           ],

@@ -72,7 +72,7 @@ class NetworkHelper {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   }
 </style>
-  <iframe id="the_iframe" src="https://www.goodreads.com/api/reviews_widget_iframe?did=DEVELOPER_ID&format=html&header_text=Goodreads+reviews+for+The+Adventures+of+Huckleberry+Finn&isbn=$isbn&links=660&review_back=fff&stars=000&text=000" width="400" height="$height" frameborder="0"></iframe>
+  <iframe id="the_iframe" src="https://www.goodreads.com/api/reviews_widget_iframe?did=DEVELOPER_ID&format=html&header_text=Goodreads+reviews+for+The+Adventures+of+Huckleberry+Finn&isbn=$isbn&links=660&review_back=fff&stars=000&text=000" width="$width" height="$height" frameborder="0"></iframe>
 </div>
 
     """;

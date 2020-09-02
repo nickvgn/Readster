@@ -29,7 +29,7 @@ class _AppBarTitleState extends State<AppBarTitle> {
         textStyle: Theme.of(context).textTheme.headline6.copyWith(
             color: kLightBackgroundColor,
             fontWeight: FontWeight.bold,
-            fontSize: 24),
+            fontSize: 20),
         onFinished: () {
           setState(() {});
         },

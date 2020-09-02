@@ -112,47 +112,51 @@ class _MoreInfoState extends State<MoreInfo> {
                                         sigmaX: 10,
                                         sigmaY: 10,
                                       ),
-                                      child: Column(
-                                        children: [
-                                          SizedBox(
-                                            height: size.height / 10,
-                                          ),
-                                          Container(
-                                            margin: EdgeInsets.symmetric(
-                                              horizontal:
-                                                  (size.width - width) / 1.335,
-                                              vertical:
-                                                  (size.height - height) / 3,
-                                            ),
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(25),
-                                            ),
-                                            height: height.toDouble(),
-                                            width: width.toDouble(),
-                                            child: SizedBox(
-                                              child: ClipPath(
-                                                clipper: CustomRect(),
-                                                child: WebView(
-                                                  initialUrl:
-                                                      Uri.dataFromString(
-                                                              NetworkHelper
-                                                                  .reviewHtml(
-                                                                      widget
-                                                                          .book
-                                                                          .isbn,
-                                                                      width,
-                                                                      height),
-                                                              mimeType:
-                                                                  'text/html')
-                                                          .toString(),
-                                                  javascriptMode: JavascriptMode
-                                                      .unrestricted,
+                                      child: Center(
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+//                                          SizedBox(
+//                                            height: 600,
+//                                            width: 400,
+//                                          ),
+                                            Container(
+//                                            margin: EdgeInsets.symmetric(
+//                                              horizontal:
+//                                                  (size.width - width) / 1.335,
+//                                              vertical:
+//                                                  (size.height - height) / 3,
+//                                            ),
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(25),
+                                              ),
+                                              height: 700,
+                                              width: 380,
+                                              child: SizedBox(
+                                                child: ClipPath(
+                                                  clipper: CustomRect2(),
+                                                  child: WebView(
+                                                    initialUrl: Uri.dataFromString(
+                                                            NetworkHelper
+                                                                .reviewHtml(
+                                                                    widget.book
+                                                                        .isbn,
+                                                                    365,
+                                                                    700),
+                                                            mimeType:
+                                                                'text/html')
+                                                        .toString(),
+                                                    javascriptMode:
+                                                        JavascriptMode
+                                                            .unrestricted,
+                                                  ),
                                                 ),
                                               ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   );
@@ -288,6 +292,23 @@ class CustomRect extends CustomClipper<Path> {
     Path path = Path()
       ..addRRect(RRect.fromLTRBR(size.width * .027, size.height * .0175,
           size.width * .969, size.height * .960, Radius.circular(radius)))
+      ..close();
+
+    return path;
+  }
+
+  @override
+  bool shouldReclip(CustomRect oldClipper) => false;
+}
+
+class CustomRect2 extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    double radius = 10;
+
+    Path path = Path()
+      ..addRRect(RRect.fromLTRBR(0.0, size.height * .12, size.width * 1,
+          size.height * 1, Radius.circular(radius)))
       ..close();
 
     return path;

@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:transparent_image/transparent_image.dart';
 import 'package:untitled_goodreads_project/components/confirmation-button.dart';
@@ -34,16 +35,16 @@ class _ReminderState extends State<Reminder> {
 
   Future onSelectNotification(String payload) async {}
 
-  showNotification(String bookTitle, String imageUrl, DateTime dateTime) async {
+  showNotification(String bookTitle, DateTime dateTime) async {
     var android = AndroidNotificationDetails(
         'channel id', 'channel name', 'channel description',
         autoCancel: true,
         styleInformation: BigTextStyleInformation(
-            'This is the book: $bookTitle. What are you waiting for?'));
+            'This is the book: 📖 $bookTitle. \nHope you have an amazing time. 😊'));
     var iOS = IOSNotificationDetails();
     var platform = NotificationDetails(android, iOS);
     await flutterLocalNotificationsPlugin.schedule(
-        0, '📖 It\'s time to read!', '', dateTime, platform);
+        0, 'Let\s read!', '', dateTime, platform);
   }
 
   @override
@@ -141,7 +142,6 @@ class _ReminderState extends State<Reminder> {
                           autoPlayCurve: Curves.easeInOutSine,
                           pauseAutoPlayOnManualNavigate: true,
                           initialPage: 0,
-//            viewportFraction: 0.95,
                           viewportFraction: 0.35,
                         ),
                       )
@@ -165,8 +165,25 @@ class _ReminderState extends State<Reminder> {
         ),
         SizedBox(height: 30),
         buildConfirmationButton('Save', context, () {
-          showNotification(bookTitle, imageUrl, dateTime);
-          Navigator.pop(context);
+          if (bookTitle == 'a book') {
+            Fluttertoast.showToast(
+              backgroundColor: kPrimaryColor,
+              msg: "Select a book by sliding the carousel.",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.TOP,
+              timeInSecForIosWeb: 1,
+            );
+          } else {
+            showNotification(bookTitle, dateTime);
+            Fluttertoast.showToast(
+              backgroundColor: kPrimaryColor,
+              msg: "Success",
+              toastLength: Toast.LENGTH_LONG,
+              gravity: ToastGravity.TOP,
+              timeInSecForIosWeb: 1,
+            );
+            Navigator.pop(context);
+          }
         }),
         SizedBox(height: 10)
       ],

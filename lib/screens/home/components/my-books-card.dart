@@ -125,22 +125,23 @@ class MyBooksCard extends StatelessWidget {
             ),
           ),
         ),
-        Positioned(
-          bottom: 50,
-          left: 20,
-          child: Align(
-            alignment: Alignment.topLeft,
-            child: SizedBox(
-              height: 190,
-              child: Padding(
-                padding: const EdgeInsets.only(top: 10, left: 5),
-                child: FadeIn(
-                    duration: Duration(milliseconds: 200),
-                    child: Book3D(book: book)),
+        if (isFadeIn)
+          Positioned(
+            bottom: 50,
+            left: 20,
+            child: Align(
+              alignment: Alignment.topLeft,
+              child: SizedBox(
+                height: 190,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 10, left: 5),
+                  child: FadeIn(
+                      duration: Duration(milliseconds: 200),
+                      child: Book3D(book: book)),
+                ),
               ),
             ),
           ),
-        ),
         Positioned(
           bottom: 35,
           left: 30,

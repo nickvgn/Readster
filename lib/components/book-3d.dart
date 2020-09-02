@@ -8,11 +8,8 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:transparent_image/transparent_image.dart';
-import 'package:untitled_goodreads_project/components/blurred-modal.dart';
-import 'package:untitled_goodreads_project/components/confirmation-button.dart';
 import 'package:untitled_goodreads_project/constants.dart';
 import 'package:untitled_goodreads_project/controller/book-controller.dart';
-import 'package:untitled_goodreads_project/controller/firestore-controller.dart';
 import 'package:untitled_goodreads_project/models/book.dart';
 import 'package:untitled_goodreads_project/screens/collection/components/blurred-modal-fade.dart';
 import 'package:untitled_goodreads_project/screens/collection/components/progress-modal-content.dart';

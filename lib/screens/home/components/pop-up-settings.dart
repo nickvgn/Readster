@@ -26,18 +26,17 @@ class PopUpSettings extends StatelessWidget {
     final AuthService auth = AuthService();
 
     return PopupMenuButton(
-      padding: EdgeInsets.zero,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
       color: kLightBackgroundColor,
       child: icon,
-      offset: Offset(0, 60),
+      offset: Offset(0, 0),
       onSelected: (value) async {
         switch (value) {
           case 1:
             Navigator.of(context).push(
               buildBlurredModal(
                 height: 500,
-                width: size.width / 1.2,
+                width: 350,
                 child: Reminder(user: user),
               ),
             );

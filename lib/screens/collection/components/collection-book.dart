@@ -9,7 +9,6 @@ import 'package:provider/provider.dart';
 import 'package:transparent_image/transparent_image.dart';
 import 'package:untitled_goodreads_project/constants.dart';
 import 'package:untitled_goodreads_project/controller/book-controller.dart';
-import 'package:untitled_goodreads_project/controller/firestore-controller.dart';
 import 'package:untitled_goodreads_project/models/book.dart';
 import 'package:untitled_goodreads_project/screens/collection/components/blurred-modal-fade.dart';
 import 'package:untitled_goodreads_project/screens/collection/components/progress-modal-content.dart';
@@ -48,42 +47,46 @@ class _CollectionBookState extends State<CollectionBook> {
     return SizedBox(
       height: 200,
       child: Neumorphic(
-        margin: EdgeInsets.only(bottom: 15, top: 0, left: 10, right: 10),
+        margin: EdgeInsets.only(bottom: 15, top: 0, left: 15, right: 15),
         style: kNeumorphicStyle.copyWith(depth: 0),
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Stack(
               children: [
                 FittedBox(
-                  fit: BoxFit.cover,
-                  child: NeumorphicButton(
-                    margin: EdgeInsets.all(20),
-                    padding: EdgeInsets.zero,
-                    onPressed: () {
-                      Provider.of<BookController>(context, listen: false)
-                          .updateBookId(widget.book.id);
-                      Navigator.push(
-                        context,
-                        PageTransition(
-                          curve: Curves.easeInOutSine,
-                          type: PageTransitionType.scale,
-                          alignment: Alignment.center,
-                          duration: Duration(milliseconds: 100),
-                          child: DetailsScreen(),
-                        ),
-                      );
-                    },
-                    style: kNeumorphicStyle,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: Hero(
-                        tag: 'cover${widget.book.id}',
-                        child: FadeInImage.memoryNetwork(
-                          image: widget.book.imageUrl,
-                          placeholder: kTransparentImage,
-                          placeholderScale: 100,
-                          fit: BoxFit.fill,
+                  fit: BoxFit.scaleDown,
+                  child: SizedBox(
+                    height: 200,
+                    width: 140,
+                    child: NeumorphicButton(
+                      margin: EdgeInsets.all(8),
+                      padding: EdgeInsets.zero,
+                      onPressed: () {
+                        Provider.of<BookController>(context, listen: false)
+                            .updateBookId(widget.book.id);
+                        Navigator.push(
+                          context,
+                          PageTransition(
+                            curve: Curves.easeInOutSine,
+                            type: PageTransitionType.scale,
+                            alignment: Alignment.center,
+                            duration: Duration(milliseconds: 100),
+                            child: DetailsScreen(),
+                          ),
+                        );
+                      },
+                      style: kNeumorphicStyle.copyWith(depth: 3),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(5),
+                        child: Hero(
+                          tag: 'cover${widget.book.id}',
+                          child: FadeInImage.memoryNetwork(
+                            image: widget.book.imageUrl,
+                            placeholder: kTransparentImage,
+                            placeholderScale: 100,
+                            fit: BoxFit.fill,
+                          ),
                         ),
                       ),
                     ),
@@ -185,7 +188,7 @@ class _CollectionBookState extends State<CollectionBook> {
                   Spacer(),
                   if (readStatus == READING)
                     SizedBox(
-                      width: size.width * .53,
+                      width: size.width * .56,
                       child: Hero(
                         tag: 'slider${widget.book.id}',
                         child: NeumorphicProgress(
