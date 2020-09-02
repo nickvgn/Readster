@@ -53,6 +53,7 @@ class MyApp extends StatelessWidget {
           baseColor: kLightBackgroundColor,
           accentColor: kPrimaryColor,
           variantColor: kSecondaryColor,
+          defaultTextColor: kDarkTextColor,
           lightSource: LightSource.topLeft,
           shadowLightColor: Colors.white60,
           depth: 5,

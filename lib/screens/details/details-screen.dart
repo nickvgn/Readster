@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:untitled_goodreads_project/components/spinkit-widget.dart';
 import 'package:untitled_goodreads_project/controller/book-controller.dart';
 import 'package:untitled_goodreads_project/models/book.dart';
+import 'package:untitled_goodreads_project/models/genre.dart';
 import 'package:untitled_goodreads_project/screens/details/components/book-suggestions-list.dart';
 import 'package:untitled_goodreads_project/screens/details/components/description-card.dart';
 import 'package:untitled_goodreads_project/screens/details/components/more-info.dart';
@@ -27,18 +28,13 @@ class _DetailsScreenState extends State<DetailsScreen> {
   @override
   void initState() {
     super.initState();
-
-    Future.delayed(const Duration(milliseconds: 1000), () {
-      setState(() {
-        isFadeIn = true;
-      });
-    });
   }
 
   @override
   Widget build(BuildContext context) {
     var bookId = Provider.of<BookController>(context).bookId;
     final controller = ScrollController();
+    List<Genre> genreList = [];
 
     return Scaffold(
       body: FutureBuilder<Book>(
@@ -50,7 +46,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
         builder: (context, snapshot) {
           if (snapshot.hasError) print(snapshot.error);
           var book = snapshot.data;
-          return snapshot.hasData && isFadeIn
+          return snapshot.hasData
               ? FadeIn(
                   duration: Duration(milliseconds: 1000),
                   child: CustomScrollView(
@@ -62,13 +58,47 @@ class _DetailsScreenState extends State<DetailsScreen> {
                         delegate: SliverChildListDelegate(
                           [
                             FutureBuilder(
-                              future: fetchGenres(http.Client(), book.id),
-                              builder: (context, snapshot) => MoreInfo(
-                                book: book,
-                                goodreadsGenres:
-                                    snapshot.hasData ? snapshot.data : null,
-                              ),
-                            ),
+                                future: fetchGenres(http.Client(), book.id),
+                                builder: (context, snapshot) {
+                                  final isNumeric = RegExp(r'[0-9]');
+                                  if (snapshot.data != null) {
+                                    for (var genre in snapshot.data) {
+                                      if (!(genre.name.contains('read') ||
+                                          genre.name.contains('fav') ||
+                                          genre.name.contains('ya') ||
+                                          genre.name.contains('book') ||
+                                          genre.name.contains('own') ||
+                                          genre.name.contains('to') ||
+                                          genre.name.contains('kindle') ||
+                                          genre.name.contains('have') ||
+                                          genre.name.contains('finish') ||
+                                          genre.name.contains('star') ||
+                                          genre.name.contains('default') ||
+                                          genre.name.contains('library') ||
+                                          genre.name.contains('series') ||
+                                          genre.name.contains('children-s') ||
+                                          genre.name.contains('children') ||
+                                          genre.name.contains('tbr') ||
+                                          genre.name.contains('shelf') ||
+                                          genre.name.contains('borrow') ||
+                                          genre.name.contains('novel') ||
+                                          genre.name.contains('audible') ||
+                                          genre.name.contains('list') ||
+                                          genre.name.contains('review') ||
+                                          genre.name.contains('recommend') ||
+                                          genre.name.contains('audio') ||
+                                          genre.name.contains('nonfiction') ||
+                                          genre.name.contains('memoirs') ||
+                                          isNumeric.hasMatch(genre.name))) {
+                                        genreList.add(genre);
+                                      }
+                                    }
+                                  }
+                                  return MoreInfo(
+                                    book: book,
+                                    goodreadsGenres: genreList,
+                                  );
+                                }),
                             SizedBox(height: 10),
                             DescriptionCard(
                               description: book.description,

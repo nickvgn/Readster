@@ -12,7 +12,7 @@ import 'package:untitled_goodreads_project/services/networking.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:webview_flutter_plus/webview_flutter_plus.dart';
 
-class MoreInfo extends StatelessWidget {
+class MoreInfo extends StatefulWidget {
   const MoreInfo({
     Key key,
     @required this.book,
@@ -21,6 +21,16 @@ class MoreInfo extends StatelessWidget {
 
   final Book book;
   final List<Genre> goodreadsGenres;
+
+  @override
+  _MoreInfoState createState() => _MoreInfoState();
+}
+
+class _MoreInfoState extends State<MoreInfo> {
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +52,7 @@ class MoreInfo extends StatelessWidget {
                 text: TextSpan(
                   children: [
                     TextSpan(
-                      text: '${book.pageCount}',
+                      text: '${widget.book.pageCount}',
                       style: Theme.of(context).textTheme.caption.copyWith(
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
@@ -61,7 +71,7 @@ class MoreInfo extends StatelessWidget {
                           ),
                     ),
                     TextSpan(
-                      text: '${book.pubishedDate}\n',
+                      text: '${widget.book.pubishedDate}\n',
                       style: Theme.of(context).textTheme.caption.copyWith(
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
@@ -74,7 +84,7 @@ class MoreInfo extends StatelessWidget {
                           ),
                     ),
                     TextSpan(
-                      text: '${book.isbn}\n',
+                      text: '${widget.book.isbn}\n',
                       style: Theme.of(context).textTheme.caption.copyWith(
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
@@ -86,7 +96,7 @@ class MoreInfo extends StatelessWidget {
               Spacer(),
               Column(
                 children: [
-                  book.isGoodreads
+                  widget.book.isGoodreads
                       ? DogEarButton(
                           title: 'Reviews',
                           icon: FontAwesomeIcons.goodreads,
@@ -128,7 +138,9 @@ class MoreInfo extends StatelessWidget {
                                                       Uri.dataFromString(
                                                               NetworkHelper
                                                                   .reviewHtml(
-                                                                      book.isbn,
+                                                                      widget
+                                                                          .book
+                                                                          .isbn,
                                                                       width,
                                                                       height),
                                                               mimeType:
@@ -151,8 +163,8 @@ class MoreInfo extends StatelessWidget {
                           },
                         )
                       : Container(),
-                  if (book.isEbook != null)
-                    book.isEbook
+                  if (widget.book.isEbook != null)
+                    widget.book.isEbook
                         ? DogEarButton(
                             title: 'Sample eBook',
                             icon: FontAwesomeIcons.google,
@@ -198,7 +210,8 @@ class MoreInfo extends StatelessWidget {
                                                       controller.loadString(
                                                         NetworkHelper
                                                             .previewHtml(
-                                                                book.isbn,
+                                                                widget
+                                                                    .book.isbn,
                                                                 width,
                                                                 height),
                                                       );
@@ -224,8 +237,8 @@ class MoreInfo extends StatelessWidget {
             ],
           ),
           Expanded(
-              child: book.genres == null
-                  ? goodreadsGenres != null
+              child: widget.book.genres == null
+                  ? widget.goodreadsGenres != null
                       ? GridView.builder(
                           physics: BouncingScrollPhysics(),
                           scrollDirection: Axis.horizontal,
@@ -239,9 +252,11 @@ class MoreInfo extends StatelessWidget {
                             crossAxisSpacing: 10,
                             mainAxisSpacing: 10,
                           ),
-                          itemCount: goodreadsGenres.length,
-                          itemBuilder: (context, index) =>
-                              GenreBox(genre: goodreadsGenres[index].name),
+                          itemCount: widget.goodreadsGenres.length,
+                          itemBuilder: (context, index) => GenreBox(
+                              genre: widget.goodreadsGenres[index].name
+                                  .toString()
+                                  .replaceAll('-', ' ')),
                         )
                       : Container()
                   : GridView.builder(
@@ -255,9 +270,9 @@ class MoreInfo extends StatelessWidget {
                         crossAxisSpacing: 10,
                         mainAxisSpacing: 10,
                       ),
-                      itemCount: book.genres.length,
+                      itemCount: widget.book.genres.length,
                       itemBuilder: (context, index) =>
-                          GenreBox(genre: book.genres[index]),
+                          GenreBox(genre: widget.book.genres[index]),
                     )),
         ],
       ),

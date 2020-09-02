@@ -71,7 +71,7 @@ class _CollectionScreenState extends State<CollectionScreen> {
             ),
             toolbarHeight: 90,
             elevation: 0,
-            backgroundColor: Colors.transparent,
+            backgroundColor: kLightBackgroundColor,
             actions: [
               NeumorphicButton(
                 style: NeumorphicStyle(
@@ -114,25 +114,22 @@ class _CollectionScreenState extends State<CollectionScreen> {
             ),
           ),
           Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: Consumer<BookController>(builder: (_, bookController, __) {
-                return TabBarView(
-                  physics: BouncingScrollPhysics(),
-                  children: [
-                    bookController.bookView == LIST
-                        ? BookList(status: READING)
-                        : Bookshelf(status: READING),
-                    bookController.bookView == LIST
-                        ? BookList(status: TOREAD)
-                        : Bookshelf(status: TOREAD),
-                    bookController.bookView == LIST
-                        ? BookList(status: READ)
-                        : Bookshelf(status: READ),
-                  ],
-                );
-              }),
-            ),
+            child: Consumer<BookController>(builder: (_, bookController, __) {
+              return TabBarView(
+                physics: BouncingScrollPhysics(),
+                children: [
+                  bookController.bookView == LIST
+                      ? BookList(status: READING)
+                      : Bookshelf(status: READING),
+                  bookController.bookView == LIST
+                      ? BookList(status: TOREAD)
+                      : Bookshelf(status: TOREAD),
+                  bookController.bookView == LIST
+                      ? BookList(status: READ)
+                      : Bookshelf(status: READ),
+                ],
+              );
+            }),
           ),
         ],
       ),
@@ -217,11 +214,11 @@ class BookSearch extends SearchDelegate<List<Book>> {
             builder: (context, snapshot) {
               if (snapshot.hasError) print(snapshot.error);
 
-              final results = snapshot.data
-                  .where((book) => (book.title + book.author)
+              final results = snapshot?.data
+                  ?.where((book) => (book.title + book.author)
                       .toLowerCase()
                       .contains(query.toLowerCase()))
-                  .toList();
+                  ?.toList();
               return snapshot.hasData
                   ? FadingEdgeScrollView.fromScrollView(
                       child: ListView.builder(

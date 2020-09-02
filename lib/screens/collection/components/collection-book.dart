@@ -47,7 +47,7 @@ class _CollectionBookState extends State<CollectionBook> {
     return SizedBox(
       height: 200,
       child: Neumorphic(
-        margin: EdgeInsets.only(bottom: 15, top: 5, left: 10, right: 10),
+        margin: EdgeInsets.only(bottom: 15, top: 0, left: 10, right: 10),
         style: kNeumorphicStyle.copyWith(depth: 0),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,

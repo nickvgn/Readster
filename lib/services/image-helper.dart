@@ -7,10 +7,13 @@ class ImageHelper {
     final PaletteGenerator paletteGenerator =
         await PaletteGenerator.fromImageProvider(imageProvider);
     var colors = paletteGenerator.colors.toList();
-//    var color1 =
-//        colors.firstWhere((element) => element.computeLuminance() < .4);
-//    colors.remove(color1);
-    var color1 = paletteGenerator.darkVibrantColor.color;
+    var color1;
+    try {
+      color1 = paletteGenerator.darkVibrantColor.color;
+    } catch (e) {
+      color1 = colors.firstWhere((element) => element.computeLuminance() < .4);
+      colors.remove(color1);
+    }
     var color2 = colors.firstWhere((element) =>
         element.computeLuminance() < .4 &&
         (element.value - color1.value).abs() > 4000000);
