@@ -28,13 +28,8 @@ class AddOrRemoveButton extends StatelessWidget {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
 
-    return NeumorphicButton(
-        style: NeumorphicStyle(
-          boxShape: NeumorphicBoxShape.circle(),
-          color: Colors.transparent,
-          depth: 0,
-        ),
-        child: Icon(
+    return IconButton(
+        icon: Icon(
           icon,
           color: kLightBackgroundColor,
         ),

@@ -16,7 +16,7 @@ class CircularProgressWidget extends StatelessWidget {
     return SleekCircularSlider(
       appearance: CircularSliderAppearance(
         spinnerDuration: 500,
-        size: 85,
+        size: 100,
         startAngle: 270,
         angleRange: 365,
         customWidths: CustomSliderWidths(
@@ -42,13 +42,13 @@ class CircularProgressWidget extends StatelessWidget {
                   TextSpan(
                     text: '${current < 0 ? 0 : current.toInt()}',
                     style: Theme.of(context).textTheme.subtitle2.copyWith(
-                          fontSize: 25,
+                          fontSize: 21,
                         ),
                   ),
                   TextSpan(
                     text: '/${goal.toInt()}',
                     style: Theme.of(context).textTheme.subtitle2.copyWith(
-                          fontSize: 12,
+                          fontSize: 11,
                         ),
                   ),
 //                    TextSpan(

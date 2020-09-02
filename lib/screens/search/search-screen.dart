@@ -24,7 +24,8 @@ class SearchScreen extends StatefulWidget {
 class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
-    int _selected = 1;
+    int _selected =
+        Provider.of<BookController>(context).apiType == GOODREADS ? 1 : 0;
     String query = '';
     var size = MediaQuery.of(context).size;
 
@@ -50,7 +51,7 @@ class _SearchScreenState extends State<SearchScreen> {
           ),
           bookController.query != ''
               ? FutureBuilder<List<Book>>(
-                  future: widget.apiType == bookController.apiType
+                  future: bookController.apiType == GOODREADS
                       ? fetchBooks(http.Client(), bookController.query)
                       : fetchGoogleBooks(http.Client(), bookController.query),
                   builder: (context, snapshot) {
@@ -68,7 +69,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 60),
                         child: Text(
-                          'Just tap the box up there. Don\'t be shy.. Go on.',
+                          'Just tap the box up there',
                           style: Theme.of(context).textTheme.headline6.copyWith(
                               color: Colors.black26,
                               fontWeight: FontWeight.w900),

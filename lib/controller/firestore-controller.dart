@@ -89,6 +89,16 @@ class FirestoreController extends ChangeNotifier {
     notifyListeners();
   }
 
+  void updateGoal(int pages, int books) async {
+    DocumentSnapshot userToUpdate = await _getUserDocument();
+    await db.collection('user').document(userToUpdate.documentID).updateData({
+      'dailyGoal': pages,
+      'yearlyGoal': books,
+    });
+
+    notifyListeners();
+  }
+
   Future<bool> checkIfAdded(String id) async {
     var ref = await db
         .collection('books')

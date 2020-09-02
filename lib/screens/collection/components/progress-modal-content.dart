@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:untitled_goodreads_project/components/book-3d.dart';
 import 'package:untitled_goodreads_project/components/confirmation-button.dart';
@@ -33,6 +34,7 @@ class _ProgressModalContentState extends State<ProgressModalContent> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+    var oldPageRead = widget.book.pageRead;
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -120,6 +122,14 @@ class _ProgressModalContentState extends State<ProgressModalContent> {
                   .updateFinishedPages(
                       ((sliderVal / 10) * widget.book.pageCount).toInt(),
                       widget.book);
+              Fluttertoast.showToast(
+                backgroundColor: kPrimaryColor,
+                msg:
+                    "You read ${(((sliderVal / 10) * widget.book.pageCount).toInt()) - widget.book.pageRead} pages!",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.TOP,
+                timeInSecForIosWeb: 1,
+              );
               Navigator.pop(context, sliderVal);
             }),
           ],

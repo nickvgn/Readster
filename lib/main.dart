@@ -29,6 +29,10 @@ class MyApp extends StatelessWidget {
         statusBarColor: Colors.transparent,
         statusBarIconBrightness: Brightness.light));
 
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+    ]);
+
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<FirestoreController>(
@@ -55,7 +59,7 @@ class MyApp extends StatelessWidget {
           variantColor: kSecondaryColor,
           defaultTextColor: kDarkTextColor,
           lightSource: LightSource.topLeft,
-          shadowLightColor: Colors.white60,
+          shadowLightColor: Colors.white70,
           depth: 5,
           textTheme: GoogleFonts.quicksandTextTheme(),
           appBarTheme: NeumorphicAppBarThemeData(

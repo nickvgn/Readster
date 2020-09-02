@@ -7,10 +7,12 @@ class NeumorphicTextField extends StatelessWidget {
     Key key,
     this.icon,
     this.hintText,
+    this.onChanged,
   }) : super(key: key);
 
   final IconData icon;
   final String hintText;
+  final Function onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -40,8 +42,9 @@ class NeumorphicTextField extends StatelessWidget {
 //            },
 //          ),
           hintText: hintText,
-          hintStyle: TextStyle(color: kDarkTextColor),
+          hintStyle: TextStyle(color: Colors.grey),
         ),
+        onChanged: onChanged,
       ),
     );
   }

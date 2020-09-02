@@ -386,7 +386,7 @@ class ProgressGridView extends StatelessWidget {
                   style: Theme.of(context)
                       .textTheme
                       .headline5
-                      .copyWith(fontSize: 26),
+                      .copyWith(fontSize: 24),
                 ),
                 Text(
                   subtitle,
@@ -463,7 +463,7 @@ class WeeklyChartCard extends StatelessWidget {
               ? Column(
                   children: [
                     DateOfToday(),
-                    SizedBox(height: 8),
+                    SizedBox(height: 10),
                     Flexible(
                       child: WeeklyReadChart(
                         readCounts: snapshot.data.weeklyReadCount,

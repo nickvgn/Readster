@@ -110,13 +110,8 @@ class _SliverTitleBarState extends State<SliverTitleBar> {
               }),
         )
       ],
-      leading: NeumorphicButton(
-        style: NeumorphicStyle(
-          boxShape: NeumorphicBoxShape.circle(),
-          color: Colors.transparent,
-          depth: 0,
-        ),
-        child: Icon(
+      leading: IconButton(
+        icon: Icon(
           FontAwesomeIcons.angleLeft,
           color: kLightBackgroundColor,
         ),
@@ -124,7 +119,7 @@ class _SliverTitleBarState extends State<SliverTitleBar> {
       ),
       floating: true,
       pinned: true,
-      leadingWidth: 100,
+      leadingWidth: 80,
       title: Text(
         'Book',
         style: Theme.of(context)

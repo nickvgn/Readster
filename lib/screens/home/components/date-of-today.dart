@@ -18,7 +18,7 @@ class DateOfToday extends StatelessWidget {
             style: Theme.of(context).textTheme.headline6.copyWith(fontSize: 24),
           ),
           TextSpan(
-            text: '${DateFormat(' MMMM dd').format(
+            text: '${DateFormat(' MMM dd').format(
               DateTime.now(),
             )}',
             style: Theme.of(context).textTheme.headline6.copyWith(fontSize: 24),

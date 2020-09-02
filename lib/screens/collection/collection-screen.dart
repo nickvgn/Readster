@@ -47,16 +47,13 @@ class _CollectionScreenState extends State<CollectionScreen> {
                     alignment: Alignment.centerLeft,
                     child: SizedBox(
                       height: 80,
-                      child: NeumorphicButton(
-                        style: NeumorphicStyle(
-                          boxShape: NeumorphicBoxShape.circle(),
-                          depth: 0,
-                        ),
-                        child: Padding(
+                      child: IconButton(
+                        splashColor: kPrimaryColor,
+                        color: kPrimaryColor,
+                        icon: Padding(
                           padding: const EdgeInsets.only(top: 8),
                           child: Icon(
                             MdiIcons.bookSearch,
-                            color: kPrimaryColor,
                           ),
                         ),
                         onPressed: () => showSearch(
@@ -73,23 +70,20 @@ class _CollectionScreenState extends State<CollectionScreen> {
             elevation: 0,
             backgroundColor: kLightBackgroundColor,
             actions: [
-              NeumorphicButton(
-                style: NeumorphicStyle(
-                  boxShape: NeumorphicBoxShape.circle(),
-                  depth: 0,
-                ),
-                child: Icon(
+              IconButton(
+                splashColor: kPrimaryColor,
+                color: kPrimaryColor,
+                icon: Icon(
                   Provider.of<BookController>(context).bookView == SHELF
                       ? MdiIcons.viewList
                       : MdiIcons.viewGrid,
-                  color: kPrimaryColor,
                 ),
                 onPressed: () {
                   Provider.of<BookController>(context, listen: false)
                       .updateBookView();
                 },
               ),
-              SizedBox(width: 15)
+              SizedBox(width: 14)
             ],
           ),
           SizedBox(
@@ -151,6 +145,7 @@ class BookSearch extends SearchDelegate<List<Book>> {
       IconButton(
         icon: Icon(FontAwesomeIcons.undo),
         iconSize: 20,
+        splashColor: kPrimaryColor,
         color: kPrimaryColor,
         onPressed: () {
           query = '';
@@ -163,6 +158,7 @@ class BookSearch extends SearchDelegate<List<Book>> {
   Widget buildLeading(BuildContext context) {
     return IconButton(
       icon: Icon(FontAwesomeIcons.angleLeft),
+      splashColor: kPrimaryColor,
       color: kPrimaryColor,
       onPressed: () {
         close(context, null);

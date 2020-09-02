@@ -63,7 +63,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
           return BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
             child: Container(
-              height: size.height * .75,
+              height: size.height * .6,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(25),

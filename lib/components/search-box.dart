@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-
-import '../constants.dart';
+import 'package:untitled_goodreads_project/constants.dart';
 
 class SearchBox extends StatelessWidget {
   final Function onChanged;
@@ -28,20 +27,18 @@ class SearchBox extends StatelessWidget {
         onChanged: onChanged,
         decoration: InputDecoration(
           border: InputBorder.none,
-          suffixIcon: IconButton(
-            icon: Icon(
-              Icons.search,
-              color: kPrimaryColor,
-            ),
-            onPressed: () {
-              function();
-              controller.clear();
-              FocusScope.of(context).unfocus();
-            },
+          suffixIcon: Icon(
+            Icons.search,
+            color: kPrimaryColor,
           ),
           hintText: 'Search Here',
-          hintStyle: TextStyle(color: kDarkTextColor),
+          hintStyle: TextStyle(color: Colors.grey),
         ),
+        onSubmitted: (text) {
+          function();
+          controller.clear();
+          FocusScope.of(context).unfocus();
+        },
       ),
     );
   }
