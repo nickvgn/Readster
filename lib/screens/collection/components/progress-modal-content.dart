@@ -34,7 +34,6 @@ class _ProgressModalContentState extends State<ProgressModalContent> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    var oldPageRead = widget.book.pageRead;
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,

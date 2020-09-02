@@ -8,12 +8,15 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:transparent_image/transparent_image.dart';
+import 'package:untitled_goodreads_project/components/blurred-modal.dart';
+import 'package:untitled_goodreads_project/components/confirmation-button.dart';
 import 'package:untitled_goodreads_project/constants.dart';
 import 'package:untitled_goodreads_project/controller/book-controller.dart';
 import 'package:untitled_goodreads_project/controller/firestore-controller.dart';
 import 'package:untitled_goodreads_project/models/book.dart';
 import 'package:untitled_goodreads_project/screens/collection/components/blurred-modal-fade.dart';
 import 'package:untitled_goodreads_project/screens/collection/components/progress-modal-content.dart';
+import 'package:untitled_goodreads_project/screens/details/components/read-confirm.dart';
 import 'package:untitled_goodreads_project/screens/details/details-screen.dart';
 
 class Book3D extends StatefulWidget {
@@ -117,9 +120,14 @@ class _Book3DState extends State<Book3D> with TickerProviderStateMixin {
                 ),
                 if (widget.book.readStatus == TOREAD)
                   NeumorphicButton(
-                    onPressed: () =>
-                        Provider.of<FirestoreController>(context, listen: false)
-                            .updateBookStatus(READING, widget.book),
+                    onPressed: () => Navigator.of(context).push(
+                      buildReadConfirmModal(
+                        context,
+                        'This book will be added to your \'Reading\' collection.',
+                        READING,
+                        widget.book,
+                      ),
+                    ),
                     style: kNeumorphicStyle.copyWith(
                         color: Colors.transparent, depth: 0),
                     child: NeumorphicIcon(
@@ -162,12 +170,14 @@ class _Book3DState extends State<Book3D> with TickerProviderStateMixin {
                   ),
                 if (widget.book.readStatus == READ)
                   NeumorphicButton(
-                    onPressed: () {
-                      Provider.of<FirestoreController>(context, listen: false)
-                          .updateBookStatus(READING, widget.book);
-                      Provider.of<FirestoreController>(context, listen: false)
-                          .resetPagesRead(widget.book);
-                    },
+                    onPressed: () => Navigator.of(context).push(
+                      buildReadConfirmModal(
+                        context,
+                        'This book will be added to your \'Reading\' collection.',
+                        READING,
+                        widget.book,
+                      ),
+                    ),
                     style: kNeumorphicStyle.copyWith(
                         color: Colors.transparent, depth: 0),
                     child: NeumorphicIcon(

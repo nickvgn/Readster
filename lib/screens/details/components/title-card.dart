@@ -25,48 +25,47 @@ class TitleCard extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.hasError) print(snapshot.error);
         var colors = snapshot.data;
-        return snapshot.hasData
-            ? Container(
-                padding: EdgeInsets.only(bottom: 15),
-                child: ClipShadowPath(
-                  clipper: OvalBottomBorderClipper(),
-                  shadow: Shadow(
-                    blurRadius: 10,
-                    color: Colors.black26,
-                    offset: Offset(3, 3),
+        return Container(
+          padding: EdgeInsets.only(bottom: 15),
+          child: ClipShadowPath(
+            clipper: OvalBottomBorderClipper(),
+            shadow: Shadow(
+              blurRadius: 10,
+              color: Colors.black26,
+              offset: Offset(3, 3),
+            ),
+            child: Stack(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.transparent,
                   ),
-                  child: Stack(
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Colors.transparent,
-                        ),
-                        child: KenBurns(
-                            maxScale: 2,
-                            child: Image.network(
-                              book.imageUrl,
-                              fit: BoxFit.cover,
-                            )),
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: snapshot.hasData
-                                ? [
-                                    colors[0].withOpacity(.8),
-                                    colors[1].withOpacity(.9),
-                                  ]
-                                : [
-                                    Colors.grey[200].withOpacity(.8),
-                                    Colors.grey[700].withOpacity(.9)
-                                  ],
-                          ),
-                        ),
-                      )
-                    ],
+                  child: KenBurns(
+                      maxScale: 2,
+                      child: Image.network(
+                        book.imageUrl,
+                        fit: BoxFit.cover,
+                      )),
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: snapshot.hasData
+                          ? [
+                              colors[0].withOpacity(.8),
+                              colors[1].withOpacity(.9),
+                            ]
+                          : [
+                              Colors.black45,
+                              Colors.black54,
+                            ],
+                    ),
                   ),
-                ))
-            : Container();
+                )
+              ],
+            ),
+          ),
+        );
       },
     );
   }

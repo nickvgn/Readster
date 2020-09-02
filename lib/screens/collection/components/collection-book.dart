@@ -13,6 +13,7 @@ import 'package:untitled_goodreads_project/controller/firestore-controller.dart'
 import 'package:untitled_goodreads_project/models/book.dart';
 import 'package:untitled_goodreads_project/screens/collection/components/blurred-modal-fade.dart';
 import 'package:untitled_goodreads_project/screens/collection/components/progress-modal-content.dart';
+import 'package:untitled_goodreads_project/screens/details/components/read-confirm.dart';
 import 'package:untitled_goodreads_project/screens/details/details-screen.dart';
 
 class CollectionBook extends StatefulWidget {
@@ -202,8 +203,12 @@ class _CollectionBookState extends State<CollectionBook> {
                     ReadUpdateButton(
                       title: 'Start Reading',
                       press: () {
-                        Provider.of<FirestoreController>(context, listen: false)
-                            .updateBookStatus(READING, widget.book);
+                        Navigator.of(context).push(buildReadConfirmModal(
+                          context,
+                          'This book will be added to your \'Reading\' collection.',
+                          READING,
+                          widget.book,
+                        ));
                         setState(() {
                           readStatus = READING;
                         });
@@ -213,10 +218,12 @@ class _CollectionBookState extends State<CollectionBook> {
                     ReadUpdateButton(
                       title: 'Read Again',
                       press: () {
-                        Provider.of<FirestoreController>(context, listen: false)
-                            .updateBookStatus(READING, widget.book);
-                        Provider.of<FirestoreController>(context, listen: false)
-                            .resetPagesRead(widget.book);
+                        Navigator.of(context).push(buildReadConfirmModal(
+                          context,
+                          'This book will be added to your \'Reading\' collection.',
+                          READING,
+                          widget.book,
+                        ));
                         setState(() {
                           readStatus = READING;
                         });
