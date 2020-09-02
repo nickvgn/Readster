@@ -191,7 +191,7 @@ class _HomeScreenState extends State<HomeScreen>
                                           ),
                                         ),
                                       ),
-                                      radius: 24,
+                                      radius: 25,
                                     )
                                   : Container()),
                         ],
@@ -267,6 +267,8 @@ class _HomeScreenState extends State<HomeScreen>
                                                       child: MyBooksCard(
                                                         book: books[index],
                                                         isFadeIn: isFadeIn,
+                                                        animation:
+                                                            depthAnimation,
                                                       ),
                                                     )
                                                 : (context, index) => Transform(
@@ -372,11 +374,11 @@ class ProgressGridView extends StatelessWidget {
       child: Neumorphic(
         padding: EdgeInsets.all(20),
         style: kNeumorphicStyle.copyWith(
-          boxShape: NeumorphicBoxShape.roundRect(
-            BorderRadius.circular(25),
-          ),
-          depth: animation.value,
-        ),
+            boxShape: NeumorphicBoxShape.roundRect(
+              BorderRadius.circular(25),
+            ),
+            depth: animation.value,
+            shadowLightColor: Colors.white60),
         child: Stack(
           clipBehavior: Clip.none,
           alignment: Alignment.center,

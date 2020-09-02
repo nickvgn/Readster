@@ -13,10 +13,12 @@ class MyBooksCard extends StatelessWidget {
     Key key,
     this.book,
     this.isFadeIn,
+    this.animation,
   }) : super(key: key);
 
   final Book book;
   final bool isFadeIn;
+  final Animation animation;
 
   String getTimeAgo() {
     var difference = DateTime.now().difference(book.lastRead);
@@ -50,7 +52,8 @@ class MyBooksCard extends StatelessWidget {
             boxShape: NeumorphicBoxShape.roundRect(
               BorderRadius.circular(25),
             ),
-            depth: 3,
+            depth: animation.value,
+            shadowLightColor: Colors.white60,
           ),
           child: Container(
             padding: EdgeInsets.all(20),
@@ -136,7 +139,7 @@ class MyBooksCard extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.only(top: 10, left: 5),
                   child: FadeIn(
-                      duration: Duration(milliseconds: 200),
+                      duration: Duration(milliseconds: 500),
                       child: Book3D(book: book)),
                 ),
               ),

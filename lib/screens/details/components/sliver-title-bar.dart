@@ -149,7 +149,7 @@ class _SliverTitleBarState extends State<SliverTitleBar> {
                   child: Wrap(
                     alignment: WrapAlignment.center,
                     crossAxisAlignment: WrapCrossAlignment.center,
-                    runSpacing: -10,
+                    runSpacing: -20,
                     spacing: 10,
                     children: [
                       //BOOK COVER
@@ -172,7 +172,7 @@ class _SliverTitleBarState extends State<SliverTitleBar> {
                       ),
                       Container(
                         padding: EdgeInsets.only(
-                          top: 29,
+                          top: 30,
                           bottom: 6,
                         ),
                         margin: EdgeInsets.only(bottom: 30),

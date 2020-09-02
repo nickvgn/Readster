@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
-const kPrimaryColor = Color(0xffDA3057);
+const kPrimaryColor = Color(0xffBD4F6C);
 const kLightBackgroundColor = Color(0xffF0ECEB);
 //const kPrimaryColor = Color(0xff070B52);
 //const kSecondaryColor = Color(0xffdec0f1);
-const kSecondaryColor = Color(0xffF48F42);
+const kSecondaryColor = Color(0xffD7816A);
 //const kSecondaryColor = Color(0xffff7aa2);
 //const kPrimaryColor = Colors.blue;
 const kDarkTextColor = Colors.black87;

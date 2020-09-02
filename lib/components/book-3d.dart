@@ -109,6 +109,7 @@ class _Book3DState extends State<Book3D> with TickerProviderStateMixin {
                   child: NeumorphicIcon(
                     MdiIcons.bookInformationVariant,
                     style: kNeumorphicStyle.copyWith(
+                      shadowLightColor: Colors.white60,
                       color: widget.book.spineColor.computeLuminance() > .3
                           ? Colors.black87
                           : kLightBackgroundColor,
@@ -130,6 +131,7 @@ class _Book3DState extends State<Book3D> with TickerProviderStateMixin {
                     child: NeumorphicIcon(
                       MdiIcons.bookOpenPageVariant,
                       style: kNeumorphicStyle.copyWith(
+                        shadowLightColor: Colors.white60,
                         color: widget.book.spineColor.computeLuminance() > .3
                             ? Colors.black87
                             : kLightBackgroundColor,
@@ -159,6 +161,7 @@ class _Book3DState extends State<Book3D> with TickerProviderStateMixin {
                     child: NeumorphicIcon(
                       MdiIcons.pencilCircleOutline,
                       style: kNeumorphicStyle.copyWith(
+                        shadowLightColor: Colors.white60,
                         color: widget.book.spineColor.computeLuminance() > .3
                             ? Colors.black87
                             : kLightBackgroundColor,
@@ -180,6 +183,7 @@ class _Book3DState extends State<Book3D> with TickerProviderStateMixin {
                     child: NeumorphicIcon(
                       MdiIcons.bookOpenPageVariant,
                       style: kNeumorphicStyle.copyWith(
+                        shadowLightColor: Colors.white60,
                         color: widget.book.spineColor.computeLuminance() > .3
                             ? Colors.black87
                             : kLightBackgroundColor,
@@ -193,6 +197,7 @@ class _Book3DState extends State<Book3D> with TickerProviderStateMixin {
                   child: NeumorphicIcon(
                     MdiIcons.flipToBack,
                     style: kNeumorphicStyle.copyWith(
+                      shadowLightColor: Colors.white60,
                       color: widget.book.spineColor.computeLuminance() > .3
                           ? Colors.black87
                           : kLightBackgroundColor,
