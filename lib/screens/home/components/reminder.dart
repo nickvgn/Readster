@@ -145,7 +145,15 @@ class _ReminderState extends State<Reminder> {
                           viewportFraction: 0.35,
                         ),
                       )
-                    : Container();
+                    : Center(
+                        child: Text(
+                          'You currently have no books in your reading collection.',
+                          style: Theme.of(context).textTheme.headline6.copyWith(
+                              color: Colors.black26,
+                              fontWeight: FontWeight.w900),
+                          textAlign: TextAlign.center,
+                        ),
+                      );
               }),
         Spacer(),
         SizedBox(
@@ -168,7 +176,7 @@ class _ReminderState extends State<Reminder> {
           if (bookTitle == 'a book') {
             Fluttertoast.showToast(
               backgroundColor: kPrimaryColor,
-              msg: "Select a book by sliding the carousel.",
+              msg: "Select a book by sliding the carousel",
               toastLength: Toast.LENGTH_SHORT,
               gravity: ToastGravity.TOP,
               timeInSecForIosWeb: 1,
@@ -177,7 +185,7 @@ class _ReminderState extends State<Reminder> {
             showNotification(bookTitle, dateTime);
             Fluttertoast.showToast(
               backgroundColor: kPrimaryColor,
-              msg: "Success",
+              msg: "Done",
               toastLength: Toast.LENGTH_LONG,
               gravity: ToastGravity.TOP,
               timeInSecForIosWeb: 1,

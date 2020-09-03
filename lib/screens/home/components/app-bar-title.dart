@@ -23,20 +23,18 @@ class _AppBarTitleState extends State<AppBarTitle> {
 
     return user != null
         ? Container(
-            alignment: Alignment.center,
             padding: EdgeInsets.only(left: 15),
 //      height: 55,
 //      width: 150,
             child: TyperAnimatedTextKit(
               isRepeatingAnimation: false,
               textAlign: TextAlign.start,
-              speed: Duration(milliseconds: 60),
-              alignment: Alignment.centerLeft,
+              speed: Duration(milliseconds: 40),
               text: ['Hi, ${userName}'],
               textStyle: Theme.of(context).textTheme.headline6.copyWith(
                   color: kLightBackgroundColor,
                   fontWeight: FontWeight.bold,
-                  fontSize: 20),
+                  fontSize: 16),
               onFinished: () {
                 setState(() {});
               },

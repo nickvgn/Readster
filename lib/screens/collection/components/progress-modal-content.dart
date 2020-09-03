@@ -128,7 +128,7 @@ class _ProgressModalContentState extends State<ProgressModalContent> {
               Fluttertoast.showToast(
                 backgroundColor: kPrimaryColor,
                 msg:
-                    "You read ${(((sliderVal / 10) * widget.book.pageCount).toInt()) - widget.book.pageRead} pages.",
+                    "You read ${(((sliderVal / 10) * widget.book.pageCount).toInt()) - widget.book.pageRead} pages",
                 toastLength: Toast.LENGTH_SHORT,
                 gravity: ToastGravity.TOP,
                 timeInSecForIosWeb: 1,

@@ -6,6 +6,7 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:untitled_goodreads_project/constants.dart';
+import 'package:untitled_goodreads_project/controller/firestore-controller.dart';
 import 'package:untitled_goodreads_project/screens/index/index.dart';
 import 'package:untitled_goodreads_project/screens/login/login-screen.dart';
 import 'package:untitled_goodreads_project/services/auth.dart';
@@ -28,7 +29,6 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   void initState() {
     super.initState();
-
     onDoneLoading();
 
     controller = AnimationController(
@@ -49,7 +49,7 @@ class _SplashScreenState extends State<SplashScreen>
         ColorTween(begin: kLightBackgroundColor, end: kPrimaryColor).animate(
             CurvedAnimation(
                 parent: controller,
-                curve: Interval(0.3, 1, curve: Curves.easeInOutCirc)));
+                curve: Interval(0.6, 1, curve: Curves.easeInOutCirc)));
     depthAnimation = Tween<double>(begin: 0, end: 15).animate(
         CurvedAnimation(parent: controller, curve: Curves.easeInOutExpo));
 
@@ -123,7 +123,7 @@ class _SplashScreenState extends State<SplashScreen>
 //      backgroundColor: colorAnimation.value,
       body: Neumorphic(
         style: NeumorphicStyle(
-          color: colorAnimation.value,
+          color: kLightBackgroundColor,
         ),
         child: Center(
           child: Hero(
@@ -131,13 +131,12 @@ class _SplashScreenState extends State<SplashScreen>
             child: NeumorphicText(
               'Readster',
               style: kNeumorphicStyle.copyWith(
-                intensity: 1,
-                depth: depthAnimation.value,
-//                  color: colorAnimation.value
-              ),
+                  intensity: 1,
+                  depth: depthAnimation.value,
+                  color: colorAnimation.value),
               textStyle: NeumorphicTextStyle(
-                fontSize: 85,
-                fontFamily: GoogleFonts.satisfy().fontFamily,
+                fontSize: 75,
+                fontFamily: GoogleFonts.imFellEnglishSc().fontFamily,
                 fontWeight: FontWeight.w900,
               ),
             ),

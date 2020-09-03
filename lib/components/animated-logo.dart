@@ -14,16 +14,18 @@ class AnimatedLogo extends StatefulWidget {
 class _AnimatedLogoState extends State<AnimatedLogo> {
   Widget build(BuildContext context) {
     return Container(
-      width: 250,
+      height: 42,
+      width: 300,
       child: TyperAnimatedTextKit(
+        isRepeatingAnimation: false,
         textAlign: TextAlign.center,
         speed: Duration(milliseconds: 100),
         alignment: Alignment.center,
         text: widget.text,
-        textStyle: Theme.of(context)
-            .textTheme
-            .headline5
-            .copyWith(color: kPrimaryColor),
+        textStyle: Theme.of(context).textTheme.headline4.copyWith(
+              color: kLightBackgroundColor,
+              fontWeight: FontWeight.w900,
+            ),
         onFinished: () {
           setState(() {});
         },

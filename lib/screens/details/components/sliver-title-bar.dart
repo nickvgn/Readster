@@ -71,9 +71,9 @@ class _SliverTitleBarState extends State<SliverTitleBar> {
                           Navigator.pop(context);
                           Fluttertoast.showToast(
                             backgroundColor: kPrimaryColor,
-                            msg: "..is sentence",
+                            msg: "Done",
                             toastLength: Toast.LENGTH_SHORT,
-                            gravity: ToastGravity.BOTTOM,
+                            gravity: ToastGravity.TOP,
                             timeInSecForIosWeb: 1,
                           );
                         });
@@ -94,9 +94,9 @@ class _SliverTitleBarState extends State<SliverTitleBar> {
                           Navigator.pop(context);
                           Fluttertoast.showToast(
                             backgroundColor: kPrimaryColor,
-                            msg: "Poof!",
+                            msg: "Done",
                             toastLength: Toast.LENGTH_SHORT,
-                            gravity: ToastGravity.BOTTOM,
+                            gravity: ToastGravity.TOP,
                             timeInSecForIosWeb: 1,
                           );
                         });

@@ -1,3 +1,4 @@
+import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
@@ -64,17 +65,16 @@ class _SearchScreenState extends State<SearchScreen> {
                 )
               : Expanded(
                   child: Center(
-                    child: Container(
-                      width: size.width,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 60),
-                        child: Text(
-                          'Just tap the box up there',
-                          style: Theme.of(context).textTheme.headline6.copyWith(
-                              color: Colors.black26,
-                              fontWeight: FontWeight.w900),
-                          textAlign: TextAlign.center,
-                        ),
+                    child: SizedBox(
+                      height: 100,
+                      width: 100,
+                      child: FlareActor(
+                        "assets/icons/search-4.flr",
+                        alignment: Alignment.center,
+                        color: kSecondaryColor,
+//                    isPaused: isPaused,
+                        fit: BoxFit.fitHeight,
+                        animation: "tabbar_search",
                       ),
                     ),
                   ),

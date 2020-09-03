@@ -2,8 +2,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fading_edge_scrollview/fading_edge_scrollview.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
+import 'package:transparent_image/transparent_image.dart';
 import 'package:untitled_goodreads_project/components/spinkit-widget.dart';
 import 'package:untitled_goodreads_project/constants.dart';
 import 'package:untitled_goodreads_project/controller/book-controller.dart';
@@ -45,46 +47,16 @@ class SearchList extends StatelessWidget {
                           },
                           contentPadding: EdgeInsets.symmetric(
                               vertical: 10, horizontal: 35),
-                          leading: CachedNetworkImage(
-                            imageUrl: books[index].imageUrl,
-                            imageBuilder: (context, _) => Hero(
-                              tag: 'bookCover$index',
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  boxShadow: [
-                                    BoxShadow(
-                                        color: Colors.black26,
-                                        spreadRadius: 2,
-                                        blurRadius: 10,
-                                        offset: Offset(1, 4)),
-                                  ],
-                                ),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(4),
-                                  child: Image.network(books[index].imageUrl),
-                                ),
+                          leading: Neumorphic(
+                            style: kNeumorphicStyle.copyWith(
+                              boxShape: NeumorphicBoxShape.roundRect(
+                                BorderRadius.circular(2),
                               ),
+                              depth: 2,
                             ),
-                            fadeInDuration: Duration(milliseconds: 100),
-                            placeholderFadeInDuration:
-                                Duration(microseconds: 1),
-                            placeholder: (context, _) => Container(
-                              decoration: BoxDecoration(
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: Colors.black26,
-                                      spreadRadius: 2,
-                                      blurRadius: 10,
-                                      offset: Offset(1, 4)),
-                                ],
-                              ),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(4),
-                                child: Image.asset(
-                                  'assets/images/book_cover_placeholder.jpg',
-                                  width: 37,
-                                ),
-                              ),
+                            child: FadeInImage.memoryNetwork(
+                              image: books[index].imageUrl,
+                              placeholder: kTransparentImage,
                             ),
                           ),
                           title: Text('${books[index].title}',
@@ -94,13 +66,15 @@ class SearchList extends StatelessWidget {
                           subtitle: Text('${books[index].author}',
                               style: Theme.of(context).textTheme.caption),
                           trailing: books[index].isEbook
-                              ? Container(
-                                  alignment: Alignment.center,
-                                  height: 22,
-                                  width: 54,
-                                  decoration: BoxDecoration(
+                              ? Neumorphic(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 6, horizontal: 12),
+                                  style: kNeumorphicStyle.copyWith(
                                     color: kPrimaryColor,
-                                    borderRadius: BorderRadius.circular(20),
+                                    boxShape: NeumorphicBoxShape.roundRect(
+                                      BorderRadius.circular(15),
+                                    ),
+                                    depth: 2,
                                   ),
                                   child: Text(
                                     'eBook',

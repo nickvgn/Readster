@@ -9,6 +9,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:flutter_fadein/flutter_fadein.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:matrix4_transform/matrix4_transform.dart';
 import 'package:provider/provider.dart';
 import 'package:untitled_goodreads_project/components/spinkit-widget.dart';
@@ -56,7 +57,7 @@ class _HomeScreenState extends State<HomeScreen>
 
     FirestoreController().setReadCountList();
 
-    Future.delayed(const Duration(milliseconds: 1000), () {
+    Future.delayed(const Duration(milliseconds: 650), () {
       setState(() {
         isFadeIn = true;
       });
@@ -140,71 +141,66 @@ class _HomeScreenState extends State<HomeScreen>
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Container(
-                padding: EdgeInsets.symmetric(horizontal: 15),
-                height: 120,
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                height: 110,
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 15),
-                      child: Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              color: kLightBackgroundColor,
-                              shape: BoxShape.circle,
-                            ),
+                    Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            color: kLightBackgroundColor,
+                            shape: BoxShape.circle,
                           ),
-                          Neumorphic(
-                              style: kNeumorphicStyle.copyWith(
-                                depth: 1,
-                                shape: NeumorphicShape.convex,
-                                border: NeumorphicBorder(
-                                    color: kLightBackgroundColor, width: 3),
-                                boxShape: NeumorphicBoxShape.circle(),
-                              ),
-                              child: user != null
-                                  ? CircleAvatar(
-                                      backgroundColor: Colors.grey,
-                                      child: CachedNetworkImage(
-                                        imageUrl: user.photoUrl,
-                                        imageBuilder: (context, __) =>
-                                            Container(
-                                          decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                          ),
-                                          child: Image.network(
-                                            user.photoUrl,
-                                            fit: BoxFit.cover,
-                                          ),
+                        ),
+                        Neumorphic(
+                            style: kNeumorphicStyle.copyWith(
+                              depth: 1,
+                              shape: NeumorphicShape.convex,
+                              border: NeumorphicBorder(
+                                  color: kLightBackgroundColor, width: 3),
+                              boxShape: NeumorphicBoxShape.circle(),
+                            ),
+                            child: user != null
+                                ? CircleAvatar(
+                                    backgroundColor: Colors.grey,
+                                    child: CachedNetworkImage(
+                                      imageUrl: user?.photoUrl,
+                                      imageBuilder: (context, __) => Container(
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
                                         ),
-                                        fadeInDuration:
-                                            Duration(milliseconds: 100),
-                                        placeholderFadeInDuration:
-                                            Duration(microseconds: 1),
-                                        placeholder: (context, _) => Container(
-                                          decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                          ),
-                                          child: Image.asset(
-                                            'assets/images/user_placeholder.png',
-                                            fit: BoxFit.cover,
-                                          ),
+                                        child: Image.network(
+                                          user?.photoUrl,
+                                          fit: BoxFit.cover,
                                         ),
                                       ),
-                                      radius: 25,
-                                    )
-                                  : Container()),
-                        ],
-                      ),
+                                      fadeInDuration:
+                                          Duration(milliseconds: 100),
+                                      placeholderFadeInDuration:
+                                          Duration(microseconds: 1),
+                                      placeholder: (context, _) => Container(
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                        ),
+                                        child: Image.asset(
+                                          'assets/images/user_placeholder.png',
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ),
+                                    radius: 25,
+                                  )
+                                : Container()),
+                      ],
                     ),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-//                        SizedBox(height: 32),
-                        AppBarTitle(),
+                        FittedBox(child: AppBarTitle()),
                         Padding(
                           padding: const EdgeInsets.only(left: 15),
                           child: FadeIn(
@@ -229,13 +225,12 @@ class _HomeScreenState extends State<HomeScreen>
                     PopUpSettings(
                       user: user,
                       icon: SizedBox(
-                        height: 50,
-                        width: 70,
+                        height: 60,
+                        width: 60,
                         child: FlareActor(
                           "assets/icons/profile-4.flr",
                           alignment: Alignment.center,
                           color: kLightBackgroundColor,
-//                    isPaused: isPaused,
                           fit: BoxFit.fitHeight,
                           animation: "Untitled",
                         ),
@@ -250,7 +245,7 @@ class _HomeScreenState extends State<HomeScreen>
                   child: ListView(
                     controller: scrollController,
                     physics: BouncingScrollPhysics(),
-                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                    padding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
                     children: [
                       user != null
                           ? StreamBuilder<List<Book>>(
@@ -279,9 +274,45 @@ class _HomeScreenState extends State<HomeScreen>
                                                     quote: quotes[index],
                                                   ),
                                                 ))
-                                    : Container();
+                                    : buildCarousel(
+                                        autoPlay: true,
+                                        items: quotes,
+                                        itemBuilder: (context, index) {
+                                          return Container(
+                                            margin: EdgeInsets.only(
+                                                top: 20,
+                                                bottom: 20,
+                                                left: 10,
+                                                right: 10),
+                                            child: PlaceholderCard(
+                                              depthAnimation: depthAnimation,
+                                              matrix: myMatrix,
+                                              child: Container(
+                                                padding: EdgeInsets.all(20),
+                                                decoration: BoxDecoration(
+                                                  color: kLightBackgroundColor,
+                                                ),
+                                                child: Center(
+                                                  child: Text(
+                                                    'Looks empty.. Start reading a book?',
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .headline6
+                                                        .copyWith(
+                                                            color:
+                                                                Colors.black26,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w900),
+                                                    textAlign: TextAlign.center,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          );
+                                        });
                               })
-                          : Expanded(child: SpinkitWidget()),
+                          : SpinkitWidget(),
                       user != null
                           ? ProgressGridView(
                               user: user,
@@ -290,6 +321,7 @@ class _HomeScreenState extends State<HomeScreen>
                               animation: depthAnimation,
                             )
                           : Container(),
+                      SizedBox(height: 20),
                       Transform(
                         transform: myMatrix,
                         child: AspectRatio(
@@ -298,7 +330,7 @@ class _HomeScreenState extends State<HomeScreen>
                           child: Neumorphic(
                               margin: EdgeInsets.symmetric(
                                 horizontal: 20,
-                                vertical: 10,
+//                                vertical: 20,
                               ),
                               padding: EdgeInsets.symmetric(
                                   horizontal: 25, vertical: 20),
@@ -345,10 +377,45 @@ class _HomeScreenState extends State<HomeScreen>
           autoPlay: autoPlay,
           pauseAutoPlayOnManualNavigate: true,
           initialPage: 0,
-          aspectRatio: 1.9,
+          aspectRatio: 2.0,
           viewportFraction: 0.95,
           onPageChanged: onPageChanged,
         ),
+      ),
+    );
+  }
+}
+
+class PlaceholderCard extends StatelessWidget {
+  const PlaceholderCard({
+    Key key,
+    this.child,
+    this.depthAnimation,
+    this.matrix,
+  }) : super(key: key);
+
+  final Widget child;
+  final Animation depthAnimation;
+  final Matrix4 matrix;
+
+  @override
+  Widget build(BuildContext context) {
+    return Transform(
+      transform: matrix,
+      child: Neumorphic(
+        style: kNeumorphicStyle.copyWith(
+          boxShape: NeumorphicBoxShape.roundRect(
+            BorderRadius.circular(25),
+          ),
+          shadowLightColor: Colors.white70,
+          depth: depthAnimation.value,
+        ),
+        child: Container(
+            padding: EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: kLightBackgroundColor,
+            ),
+            child: Center(child: child)),
       ),
     );
   }
@@ -423,11 +490,11 @@ class ProgressGridView extends StatelessWidget {
           builder: (context, snapshot) {
             if (snapshot.hasError) print(snapshot.error);
             var userData = snapshot.data;
-            return snapshot.hasData
+            return snapshot.hasData && userData.dailyGoal != 0
                 ? GridView(
                     physics: NeverScrollableScrollPhysics(),
-                    padding:
-                        EdgeInsets.only(top: 5, bottom: 5, left: 20, right: 20),
+                    padding: EdgeInsets.only(
+                        top: 5, bottom: 45, left: 20, right: 20),
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       childAspectRatio: 1,
@@ -444,7 +511,73 @@ class ProgressGridView extends StatelessWidget {
                           userData.yearlyGoal, userData.finishedBooks),
                     ],
                   )
-                : Container();
+                : GridView(
+                    physics: NeverScrollableScrollPhysics(),
+                    padding: EdgeInsets.only(
+                        top: 5, bottom: 40, left: 20, right: 20),
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      childAspectRatio: 1,
+                      crossAxisSpacing: 10,
+                    ),
+                    children: [
+                      PlaceholderCard(
+                        depthAnimation: animation,
+                        matrix: matrix2,
+                        child: Text(
+                          'Make time for more books in your life by setting goals',
+                          style: Theme.of(context).textTheme.headline6.copyWith(
+                              color: Colors.black26,
+                              fontWeight: FontWeight.w900),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      PlaceholderCard(
+                        depthAnimation: animation,
+                        matrix: matrix2,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Press this button',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline6
+                                  .copyWith(
+                                      color: Colors.black26,
+                                      fontWeight: FontWeight.w900),
+                              textAlign: TextAlign.center,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(right: 8.0),
+                              child: SizedBox(
+                                height: 30,
+                                width: 30,
+                                child: FlareActor(
+                                  "assets/icons/profile-4.flr",
+                                  alignment: Alignment.center,
+                                  color: Colors.black26,
+//                    isPaused: isPaused,
+                                  fit: BoxFit.fitHeight,
+                                  animation: "Untitled",
+                                ),
+                              ),
+                            ),
+                            Text(
+                              'to get started',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline6
+                                  .copyWith(
+                                      color: Colors.black26,
+                                      fontWeight: FontWeight.w900),
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  );
           }),
     );
   }
@@ -466,7 +599,7 @@ class WeeklyChartCard extends StatelessWidget {
         stream: FirestoreController.streamUserData(user?.uid),
         builder: (context, snapshot) {
           if (snapshot.hasError) print(snapshot.error);
-          return snapshot.hasData
+          return snapshot.hasData && snapshot.data.dailyGoal != 0
               ? Column(
                   children: [
                     DateOfToday(),
@@ -479,7 +612,69 @@ class WeeklyChartCard extends StatelessWidget {
                     ),
                   ],
                 )
-              : Container();
+              : Container(
+                  padding: EdgeInsets.all(15),
+                  decoration: BoxDecoration(
+                    color: kLightBackgroundColor,
+                  ),
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              width: 250,
+                              child: Text(
+                                'You can add books by scanning the barcode',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .headline6
+                                    .copyWith(
+                                        color: Colors.black26,
+                                        fontWeight: FontWeight.w900),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                            Icon(
+                              MdiIcons.barcodeScan,
+                              color: Colors.black26,
+                            )
+                          ],
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              height: 30,
+                              width: 30,
+                              child: FlareActor(
+                                "assets/icons/search-4.flr",
+                                alignment: Alignment.center,
+                                color: Colors.black26,
+//                    isPaused: isPaused,
+                                fit: BoxFit.fitHeight,
+                                animation: "tabbar_search",
+                              ),
+                            ),
+                            Text(
+                              '  or searching the web',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline6
+                                  .copyWith(
+                                      color: Colors.black26,
+                                      fontWeight: FontWeight.w900),
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                );
         });
   }
 }

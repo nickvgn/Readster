@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_fadein/flutter_fadein.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:page_transition/page_transition.dart';
@@ -14,53 +15,73 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   AuthService auth = AuthService();
+  bool isTitleFadeIn = false;
+  bool isSubtitleFadeIn = false;
 
-//  @override
-//  void initState() {
-//    super.initState();
-//
-//    auth.getUser.then(
-//      (user) {
-//        if (user != null) {
-//          Navigator.pushReplacement(
-//            context,
-//            PageTransition(
-//              type: PageTransitionType.scale,
-//              child: HomeScreen(),
-//            ),
-//          );
-//        }
-//      },
-//    );
-//  }
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(const Duration(milliseconds: 1000), () {
+      setState(() {
+        isTitleFadeIn = true;
+      });
+    });
+    Future.delayed(const Duration(milliseconds: 3000), () {
+      setState(() {
+        isSubtitleFadeIn = true;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: kPrimaryColor,
       body: Container(
         alignment: Alignment.center,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-//            Text('Just one click away..',
-//                style: Theme.of(context).textTheme.headline5),
+            Spacer(),
             AnimatedLogo(
               text: [
-                "Wake up, Neo. . .",
-                "The Matrix has you. . .",
-                "Press the white button.",
+                "Hi There,",
               ],
             ),
+            SizedBox(height: 10),
+            isTitleFadeIn
+                ? AnimatedLogo(
+                    text: [
+                      "This is Readster",
+                    ],
+                  )
+                : SizedBox(height: 42),
+            SizedBox(height: 40),
+            isSubtitleFadeIn
+                ? FadeIn(
+                    duration: Duration(milliseconds: 500),
+                    child: SizedBox(
+                      height: 90,
+                      width: 300,
+                      child: Text(
+                        'Your personal reading companion to help you along your journey',
+                        style: Theme.of(context).textTheme.headline6.copyWith(
+                            color: Colors.white54, fontWeight: FontWeight.w900),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  )
+                : SizedBox(height: 90),
 //            SpinkitWidget(),
             SizedBox(height: 100),
             SizedBox(
               width: 220,
               child: NeumorphicButton(
                 style: kNeumorphicStyle.copyWith(
-                  boxShape: NeumorphicBoxShape.roundRect(
-                    BorderRadius.circular(25),
-                  ),
-                ),
+                    boxShape: NeumorphicBoxShape.roundRect(
+                      BorderRadius.circular(25),
+                    ),
+                    shadowLightColor: Colors.white60),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -87,6 +108,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 },
               ),
             ),
+            Spacer(),
           ],
         ),
       ),

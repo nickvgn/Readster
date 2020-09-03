@@ -25,10 +25,8 @@ class QuoteCard extends StatelessWidget {
       builder: (context, snapshot) {
         var colors = snapshot.data;
         return Container(
-          width: size.width * .93,
           alignment: Alignment.center,
           child: Neumorphic(
-            margin: EdgeInsets.symmetric(vertical: 12),
             style: kNeumorphicStyle.copyWith(
               boxShape: NeumorphicBoxShape.roundRect(
                 BorderRadius.circular(25),

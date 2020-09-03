@@ -46,7 +46,7 @@ class Goal extends StatelessWidget {
                       ),
                     ),
                     NeumorphicTextField(
-                      hintText: pages ?? '0',
+                      hintText: pages == 'null' ? '0' : pages,
                       icon: MdiIcons.bookOpenPageVariant,
                       onChanged: (text) => pages = text,
                     ),
@@ -59,7 +59,7 @@ class Goal extends StatelessWidget {
                       ),
                     ),
                     NeumorphicTextField(
-                      hintText: books ?? '0',
+                      hintText: books == 'null' ? '0' : books,
                       icon: MdiIcons.bookVariantMultiple,
                       onChanged: (text) => books = text,
                     ),

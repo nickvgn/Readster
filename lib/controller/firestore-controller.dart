@@ -43,7 +43,7 @@ class FirestoreController extends ChangeNotifier {
   }
 
   Future<int> setReadCountByDate(int day) async {
-    DocumentSnapshot userToUpdate = await _getUserDocument();
+    DocumentSnapshot userToUpdate = await getUserDocument();
 
     DateTime startTime = WeekdayController().getStartTime(day);
     DateTime endTime = WeekdayController().getEndTime(day);
@@ -84,7 +84,7 @@ class FirestoreController extends ChangeNotifier {
     list.add(await setReadCountByDate(6));
     list.add(await setReadCountByDate(7));
 
-    DocumentSnapshot userToUpdate = await _getUserDocument();
+    DocumentSnapshot userToUpdate = await getUserDocument();
     await db
         .collection('user')
         .document(userToUpdate.documentID)
@@ -94,7 +94,7 @@ class FirestoreController extends ChangeNotifier {
   }
 
   void updateGoal(int pages, int books) async {
-    DocumentSnapshot userToUpdate = await _getUserDocument();
+    DocumentSnapshot userToUpdate = await getUserDocument();
     await db.collection('user').document(userToUpdate.documentID).updateData({
       'dailyGoal': pages,
       'yearlyGoal': books,
@@ -138,6 +138,18 @@ class FirestoreController extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> addUser() async {
+    var uid = await AuthService().getUserId;
+    await db.collection('user').add({
+      'uid': uid,
+      'dailyGoal': 0,
+      'yearlyGoal': 0,
+      'weeklyReadCount': [0, 0, 0, 0, 0, 0, 0],
+      'booksFinished${DateTime.now().year}': 0,
+    });
+    notifyListeners();
+  }
+
   static Future<DocumentSnapshot> _getDocument(Book book) async {
     QuerySnapshot items = await db.collection('books').getDocuments();
 
@@ -150,7 +162,7 @@ class FirestoreController extends ChangeNotifier {
     return null;
   }
 
-  static Future<DocumentSnapshot> _getUserDocument() async {
+  static Future<DocumentSnapshot> getUserDocument() async {
     var uid = await AuthService().getUserId;
     QuerySnapshot items = await db.collection('user').getDocuments();
 
@@ -194,7 +206,7 @@ class FirestoreController extends ChangeNotifier {
 
   void addFinishedReadingDate(String readStatus, Book book) async {
     DocumentSnapshot bookToUpdate = await _getDocument(book);
-    DocumentSnapshot userToUpdate = await _getUserDocument();
+    DocumentSnapshot userToUpdate = await getUserDocument();
 
     var temp;
 
@@ -236,7 +248,7 @@ class FirestoreController extends ChangeNotifier {
   }
 
   void addReadTimestamp(int pagesRead, String bookId) async {
-    DocumentSnapshot userToUpdate = await _getUserDocument();
+    DocumentSnapshot userToUpdate = await getUserDocument();
     await db
         .collection('user')
         .document(userToUpdate.documentID)

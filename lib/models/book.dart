@@ -177,9 +177,7 @@ class Book {
       isGoodreads: false,
       id: book['id'],
       title: book['volumeInfo']['title'],
-      imageUrl: book['volumeInfo']['imageLinks']['large'] ??
-          book['volumeInfo']['imageLinks']['medium'] ??
-          book['volumeInfo']['imageLinks']['thumbnail'],
+      imageUrl: book['volumeInfo']['imageLinks']['thumbnail'],
       description: book['volumeInfo']['description'],
       genres: result,
       isbn: book['volumeInfo']['industryIdentifiers'][0]['identifier'],
