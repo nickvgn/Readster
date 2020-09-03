@@ -1,14 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:fading_edge_scrollview/fading_edge_scrollview.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:flutter_fadein/flutter_fadein.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:matrix4_transform/matrix4_transform.dart';
 import 'package:provider/provider.dart';
 import 'package:untitled_goodreads_project/components/spinkit-widget.dart';
@@ -94,6 +94,8 @@ class _HomeScreenState extends State<HomeScreen>
 
   @override
   Widget build(BuildContext context) {
+    final scrollController = ScrollController();
+
     SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle(statusBarIconBrightness: Brightness.light));
 
@@ -224,14 +226,18 @@ class _HomeScreenState extends State<HomeScreen>
                       ],
                     ),
                     Spacer(),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 10),
-                      child: PopUpSettings(
-                        user: user,
-                        icon: Icon(
-                          MdiIcons.cog,
+                    PopUpSettings(
+                      user: user,
+                      icon: SizedBox(
+                        height: 50,
+                        width: 70,
+                        child: FlareActor(
+                          "assets/icons/profile-4.flr",
+                          alignment: Alignment.center,
                           color: kLightBackgroundColor,
-                          size: 35,
+//                    isPaused: isPaused,
+                          fit: BoxFit.fitHeight,
+                          animation: "Untitled",
                         ),
                       ),
                     )
@@ -240,46 +246,41 @@ class _HomeScreenState extends State<HomeScreen>
               ),
 //              if (isFadeIn)
               Expanded(
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                  child: Column(
+                child: FadingEdgeScrollView.fromScrollView(
+                  child: ListView(
+                    controller: scrollController,
+                    physics: BouncingScrollPhysics(),
+                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                     children: [
                       user != null
-                          ? Expanded(
-                              child: StreamBuilder<List<Book>>(
-                                  stream:
-                                      FirestoreController.streamBooksByStatus(
-                                          user.uid, READING),
-                                  builder: (context, snapshot) {
-                                    if (snapshot.hasError)
-                                      print(snapshot.error);
-                                    var books = snapshot.data;
-                                    return snapshot.hasData
-                                        ? buildCarousel(
-                                            autoPlay: true,
-                                            items: books.length == 0
-                                                ? quotes
-                                                : books,
-                                            itemBuilder: books.length != 0
-                                                ? (context, index) => Transform(
-                                                      transform: myMatrix,
-                                                      child: MyBooksCard(
-                                                        book: books[index],
-                                                        isFadeIn: isFadeIn,
-                                                        animation:
-                                                            depthAnimation,
-                                                      ),
-                                                    )
-                                                : (context, index) => Transform(
-                                                      transform: myMatrix,
-                                                      child: QuoteCard(
-                                                        quote: quotes[index],
-                                                      ),
-                                                    ))
-                                        : Container();
-                                  }),
-                            )
+                          ? StreamBuilder<List<Book>>(
+                              stream: FirestoreController.streamBooksByStatus(
+                                  user.uid, READING),
+                              builder: (context, snapshot) {
+                                if (snapshot.hasError) print(snapshot.error);
+                                var books = snapshot.data;
+                                return snapshot.hasData
+                                    ? buildCarousel(
+                                        autoPlay: true,
+                                        items:
+                                            books.length == 0 ? quotes : books,
+                                        itemBuilder: books.length != 0
+                                            ? (context, index) => Transform(
+                                                  transform: myMatrix,
+                                                  child: MyBooksCard(
+                                                    book: books[index],
+                                                    isFadeIn: isFadeIn,
+                                                    animation: depthAnimation,
+                                                  ),
+                                                )
+                                            : (context, index) => Transform(
+                                                  transform: myMatrix,
+                                                  child: QuoteCard(
+                                                    quote: quotes[index],
+                                                  ),
+                                                ))
+                                    : Container();
+                              })
                           : Expanded(child: SpinkitWidget()),
                       user != null
                           ? ProgressGridView(
@@ -292,7 +293,7 @@ class _HomeScreenState extends State<HomeScreen>
                       Transform(
                         transform: myMatrix,
                         child: AspectRatio(
-                          aspectRatio: 1.8,
+                          aspectRatio: 1.9,
 //      width: size.width * .95,
                           child: Neumorphic(
                               margin: EdgeInsets.symmetric(
@@ -415,7 +416,8 @@ class ProgressGridView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
+    return SizedBox(
+      height: 200,
       child: StreamBuilder<User>(
           stream: FirestoreController.streamUserData(user.uid),
           builder: (context, snapshot) {

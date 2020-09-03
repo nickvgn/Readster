@@ -44,7 +44,7 @@ class _ReminderState extends State<Reminder> {
     var iOS = IOSNotificationDetails();
     var platform = NotificationDetails(android, iOS);
     await flutterLocalNotificationsPlugin.schedule(
-        0, 'Let\s read!', '', dateTime, platform);
+        0, 'Let\'s read!', '', dateTime, platform);
   }
 
   @override
