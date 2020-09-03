@@ -13,7 +13,10 @@ class FirestoreController extends ChangeNotifier {
   bool isAdded = false;
 
   static Stream<List<Book>> streamBooks(String uid) {
-    var ref = db.collection('books').where('uid', isEqualTo: uid);
+    var ref = db
+        .collection('books')
+        .where('uid', isEqualTo: uid)
+        .orderBy("modifiedDate", descending: true);
     return ref.snapshots().map(
           (list) =>
               list.documents.map((doc) => Book.fromFirestore(doc)).toList(),
@@ -31,7 +34,8 @@ class FirestoreController extends ChangeNotifier {
     var ref = db
         .collection('books')
         .where('uid', isEqualTo: uid)
-        .where('readStatus', isEqualTo: status);
+        .where('readStatus', isEqualTo: status)
+        .orderBy("modifiedDate", descending: true);
     return ref.snapshots().map(
           (list) =>
               list.documents.map((doc) => Book.fromFirestore(doc)).toList(),
@@ -128,7 +132,8 @@ class FirestoreController extends ChangeNotifier {
       'readStatus': TOREAD,
       'isGoodreads': false,
       'uid': uid,
-      'color': color.toString()
+      'color': color.toString(),
+      'modifiedDate': DateTime.now()
     });
     notifyListeners();
   }
@@ -166,10 +171,10 @@ class FirestoreController extends ChangeNotifier {
 
   void updateBookStatus(String readStatus, Book book) async {
     DocumentSnapshot bookToUpdate = await _getDocument(book);
-    await db
-        .collection('books')
-        .document(bookToUpdate.documentID)
-        .updateData({'readStatus': readStatus});
+    await db.collection('books').document(bookToUpdate.documentID).updateData({
+      'readStatus': readStatus,
+      'modifiedDate': DateTime.now(),
+    });
 
     if (readStatus == READ) {
       addFinishedReadingDate(readStatus, book);
@@ -205,10 +210,10 @@ class FirestoreController extends ChangeNotifier {
     await db.collection('user').document(userToUpdate.documentID).updateData(
         {'booksFinished${DateTime.now().year}': temp == null ? 1 : (temp + 1)});
 
-    await db
-        .collection('books')
-        .document(bookToUpdate.documentID)
-        .updateData({'finishedDate': DateTime.now()});
+    await db.collection('books').document(bookToUpdate.documentID).updateData({
+      'finishedDate': DateTime.now(),
+      'modifiedDate': DateTime.now(),
+    });
 
     notifyListeners();
   }
@@ -224,6 +229,7 @@ class FirestoreController extends ChangeNotifier {
     await db.collection('books').document(bookToUpdate.documentID).updateData({
       'pageRead': pageRead,
       'lastRead': DateTime.now(),
+      'modifiedDate': DateTime.now(),
     });
 
     notifyListeners();

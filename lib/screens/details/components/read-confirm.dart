@@ -42,9 +42,12 @@ PageRouteBuilder buildReadConfirmModal(
                     .resetPagesRead(book);
               }
               Navigator.pop(context);
+              if (readStatus == READ) {
+                Navigator.pop(context);
+              }
             }),
             buildConfirmationButton('No', context, () {
-              Navigator.pop(context);
+              Navigator.pop(context, false);
             }),
           ],
         )

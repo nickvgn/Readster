@@ -36,15 +36,26 @@ class AddOrRemoveButton extends StatelessWidget {
         onPressed: () {
           Navigator.of(context).push(
             buildBlurredModal(
-              height: size.height / 3.5,
-              width: size.width / 1.2,
+              height: 300,
+              width: 350,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    modalText,
-                    style: Theme.of(context).textTheme.headline6.copyWith(),
+                    'Are you sure?',
+                    style: Theme.of(context).textTheme.headline5.copyWith(),
                     textAlign: TextAlign.center,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Text(
+                      modalText,
+                      style: Theme.of(context)
+                          .textTheme
+                          .subtitle1
+                          .copyWith(color: Colors.grey),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                   SizedBox(height: 50),
                   Row(

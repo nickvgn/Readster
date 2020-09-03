@@ -100,7 +100,7 @@ class _CollectionBookState extends State<CollectionBook> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  SizedBox(height: 10),
+                  SizedBox(height: 20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.baseline,
@@ -110,7 +110,7 @@ class _CollectionBookState extends State<CollectionBook> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SizedBox(
-                            width: size.width * .45,
+                            width: size.width * .48,
                             child: AutoSizeText(
                               widget.book.title,
                               style: TextStyle(fontSize: 15),
@@ -121,7 +121,7 @@ class _CollectionBookState extends State<CollectionBook> {
                           ),
                           SizedBox(height: 5),
                           SizedBox(
-                            width: size.width * .45,
+                            width: size.width * .48,
                             child: AutoSizeText(
                               widget.book.author,
                               style: TextStyle(
@@ -146,6 +146,7 @@ class _CollectionBookState extends State<CollectionBook> {
                           ),
                           child: NeumorphicIcon(
                             MdiIcons.read,
+                            size: 25,
                             style: kNeumorphicStyle.copyWith(
                               color: kSecondaryColor,
                               depth: 1,
@@ -161,6 +162,7 @@ class _CollectionBookState extends State<CollectionBook> {
                           ),
                           child: NeumorphicIcon(
                             FontAwesomeIcons.pen,
+                            size: 22,
                             style:
                                 kNeumorphicStyle.copyWith(color: kPrimaryColor),
                           ),
@@ -174,13 +176,9 @@ class _CollectionBookState extends State<CollectionBook> {
                               ),
                             );
                             if (received != null)
-                              received != READ
-                                  ? setState(() {
-                                      sliderValue = received;
-                                    })
-                                  : setState(() {
-                                      readStatus = received;
-                                    });
+                              setState(() {
+                                sliderValue = received;
+                              });
                           },
                         ),
                     ],
@@ -206,33 +204,39 @@ class _CollectionBookState extends State<CollectionBook> {
                     ReadUpdateButton(
                       title: 'Start Reading',
                       press: () {
-                        Navigator.of(context).push(buildReadConfirmModal(
+                        dynamic isAdded =
+                            Navigator.of(context).push(buildReadConfirmModal(
                           context,
                           'This book will be added to your \'Reading\' collection.',
                           READING,
                           widget.book,
                         ));
-                        setState(() {
-                          readStatus = READING;
-                        });
+                        if (isAdded != null && isAdded == true) {
+                          setState(() {
+                            readStatus = READING;
+                          });
+                        }
                       },
                     ),
                   if (readStatus == READ)
                     ReadUpdateButton(
                       title: 'Read Again',
                       press: () {
-                        Navigator.of(context).push(buildReadConfirmModal(
+                        dynamic isAdded =
+                            Navigator.of(context).push(buildReadConfirmModal(
                           context,
                           'This book will be added to your \'Reading\' collection.',
                           READING,
                           widget.book,
                         ));
-                        setState(() {
-                          readStatus = READING;
-                        });
+                        if (isAdded != null && isAdded == true) {
+                          setState(() {
+                            readStatus = READING;
+                          });
+                        }
                       },
                     ),
-                  SizedBox(height: 30),
+                  SizedBox(height: 20),
                 ],
               ),
             ),

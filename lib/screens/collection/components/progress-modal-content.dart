@@ -7,6 +7,7 @@ import 'package:untitled_goodreads_project/components/confirmation-button.dart';
 import 'package:untitled_goodreads_project/constants.dart';
 import 'package:untitled_goodreads_project/controller/firestore-controller.dart';
 import 'package:untitled_goodreads_project/models/book.dart';
+import 'package:untitled_goodreads_project/screens/details/components/read-confirm.dart';
 
 class ProgressModalContent extends StatefulWidget {
   const ProgressModalContent({
@@ -112,9 +113,12 @@ class _ProgressModalContentState extends State<ProgressModalContent> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             buildConfirmationButton('Finished', context, () {
-              Provider.of<FirestoreController>(context, listen: false)
-                  .updateBookStatus(READ, widget.book);
-              Navigator.pop(context, READ);
+              Navigator.of(context).push(buildReadConfirmModal(
+                context,
+                'This book will be added to your \'Reading\' collection.',
+                READ,
+                widget.book,
+              ));
             }, color: kLightBackgroundColor, textColor: kSecondaryColor),
             buildConfirmationButton('Save', context, () {
               Provider.of<FirestoreController>(context, listen: false)
@@ -124,7 +128,7 @@ class _ProgressModalContentState extends State<ProgressModalContent> {
               Fluttertoast.showToast(
                 backgroundColor: kPrimaryColor,
                 msg:
-                    "You read ${(((sliderVal / 10) * widget.book.pageCount).toInt()) - widget.book.pageRead} pages!",
+                    "You read ${(((sliderVal / 10) * widget.book.pageCount).toInt()) - widget.book.pageRead} pages.",
                 toastLength: Toast.LENGTH_SHORT,
                 gravity: ToastGravity.TOP,
                 timeInSecForIosWeb: 1,

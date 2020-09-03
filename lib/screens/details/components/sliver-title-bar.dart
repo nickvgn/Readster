@@ -8,6 +8,7 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:transparent_image/transparent_image.dart';
 import 'package:untitled_goodreads_project/constants.dart';
 import 'package:untitled_goodreads_project/controller/firestore-controller.dart';
 import 'package:untitled_goodreads_project/models/book.dart';
@@ -59,8 +60,7 @@ class _SliverTitleBarState extends State<SliverTitleBar> {
                         book: widget.book,
                         icon: Icons.library_add,
                         title: 'Add to Library',
-                        modalText:
-                            'Just press "Yes" and it will be in your library before you can finish reading th..',
+                        modalText: 'This book will be added to your library',
                         press: () {
                           Provider.of<FirestoreController>(context,
                                   listen: false)
@@ -83,8 +83,7 @@ class _SliverTitleBarState extends State<SliverTitleBar> {
                         book: widget.book,
                         icon: Icons.remove,
                         title: 'Remove from library',
-                        modalText:
-                            'Just press "Yes" and it will disappear from your library like magic.',
+                        modalText: 'This book will removed from your library',
                         press: () {
                           Provider.of<FirestoreController>(context,
                                   listen: false)
@@ -153,22 +152,17 @@ class _SliverTitleBarState extends State<SliverTitleBar> {
                     spacing: 10,
                     children: [
                       //BOOK COVER
-                      FadeIn(
-                        duration: Duration(milliseconds: 5000),
-                        child: Hero(
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(5),
-                            child: Container(
-                              height: 170,
-                              child: CachedNetworkImage(
-                                imageUrl: widget.book.imageUrl,
-                                placeholder: (context, __) => Image.asset(
-                                    'assets/images/book_cover_placeholder.jpg'),
-                              ),
-                            ),
+                      Hero(
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(5),
+                          child: Container(
+                            height: 170,
+                            child: FadeInImage.memoryNetwork(
+                                image: widget.book.imageUrl,
+                                placeholder: kTransparentImage),
                           ),
-                          tag: 'bookCover${widget.book.id}',
                         ),
+                        tag: 'bookCover${widget.book.id}',
                       ),
                       Container(
                         padding: EdgeInsets.only(
