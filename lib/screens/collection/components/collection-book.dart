@@ -50,7 +50,7 @@ class _CollectionBookState extends State<CollectionBook> {
         margin: EdgeInsets.only(bottom: 15, top: 0, left: 15, right: 15),
         style: kNeumorphicStyle.copyWith(depth: 0),
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+//          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Stack(
               children: [
@@ -103,14 +103,14 @@ class _CollectionBookState extends State<CollectionBook> {
                   SizedBox(height: 20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.baseline,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SizedBox(
-                            width: size.width * .48,
+                            width: size.width * .42,
                             child: AutoSizeText(
                               widget.book.title,
                               style: TextStyle(fontSize: 15),
@@ -121,7 +121,7 @@ class _CollectionBookState extends State<CollectionBook> {
                           ),
                           SizedBox(height: 5),
                           SizedBox(
-                            width: size.width * .48,
+                            width: size.width * .42,
                             child: AutoSizeText(
                               widget.book.author,
                               style: TextStyle(
@@ -139,7 +139,7 @@ class _CollectionBookState extends State<CollectionBook> {
                         ),
                       if (readStatus == READ)
                         Neumorphic(
-                          padding: EdgeInsets.all(6),
+                          margin: EdgeInsets.only(right: 8, top: 5),
                           style: kNeumorphicStyle.copyWith(
                             depth: 0,
                             boxShape: NeumorphicBoxShape.circle(),
@@ -155,7 +155,7 @@ class _CollectionBookState extends State<CollectionBook> {
                         ),
                       if (readStatus == READING)
                         NeumorphicButton(
-                          padding: EdgeInsets.all(6),
+                          padding: EdgeInsets.all(8),
                           style: kNeumorphicStyle.copyWith(
                             depth: 0,
                             boxShape: NeumorphicBoxShape.circle(),
@@ -186,7 +186,7 @@ class _CollectionBookState extends State<CollectionBook> {
                   Spacer(),
                   if (readStatus == READING)
                     SizedBox(
-                      width: size.width * .56,
+                      width: size.width * .55,
                       child: Hero(
                         tag: 'slider${widget.book.id}',
                         child: NeumorphicProgress(

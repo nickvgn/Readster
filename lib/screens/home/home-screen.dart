@@ -70,15 +70,15 @@ class _HomeScreenState extends State<HomeScreen>
       vsync: this,
     );
 
-    depthAnimation = Tween<double>(begin: -10, end: 2).animate(
+    depthAnimation = Tween<double>(begin: -5, end: 1.5).animate(
         CurvedAnimation(parent: controller, curve: Curves.easeInOutExpo));
-    scaleAnimation1 = Tween<double>(begin: 0.2, end: 1).animate(
+    scaleAnimation1 = Tween<double>(begin: 0.7, end: 1).animate(
         CurvedAnimation(parent: controller, curve: Curves.bounceInOut));
-    scaleAnimation2 = Tween<double>(begin: 0.2, end: 1).animate(
+    scaleAnimation2 = Tween<double>(begin: 0.7, end: 1).animate(
         CurvedAnimation(parent: controller, curve: Curves.elasticInOut));
-    scaleAnimation3 = Tween<double>(begin: 0.2, end: 1).animate(
+    scaleAnimation3 = Tween<double>(begin: 0.7, end: 1).animate(
         CurvedAnimation(parent: controller, curve: Curves.easeInOutQuad));
-    scaleAnimation4 = Tween<double>(begin: 0.2, end: 1).animate(
+    scaleAnimation4 = Tween<double>(begin: 0.7, end: 1).animate(
         CurvedAnimation(parent: controller, curve: Curves.fastOutSlowIn));
 
     controller.forward();
@@ -245,7 +245,7 @@ class _HomeScreenState extends State<HomeScreen>
                   child: ListView(
                     controller: scrollController,
                     physics: BouncingScrollPhysics(),
-                    padding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+//                    padding: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
                     children: [
                       user != null
                           ? StreamBuilder<List<Book>>(
@@ -268,12 +268,49 @@ class _HomeScreenState extends State<HomeScreen>
                                                     animation: depthAnimation,
                                                   ),
                                                 )
-                                            : (context, index) => Transform(
-                                                  transform: myMatrix,
-                                                  child: QuoteCard(
-                                                    quote: quotes[index],
-                                                  ),
-                                                ))
+                                            : (context, index) => buildCarousel(
+                                                autoPlay: true,
+                                                items: quotes,
+                                                itemBuilder: (context, index) {
+                                                  return Container(
+                                                    margin: EdgeInsets.only(
+                                                        top: 20,
+                                                        bottom: 20,
+                                                        left: 0,
+                                                        right: 0),
+                                                    child: PlaceholderCard(
+                                                      depthAnimation:
+                                                          depthAnimation,
+                                                      matrix: myMatrix,
+                                                      child: Container(
+                                                        padding:
+                                                            EdgeInsets.all(20),
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color:
+                                                              kLightBackgroundColor,
+                                                        ),
+                                                        child: Center(
+                                                          child: Text(
+                                                            'Looks empty.. Start reading a book?',
+                                                            style: Theme.of(
+                                                                    context)
+                                                                .textTheme
+                                                                .headline6
+                                                                .copyWith(
+                                                                    color: Colors
+                                                                        .black26,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w900),
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  );
+                                                }))
                                     : buildCarousel(
                                         autoPlay: true,
                                         items: quotes,
@@ -282,8 +319,8 @@ class _HomeScreenState extends State<HomeScreen>
                                             margin: EdgeInsets.only(
                                                 top: 20,
                                                 bottom: 20,
-                                                left: 10,
-                                                right: 10),
+                                                left: 0,
+                                                right: 0),
                                             child: PlaceholderCard(
                                               depthAnimation: depthAnimation,
                                               matrix: myMatrix,
