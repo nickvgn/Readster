@@ -5,7 +5,6 @@ import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:untitled_goodreads_project/components/bottom-nav-bar.dart';
 import 'package:untitled_goodreads_project/constants.dart';
-import 'package:untitled_goodreads_project/controller/firestore-controller.dart';
 import 'package:untitled_goodreads_project/screens/collection/collection-screen.dart';
 import 'package:untitled_goodreads_project/screens/home/home-screen.dart';
 
@@ -17,18 +16,9 @@ class IndexScreen extends StatefulWidget {
 class _IndexScreenState extends State<IndexScreen> {
   int _selectedItemPosition = 0;
 
-  Future<void> checkIfUserExist() async {
-    var doc = await FirestoreController.getUserDocument();
-    print(doc);
-    if (doc == null) {
-      FirestoreController().addUser();
-    }
-  }
-
   @override
   void initState() {
     super.initState();
-    checkIfUserExist();
   }
 
   final _screens = [

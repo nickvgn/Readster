@@ -115,7 +115,7 @@ class _ProgressModalContentState extends State<ProgressModalContent> {
             buildConfirmationButton('Finished', context, () {
               Navigator.of(context).push(buildReadConfirmModal(
                 context,
-                'This book will be added to your \'Reading\' collection.',
+                'This book will be added to your \'Read\' collection.',
                 READ,
                 widget.book,
               ));

@@ -23,7 +23,6 @@ import 'package:untitled_goodreads_project/screens/home/components/circular-prog
 import 'package:untitled_goodreads_project/screens/home/components/date-of-today.dart';
 import 'package:untitled_goodreads_project/screens/home/components/my-books-card.dart';
 import 'package:untitled_goodreads_project/screens/home/components/pop-up-settings.dart';
-import 'package:untitled_goodreads_project/screens/home/components/quote-card.dart';
 import 'package:untitled_goodreads_project/screens/home/components/weekly-read-chart.dart';
 import 'package:untitled_goodreads_project/services/auth.dart';
 

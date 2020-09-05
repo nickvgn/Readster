@@ -6,7 +6,6 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:untitled_goodreads_project/constants.dart';
-import 'package:untitled_goodreads_project/controller/firestore-controller.dart';
 import 'package:untitled_goodreads_project/screens/index/index.dart';
 import 'package:untitled_goodreads_project/screens/login/login-screen.dart';
 import 'package:untitled_goodreads_project/services/auth.dart';

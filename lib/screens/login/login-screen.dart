@@ -5,6 +5,7 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:page_transition/page_transition.dart';
 import 'package:untitled_goodreads_project/components/animated-logo.dart';
 import 'package:untitled_goodreads_project/constants.dart';
+import 'package:untitled_goodreads_project/controller/firestore-controller.dart';
 import 'package:untitled_goodreads_project/screens/index/index.dart';
 import 'package:untitled_goodreads_project/services/auth.dart';
 
@@ -17,6 +18,13 @@ class _LoginScreenState extends State<LoginScreen> {
   AuthService auth = AuthService();
   bool isTitleFadeIn = false;
   bool isSubtitleFadeIn = false;
+
+  Future<void> checkIfUserExist() async {
+    var doc = await FirestoreController.getUserDocument();
+    if (doc == null) {
+      FirestoreController().addUser();
+    }
+  }
 
   @override
   void initState() {
@@ -96,6 +104,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 onPressed: () async {
                   var user = await auth.googleSignIn();
                   if (user != null) {
+                    await checkIfUserExist();
                     Navigator.pushReplacement(
                       context,
                       PageTransition(

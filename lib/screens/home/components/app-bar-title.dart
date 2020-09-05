@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:provider/provider.dart';
 import 'package:untitled_goodreads_project/constants.dart';
-import 'package:untitled_goodreads_project/models/user.dart';
 
 class AppBarTitle extends StatefulWidget {
   const AppBarTitle({
@@ -30,14 +29,11 @@ class _AppBarTitleState extends State<AppBarTitle> {
               isRepeatingAnimation: false,
               textAlign: TextAlign.start,
               speed: Duration(milliseconds: 40),
-              text: ['Hi, ${userName}'],
+              text: ['Hi, $userName'],
               textStyle: Theme.of(context).textTheme.headline6.copyWith(
                   color: kLightBackgroundColor,
                   fontWeight: FontWeight.bold,
                   fontSize: 16),
-              onFinished: () {
-                setState(() {});
-              },
             ),
 //      child: Hero(
 //        tag: 'Readster',

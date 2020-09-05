@@ -147,7 +147,7 @@ class _ReminderState extends State<Reminder> {
                       )
                     : Center(
                         child: Text(
-                          'You currently have no books in your reading collection.',
+                          'You currently have no books in your \'Reading\' collection.',
                           style: Theme.of(context).textTheme.headline6.copyWith(
                               color: Colors.black26,
                               fontWeight: FontWeight.w900),

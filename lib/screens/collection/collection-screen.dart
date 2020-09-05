@@ -8,6 +8,7 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:transparent_image/transparent_image.dart';
 import 'package:untitled_goodreads_project/constants.dart';
 import 'package:untitled_goodreads_project/controller/book-controller.dart';
 import 'package:untitled_goodreads_project/controller/firestore-controller.dart';
@@ -187,9 +188,9 @@ class BookSearch extends SearchDelegate<List<Book>> {
                         controller: controller,
                         padding: EdgeInsets.symmetric(vertical: 20),
                         physics: BouncingScrollPhysics(),
-                        itemCount: results.length,
+                        itemCount: 1,
                         itemBuilder: (context, index) => CollectionBook(
-                          book: results[index],
+                          book: results[0],
                         ),
                       ),
                     )
@@ -222,8 +223,33 @@ class BookSearch extends SearchDelegate<List<Book>> {
                         padding: EdgeInsets.symmetric(vertical: 20),
                         physics: BouncingScrollPhysics(),
                         itemCount: results.length,
-                        itemBuilder: (context, index) => CollectionBook(
-                          book: results[index],
+                        itemBuilder: (context, index) => ListTile(
+                          visualDensity: VisualDensity(
+                            vertical: VisualDensity.maximumDensity,
+                          ),
+                          title: Text(results[index].title),
+                          leading: Neumorphic(
+                            padding: EdgeInsets.zero,
+                            style: kNeumorphicStyle.copyWith(
+                                depth: 1,
+                                boxShape: NeumorphicBoxShape.roundRect(
+                                    BorderRadius.circular(3))),
+                            child: FadeInImage.memoryNetwork(
+                              image: results[index].imageUrl,
+                              placeholder: kTransparentImage,
+                            ),
+                          ),
+                          subtitle: Text(results[index].author),
+                          trailing: Icon(
+                              results[index].readStatus == READING
+                                  ? MdiIcons.bookOpenPageVariant
+                                  : results[index].readStatus == READ
+                                      ? MdiIcons.read
+                                      : MdiIcons.book,
+                              color: kSecondaryColor),
+                          contentPadding:
+                              EdgeInsets.only(bottom: 10, left: 15, right: 15),
+                          onTap: () => buildResults(context),
                         ),
                       ),
                     )

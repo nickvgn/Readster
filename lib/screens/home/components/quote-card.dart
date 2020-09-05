@@ -16,8 +16,6 @@ class QuoteCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
-
     return FutureBuilder<List<Color>>(
       future: ImageHelper.getImagePaletteWithOpacity(
         NetworkImage(quote.imageUrl),
