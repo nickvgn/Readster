@@ -24,11 +24,11 @@ class _BookshelfState extends State<Bookshelf> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(milliseconds: 450), () {
-      setState(() {
-        isFadeIn = true;
-      });
-    });
+//    Future.delayed(const Duration(milliseconds: 450), () {
+//      setState(() {
+//        isFadeIn = true;
+//      });
+//    });
   }
 
   @override
@@ -41,43 +41,40 @@ class _BookshelfState extends State<Bookshelf> {
       body: SizedBox(
           width: size.width,
           height: size.height,
-          child: isFadeIn
-              ? StreamBuilder(
-                  stream: widget.status != ALL
-                      ? FirestoreController.streamBooksByStatus(
-                          user.uid, widget.status)
-                      : FirestoreController.streamBooks(user.uid),
-                  builder: (context, snapshot) {
-                    var books = snapshot.data;
-                    return snapshot.hasData
-                        ? Stack(
-                            children: [
-                              FadingEdgeScrollView.fromScrollView(
-                                child: GridView.builder(
-                                  controller: controller,
-                                  physics: BouncingScrollPhysics(),
-                                  padding: EdgeInsets.symmetric(
-                                      vertical: 0, horizontal: 15),
-                                  gridDelegate:
-                                      SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 4,
-                                    mainAxisSpacing: 20,
-                                    crossAxisSpacing: 0,
-                                    childAspectRatio: .50,
-                                  ),
-                                  cacheExtent: 500,
-                                  itemCount: books.length,
-                                  itemBuilder: (context, index) => FittedBox(
-                                    fit: BoxFit.contain,
-                                    child: SizedBox(
-                                      height: 190,
-                                      child: FadeIn(
-                                          duration: Duration(milliseconds: 500),
-                                          child: Book3D(book: books[index])),
-                                    ),
-                                  ),
+          child: StreamBuilder(
+              stream: widget.status != ALL
+                  ? FirestoreController.streamBooksByStatus(
+                      user.uid, widget.status)
+                  : FirestoreController.streamBooks(user.uid),
+              builder: (context, snapshot) {
+                var books = snapshot.data;
+                return snapshot.hasData
+                    ? Stack(
+                        children: [
+                          FadingEdgeScrollView.fromScrollView(
+                            child: GridView.builder(
+                              controller: controller,
+                              physics: BouncingScrollPhysics(),
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 0, horizontal: 15),
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 4,
+                                mainAxisSpacing: 20,
+                                crossAxisSpacing: 0,
+                                childAspectRatio: .50,
+                              ),
+                              cacheExtent: 500,
+                              itemCount: books.length,
+                              itemBuilder: (context, index) => FittedBox(
+                                fit: BoxFit.contain,
+                                child: SizedBox(
+                                  height: 190,
+                                  child: Book3D(book: books[index]),
                                 ),
                               ),
+                            ),
+                          ),
 //                              Align(
 //                                alignment: Alignment.bottomRight,
 //                                child: NeumorphicButton(
@@ -117,11 +114,10 @@ class _BookshelfState extends State<Bookshelf> {
 //                                  ),
 //                                ),
 //                              ),
-                            ],
-                          )
-                        : Container();
-                  })
-              : Container()),
+                        ],
+                      )
+                    : Container();
+              })),
     );
   }
 }

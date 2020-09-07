@@ -28,7 +28,7 @@ class Book3D extends StatefulWidget {
   _Book3DState createState() => _Book3DState();
 }
 
-class _Book3DState extends State<Book3D> with TickerProviderStateMixin {
+class _Book3DState extends State<Book3D> with SingleTickerProviderStateMixin {
   AnimationController animationController;
   AnimationController animationController2;
   Animation animation;
@@ -217,7 +217,6 @@ class _Book3DState extends State<Book3D> with TickerProviderStateMixin {
               ..setEntry(3, 2, 0.003)
               ..rotateX(-0.06)
               ..rotateY(animation2?.value ?? -0.69),
-//                    ..rotateZ(0.01),
             alignment: FractionalOffset.topCenter,
             child: NeumorphicButton(
               onPressed: () async => animationController.forward(),
@@ -230,7 +229,7 @@ class _Book3DState extends State<Book3D> with TickerProviderStateMixin {
                     topLeft: Radius.elliptical(11, animation4.value - 3),
                   ),
                 ),
-                depth: 10,
+                depth: 7,
               ),
               child: Container(
                 decoration: BoxDecoration(

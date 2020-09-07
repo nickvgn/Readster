@@ -47,7 +47,7 @@ class MyBooksCard extends StatelessWidget {
       alignment: Alignment.centerRight,
       children: [
         Neumorphic(
-          margin: EdgeInsets.only(top: 40, bottom: 20, left: 10, right: 10),
+          margin: EdgeInsets.only(top: 45, bottom: 8, left: 10, right: 10),
           style: kNeumorphicStyle.copyWith(
             boxShape: NeumorphicBoxShape.roundRect(
               BorderRadius.circular(25),
@@ -56,19 +56,19 @@ class MyBooksCard extends StatelessWidget {
             shadowLightColor: Colors.white60,
           ),
           child: Container(
-            padding: EdgeInsets.all(20),
+            padding: EdgeInsets.all(11),
             decoration: BoxDecoration(
               color: kLightBackgroundColor,
               borderRadius: BorderRadius.circular(25),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(width: 90),
-                Flexible(
+                Expanded(
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    padding: const EdgeInsets.symmetric(horizontal: 17),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -130,24 +130,25 @@ class MyBooksCard extends StatelessWidget {
         ),
         if (isFadeIn)
           Positioned(
-            bottom: 50,
-            left: 20,
+            bottom: 40,
+            left: 25,
             child: Align(
               alignment: Alignment.topLeft,
               child: SizedBox(
-                height: 190,
+                height: 195,
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 10, left: 5),
+                  padding: const EdgeInsets.only(top: 15, left: 5),
                   child: FadeIn(
-                      duration: Duration(milliseconds: 500),
-                      child: Book3D(book: book)),
+                    duration: Duration(milliseconds: 500),
+                    child: Book3D(book: book),
+                  ),
                 ),
               ),
             ),
           ),
         Positioned(
-          bottom: 35,
-          left: 30,
+          bottom: 25,
+          left: 35,
           child: Row(
             children: [
               Align(

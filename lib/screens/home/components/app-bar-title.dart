@@ -23,8 +23,6 @@ class _AppBarTitleState extends State<AppBarTitle> {
     return user != null
         ? Container(
             padding: EdgeInsets.only(left: 15),
-//      height: 55,
-//      width: 150,
             child: TyperAnimatedTextKit(
               isRepeatingAnimation: false,
               textAlign: TextAlign.start,
@@ -33,20 +31,8 @@ class _AppBarTitleState extends State<AppBarTitle> {
               textStyle: Theme.of(context).textTheme.headline6.copyWith(
                   color: kLightBackgroundColor,
                   fontWeight: FontWeight.bold,
-                  fontSize: 16),
+                  fontSize: 18),
             ),
-//      child: Hero(
-//        tag: 'Readster',
-//        child: NeumorphicText(
-//          'Readster',
-//          style:
-//              kNeumorphicStyle.copyWith(color: kLightBackgroundColor, depth: 2),
-//          textStyle: NeumorphicTextStyle(
-//            fontSize: 40,
-//            fontFamily: GoogleFonts.satisfy().fontFamily,
-//          ),
-//        ),
-//      ),
           )
         : Container();
   }

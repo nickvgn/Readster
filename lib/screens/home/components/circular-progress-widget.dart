@@ -20,8 +20,8 @@ class CircularProgressWidget extends StatelessWidget {
         startAngle: 270,
         angleRange: 365,
         customWidths: CustomSliderWidths(
-          progressBarWidth: 10,
-          trackWidth: 10,
+          progressBarWidth: 12,
+          trackWidth: 12,
         ),
         customColors: CustomSliderColors(
             progressBarColors: [kPrimaryColor, kPrimaryColor],

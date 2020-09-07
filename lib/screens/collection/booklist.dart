@@ -27,11 +27,11 @@ class _BookListState extends State<BookList> {
   void initState() {
     super.initState();
 
-    Future.delayed(const Duration(milliseconds: 450), () {
-      setState(() {
-        isFadeIn = true;
-      });
-    });
+//    Future.delayed(const Duration(milliseconds: 450), () {
+//      setState(() {
+//        isFadeIn = true;
+//      });
+//    });
   }
 
   @override
@@ -48,17 +48,14 @@ class _BookListState extends State<BookList> {
                     : FirestoreController.streamBooks(user.uid),
                 builder: (context, snapshot) {
                   var books = snapshot.data;
-                  return snapshot.hasData && isFadeIn
-                      ? FadeIn(
-                          duration: Duration(milliseconds: 600),
-                          child: FadingEdgeScrollView.fromScrollView(
-                            child: ListView.builder(
-                              controller: controller,
-                              physics: BouncingScrollPhysics(),
-                              itemCount: books.length,
-                              itemBuilder: (context, index) => CollectionBook(
-                                book: books[index],
-                              ),
+                  return snapshot.hasData
+                      ? FadingEdgeScrollView.fromScrollView(
+                          child: ListView.builder(
+                            controller: controller,
+                            physics: BouncingScrollPhysics(),
+                            itemCount: books.length,
+                            itemBuilder: (context, index) => CollectionBook(
+                              book: books[index],
                             ),
                           ),
                         )

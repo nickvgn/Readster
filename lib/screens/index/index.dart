@@ -32,14 +32,22 @@ class _IndexScreenState extends State<IndexScreen> {
       resizeToAvoidBottomInset: false,
       body: _screens[_selectedItemPosition],
       bottomNavigationBar: Neumorphic(
-        style: kNeumorphicStyle,
+        style: kNeumorphicStyle.copyWith(
+          shadowLightColor: Colors.white60,
+          boxShape: NeumorphicBoxShape.roundRect(
+            BorderRadius.only(
+              topLeft: Radius.circular(30),
+              topRight: Radius.circular(30),
+            ),
+          ),
+        ),
         child: Stack(
           children: [
             Positioned(
-              bottom: 1,
+              bottom: 8,
               left: 15,
               child: Align(
-                alignment: Alignment.bottomLeft,
+                alignment: Alignment.center,
                 child: BottomNavBar(),
               ),
             ),
@@ -51,7 +59,7 @@ class _IndexScreenState extends State<IndexScreen> {
               backgroundColor: kLightBackgroundColor,
               showUnselectedLabels: false,
               showSelectedLabels: false,
-              padding: EdgeInsets.only(top: 10, bottom: 10, left: 230),
+              padding: EdgeInsets.only(top: 5, bottom: 5, left: 230),
               currentIndex: _selectedItemPosition,
               onPositionChanged: (index) {
                 setState(() {
@@ -61,14 +69,12 @@ class _IndexScreenState extends State<IndexScreen> {
               items: [
                 BottomNavigationBarItem(
                   icon: Padding(
-                    padding: const EdgeInsets.all(4.0),
+                    padding: const EdgeInsets.all(5.0),
                     child: FlareActor(
                       "assets/icons/home-4.flr",
                       alignment: Alignment.center,
                       color: kSecondaryColor,
-//                    isPaused: isPaused,
                       fit: BoxFit.fitHeight,
-                      animation: "Untitled",
                     ),
                   ),
                 ),
