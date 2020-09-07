@@ -4,33 +4,31 @@ A minimal reading tracker app that aims to keep the bloat out and focus on what 
 
 ##### This app is being built using Flutter
 
-## UI Update (Aug 20)
-<img src="./screenshots/progress.gif" width="300">
-
-## Screenshots (as of Aug 18)
+## Screenshots (as of Sep 06)
 
 ## Home
-<img src="./screenshots/home.png" width="350">
 
+| Homescreen    | Reminder      |
+|------------|-------------|
+| <img src="./screenshots/homescreen_new.gif" width="350"> | <img src="./screenshots/reminder_new.gif" width="350"> |
 
 ## Library
 
 | Booklist     | Bookshelf      |
 |------------|-------------|
-| <img src="./screenshots/booklist.png" width="350"> | <img src="./screenshots/bookshelf.png" width="350"> |
+| <img src="./screenshots/booklist_new.gif" width="350"> | <img src="./screenshots/bookshelf_new.gif" width="350"> |
 
 
 ## Details
-| Scrollable details screen   |
-|------------------------|
-|<img src="./screenshots/details_1.png" width="350"> <img src="./screenshots/details_2.png" width="350"> |
+<img src="./screenshots/details_new.gif" width="350"> 
 
-| Add to library     | eBook sample     |
+| Goodreads reviews     | eBook sample     |
 |------------|-------------|
-| <img src="./screenshots/add_to_lib.png" width="350"> | <img src="./screenshots/ebook sample.png" width="350"> |
+| <img src="./screenshots/g_review.jpg" width="350"> | <img src="./screenshots/gb_sample.jpg" width="350"> |
 
 
 ## Search
-| Google Books     | Goodreads   |
+| Google Books & Goodreads   | ISBN Scanner |
 |------------|-------------|
-| <img src="./screenshots/search_google_books.png" width="350"> | <img src="./screenshots/search_goodreads.png" width="350"> |
+| <img src="./screenshots/search_new.gif" width="350"> | <img src="./screenshots/isbn_scan.gif" width="350"> |
+
