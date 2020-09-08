@@ -12,6 +12,7 @@ import 'package:untitled_goodreads_project/controller/book-controller.dart';
 import 'package:untitled_goodreads_project/models/book.dart';
 import 'package:untitled_goodreads_project/screens/collection/components/blurred-modal-fade.dart';
 import 'package:untitled_goodreads_project/screens/collection/components/progress-modal-content.dart';
+import 'package:untitled_goodreads_project/screens/collection/components/read-update-button.dart';
 import 'package:untitled_goodreads_project/screens/details/components/read-confirm.dart';
 import 'package:untitled_goodreads_project/screens/details/details-screen.dart';
 
@@ -247,29 +248,3 @@ class _CollectionBookState extends State<CollectionBook> {
   }
 }
 
-class ReadUpdateButton extends StatelessWidget {
-  const ReadUpdateButton({
-    Key key,
-    this.title,
-    this.press,
-  }) : super(key: key);
-
-  final String title;
-  final Function press;
-
-  @override
-  Widget build(BuildContext context) {
-    return NeumorphicButton(
-      style: kNeumorphicStyle.copyWith(
-          boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(25))),
-      child: Text(
-        title,
-        style: Theme.of(context).textTheme.caption.copyWith(
-              color: kPrimaryColor,
-              fontWeight: FontWeight.bold,
-            ),
-      ),
-      onPressed: press,
-    );
-  }
-}

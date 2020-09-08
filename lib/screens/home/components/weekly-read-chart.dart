@@ -115,7 +115,7 @@ class WeeklyReadChart extends StatelessWidget {
                     break;
                 }
                 return BarTooltipItem(
-                    weekDay + ' ' + (rod.y - 1).toInt().toString(),
+                    weekDay + ' ' + (rod.y).toInt().toString(),
                     Theme.of(context).textTheme.bodyText1.copyWith(
                         color: kLightBackgroundColor,
                         fontWeight: FontWeight.bold));

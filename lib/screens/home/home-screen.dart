@@ -16,7 +16,6 @@ import 'package:untitled_goodreads_project/models/book.dart';
 import 'package:untitled_goodreads_project/models/quote.dart';
 import 'package:untitled_goodreads_project/screens/home/components/home-app-bar.dart';
 import 'package:untitled_goodreads_project/screens/home/components/my-books-card.dart';
-import 'package:untitled_goodreads_project/screens/home/components/placeholder-card.dart';
 import 'package:untitled_goodreads_project/screens/home/components/progress-grid-view.dart';
 import 'package:untitled_goodreads_project/screens/home/components/weekly-chart-card.dart';
 import 'package:untitled_goodreads_project/services/auth.dart';
