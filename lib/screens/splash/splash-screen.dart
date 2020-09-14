@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
@@ -54,17 +55,6 @@ class _SplashScreenState extends State<SplashScreen>
 
     controller.forward();
     controller.addListener(() {
-//      if (controller.value > .5) {
-//        controller2.forward();
-//        setState(() {});
-//      }
-//      if (controller.isCompleted) {
-////        controller2.reverse();
-////        setState(() {});
-////        controller.reverse();
-////        setState(() {});
-//        onDoneLoading();
-//      }
       setState(() {});
     });
   }
@@ -119,7 +109,6 @@ class _SplashScreenState extends State<SplashScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-//      backgroundColor: colorAnimation.value,
       body: Neumorphic(
         style: NeumorphicStyle(
           color: kLightBackgroundColor,
@@ -135,7 +124,7 @@ class _SplashScreenState extends State<SplashScreen>
                   color: colorAnimation.value),
               textStyle: NeumorphicTextStyle(
                 fontSize: 75,
-                fontFamily: GoogleFonts.imFellEnglishSc().fontFamily,
+                fontFamily: GoogleFonts.chewy().fontFamily,
                 fontWeight: FontWeight.w900,
               ),
             ),

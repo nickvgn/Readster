@@ -30,7 +30,7 @@ class CircularProgressWidget extends StatelessWidget {
             dotColor: Colors.transparent),
       ),
       min: 0,
-      max: goal,
+      max: goal == 0 ? 0.5 : goal,
       initialValue: current > goal ? goal : current < 0 ? 0 : current,
       innerWidget: (double progress) {
         return Column(
@@ -40,7 +40,7 @@ class CircularProgressWidget extends StatelessWidget {
               text: TextSpan(
                 children: [
                   TextSpan(
-                    text: '${current < 0 ? 0 : current.toInt()}',
+                    text: '${current <= 0 ? 0 : current.toInt()}',
                     style: Theme.of(context).textTheme.subtitle2.copyWith(
                           fontSize: 21,
                         ),

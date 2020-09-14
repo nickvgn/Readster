@@ -36,14 +36,14 @@ class _CollectionBookState extends State<CollectionBook> {
   @override
   void initState() {
     super.initState();
-    sliderValue =
-        ((widget.book.pageRead / widget.book.pageCount) * 10).toDouble();
-    readStatus = widget.book.readStatus;
   }
 
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+    sliderValue =
+        ((widget.book.pageRead / widget.book.pageCount) * 10).toDouble();
+    readStatus = widget.book.readStatus;
 
     return SizedBox(
       height: 200,
@@ -51,7 +51,6 @@ class _CollectionBookState extends State<CollectionBook> {
         margin: EdgeInsets.only(bottom: 15, top: 0, left: 15, right: 15),
         style: kNeumorphicStyle.copyWith(depth: 0),
         child: Row(
-//          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Stack(
               children: [
@@ -140,13 +139,12 @@ class _CollectionBookState extends State<CollectionBook> {
                         ),
                       if (readStatus == READ)
                         Neumorphic(
-                          margin: EdgeInsets.only(right: 8, top: 5),
+                          margin: EdgeInsets.only(right: 8),
                           style: kNeumorphicStyle.copyWith(
                             depth: 0,
-                            boxShape: NeumorphicBoxShape.circle(),
                           ),
                           child: NeumorphicIcon(
-                            MdiIcons.read,
+                            FontAwesomeIcons.check,
                             size: 25,
                             style: kNeumorphicStyle.copyWith(
                               color: kSecondaryColor,
@@ -156,7 +154,8 @@ class _CollectionBookState extends State<CollectionBook> {
                         ),
                       if (readStatus == READING)
                         NeumorphicButton(
-                          padding: EdgeInsets.all(8),
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 5, vertical: 4),
                           style: kNeumorphicStyle.copyWith(
                             depth: 0,
                             boxShape: NeumorphicBoxShape.circle(),
@@ -164,8 +163,8 @@ class _CollectionBookState extends State<CollectionBook> {
                           child: NeumorphicIcon(
                             FontAwesomeIcons.pen,
                             size: 22,
-                            style:
-                                kNeumorphicStyle.copyWith(color: kPrimaryColor),
+                            style: kNeumorphicStyle.copyWith(
+                                color: kPrimaryColor, depth: 2),
                           ),
                           onPressed: () async {
                             dynamic received = await Navigator.of(context).push(
@@ -247,4 +246,3 @@ class _CollectionBookState extends State<CollectionBook> {
     );
   }
 }
-

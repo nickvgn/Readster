@@ -20,9 +20,9 @@ class ReadUpdateButton extends StatelessWidget {
       child: Text(
         title,
         style: Theme.of(context).textTheme.caption.copyWith(
-          color: kPrimaryColor,
-          fontWeight: FontWeight.bold,
-        ),
+              color: kPrimaryColor,
+              fontWeight: FontWeight.bold,
+            ),
       ),
       onPressed: press,
     );

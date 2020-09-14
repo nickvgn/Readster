@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:transparent_image/transparent_image.dart';
 import 'package:untitled_goodreads_project/constants.dart';
@@ -56,7 +57,7 @@ class _SliverTitleBarState extends State<SliverTitleBar> {
                   if (!isAdded || isChanged == true) {
                     return AddOrRemoveButton(
                         book: widget.book,
-                        icon: Icons.library_add,
+                        icon: MdiIcons.bookPlus,
                         title: 'Add to Library',
                         modalText: 'This book will be added to your library',
                         press: () {
@@ -79,7 +80,7 @@ class _SliverTitleBarState extends State<SliverTitleBar> {
                   if (isAdded || isChanged == false) {
                     return AddOrRemoveButton(
                         book: widget.book,
-                        icon: Icons.remove,
+                        icon: MdiIcons.bookMinus,
                         title: 'Remove from library',
                         modalText: 'This book will removed from your library',
                         press: () {

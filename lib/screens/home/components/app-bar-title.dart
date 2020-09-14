@@ -26,7 +26,7 @@ class _AppBarTitleState extends State<AppBarTitle> {
             child: TyperAnimatedTextKit(
               isRepeatingAnimation: false,
               textAlign: TextAlign.start,
-              speed: Duration(milliseconds: 40),
+              speed: Duration(milliseconds: 70),
               text: ['Hi, $userName'],
               textStyle: Theme.of(context).textTheme.headline6.copyWith(
                   color: kLightBackgroundColor,

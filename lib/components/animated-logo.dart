@@ -19,7 +19,7 @@ class _AnimatedLogoState extends State<AnimatedLogo> {
       child: TyperAnimatedTextKit(
         isRepeatingAnimation: false,
         textAlign: TextAlign.center,
-        speed: Duration(milliseconds: 100),
+        speed: Duration(milliseconds: 80),
         alignment: Alignment.center,
         text: widget.text,
         textStyle: Theme.of(context).textTheme.headline4.copyWith(

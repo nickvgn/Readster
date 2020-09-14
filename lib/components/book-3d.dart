@@ -92,6 +92,7 @@ class _Book3DState extends State<Book3D> with SingleTickerProviderStateMixin {
               children: [
                 NeumorphicButton(
                   onPressed: () {
+                    animationController.reverse();
                     Provider.of<BookController>(context, listen: false)
                         .updateBookId(widget.book.id);
                     Navigator.push(
@@ -116,31 +117,10 @@ class _Book3DState extends State<Book3D> with SingleTickerProviderStateMixin {
                     ),
                   ),
                 ),
-                if (widget.book.readStatus == TOREAD)
-                  NeumorphicButton(
-                    onPressed: () => Navigator.of(context).push(
-                      buildReadConfirmModal(
-                        context,
-                        'This book will be added to your \'Reading\' collection.',
-                        READING,
-                        widget.book,
-                      ),
-                    ),
-                    style: kNeumorphicStyle.copyWith(
-                        color: Colors.transparent, depth: 0),
-                    child: NeumorphicIcon(
-                      MdiIcons.bookOpenPageVariant,
-                      style: kNeumorphicStyle.copyWith(
-                        shadowLightColor: Colors.white60,
-                        color: widget.book.spineColor.computeLuminance() > .3
-                            ? Colors.black87
-                            : kLightBackgroundColor,
-                      ),
-                    ),
-                  ),
                 if (widget.book.readStatus == READING)
                   NeumorphicButton(
                     onPressed: () async {
+                      animationController.reverse();
                       dynamic received = await Navigator.of(context).push(
                         buildBlurredModalFade(
                           child: ProgressModalContent(
@@ -168,16 +148,20 @@ class _Book3DState extends State<Book3D> with SingleTickerProviderStateMixin {
                       ),
                     ),
                   ),
-                if (widget.book.readStatus == READ)
+                if (widget.book.readStatus == READ ||
+                    widget.book.readStatus == TOREAD)
                   NeumorphicButton(
-                    onPressed: () => Navigator.of(context).push(
-                      buildReadConfirmModal(
-                        context,
-                        'This book will be added to your \'Reading\' collection.',
-                        READING,
-                        widget.book,
-                      ),
-                    ),
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        buildReadConfirmModal(
+                          context,
+                          'This book will be added to your \'Reading\' collection.',
+                          READING,
+                          widget.book,
+                        ),
+                      );
+                      animationController.reverse();
+                    },
                     style: kNeumorphicStyle.copyWith(
                         color: Colors.transparent, depth: 0),
                     child: NeumorphicIcon(

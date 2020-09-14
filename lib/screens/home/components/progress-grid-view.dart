@@ -77,7 +77,7 @@ class ProgressGridView extends StatelessWidget {
           builder: (context, snapshot) {
             if (snapshot.hasError) print(snapshot.error);
             var userData = snapshot.data;
-            return snapshot.hasData && userData.dailyGoal != 0
+            return snapshot.hasData
                 ? GridView(
                     physics: NeverScrollableScrollPhysics(),
                     padding: EdgeInsets.only(
@@ -94,8 +94,13 @@ class ProgressGridView extends StatelessWidget {
                           'pages to read',
                           userData.dailyGoal,
                           userData.weeklyReadCount[DateTime.now().weekday - 1]),
-                      buildProgressCard(context, '2020', 'books to finish',
-                          userData.yearlyGoal, userData.finishedBooks),
+                      buildProgressCard(
+                        context,
+                        '2020',
+                        'books to finish',
+                        userData.yearlyGoal,
+                        userData.finishedBooks,
+                      ),
                     ],
                   )
                 : Container();

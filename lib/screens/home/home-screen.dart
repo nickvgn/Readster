@@ -63,7 +63,7 @@ class _HomeScreenState extends State<HomeScreen>
       vsync: this,
     );
 
-    depthAnimation = Tween<double>(begin: -2, end: 1.5).animate(
+    depthAnimation = Tween<double>(begin: -1, end: 1.5).animate(
         CurvedAnimation(parent: controller, curve: Curves.easeInOutExpo));
     scaleAnimation1 = Tween<double>(begin: 0.9, end: 1).animate(
         CurvedAnimation(parent: controller, curve: Curves.bounceInOut));

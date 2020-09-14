@@ -29,7 +29,6 @@ class _IndexScreenState extends State<IndexScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       body: _screens[_selectedItemPosition],
       bottomNavigationBar: Neumorphic(
         style: kNeumorphicStyle.copyWith(

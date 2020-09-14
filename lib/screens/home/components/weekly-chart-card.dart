@@ -25,7 +25,7 @@ class WeeklyChartCard extends StatelessWidget {
         stream: FirestoreController.streamUserData(user?.uid),
         builder: (context, snapshot) {
           if (snapshot.hasError) print(snapshot.error);
-          return snapshot.hasData && snapshot.data.dailyGoal != 0
+          return snapshot.hasData
               ? Neumorphic(
                   margin: EdgeInsets.symmetric(
                     horizontal: 20,
