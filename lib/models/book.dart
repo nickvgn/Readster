@@ -140,7 +140,7 @@ class Book {
       title: TextHelper.parseHtmlStringAsText(book['title']) ?? '',
       imageUrl: book['image_url'].replaceAll('SX98', 'SX475'),
       description: TextHelper.parseHtmlStringAsText(book['description']) ?? '',
-      isbn: book['isbn'] ?? '',
+      isbn: book['isbn'] ?? 'not available',
       rating: double.tryParse(book['average_rating']) ?? 0.0,
       ratingCount: int.tryParse(book['work']['ratings_count']) ?? 0,
       reviewCount: int.tryParse(book['work']['text_reviews_count']) ?? 0,

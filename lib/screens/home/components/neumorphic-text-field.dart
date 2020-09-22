@@ -24,7 +24,7 @@ class NeumorphicTextField extends StatelessWidget {
         boxShape: NeumorphicBoxShape.roundRect(
           BorderRadius.circular(25),
         ),
-        depth: -5,
+        depth: -3,
         shape: NeumorphicShape.concave,
       ),
       child: TextField(

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -7,6 +8,8 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:provider/provider.dart';
 import 'package:untitled_goodreads_project/constants.dart';
 import 'package:untitled_goodreads_project/controller/book-controller.dart';
+import 'package:untitled_goodreads_project/controller/firestore-controller.dart';
+import 'package:untitled_goodreads_project/models/book.dart';
 import 'package:untitled_goodreads_project/screens/collection/booklist.dart';
 import 'package:untitled_goodreads_project/screens/collection/bookshelf.dart';
 import 'package:untitled_goodreads_project/screens/collection/components/book-search.dart';
@@ -21,6 +24,8 @@ class _CollectionScreenState extends State<CollectionScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var user = Provider.of<FirebaseUser>(context);
+
     return DefaultTabController(
       length: 3,
       child: Column(
@@ -81,27 +86,43 @@ class _CollectionScreenState extends State<CollectionScreen> {
               SizedBox(width: 14)
             ],
           ),
-          SizedBox(
-            height: 50,
-            child: TabBar(
-              labelColor: kPrimaryColor,
-              indicatorSize: TabBarIndicatorSize.label,
-              labelStyle: Theme.of(context)
-                  .textTheme
-                  .bodyText1
-                  .copyWith(fontWeight: FontWeight.bold),
-              unselectedLabelColor: Colors.grey,
-              indicator: UnderlineTabIndicator(
-                  borderSide: BorderSide(
-                color: Colors.transparent,
-              )),
-              tabs: [
-                Tab(text: 'Reading'),
-                Tab(text: 'Read Later'),
-                Tab(text: 'Read'),
-              ],
-            ),
-          ),
+          StreamBuilder<List<Book>>(
+              stream: FirestoreController.streamBooks(user.uid),
+              builder: (context, snapshot) {
+                return SizedBox(
+                  height: 50,
+                  child: TabBar(
+                    labelColor: kPrimaryColor,
+                    indicatorSize: TabBarIndicatorSize.label,
+                    labelStyle: Theme.of(context)
+                        .textTheme
+                        .bodyText1
+                        .copyWith(fontWeight: FontWeight.bold),
+                    unselectedLabelColor: Colors.grey,
+                    indicator: UnderlineTabIndicator(
+                        borderSide: BorderSide(
+                      color: Colors.transparent,
+                    )),
+                    tabs: [
+                      Tab(
+                          text:
+                              'Reading (${snapshot?.data
+                                  ?.where((book) => book?.readStatus == READING)
+                                  ?.length ?? 0})'),
+                      Tab(
+                          text:
+                              'Read Later (${snapshot?.data
+                                  ?.where((book) => book.readStatus == TOREAD)
+                                  ?.length ?? 0})'),
+                      Tab(
+                          text:
+                              'Read (${snapshot?.data
+                                  ?.where((book) => book.readStatus == READ)
+                                  ?.length ?? 0})'),
+                    ],
+                  ),
+                );
+              }),
           Expanded(
             child: Consumer<BookController>(builder: (_, bookController, __) {
               return TabBarView(

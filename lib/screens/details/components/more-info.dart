@@ -84,7 +84,8 @@ class _MoreInfoState extends State<MoreInfo> {
                           ),
                     ),
                     TextSpan(
-                      text: '${widget.book.isbn}\n',
+                      text:
+                          '${widget.book.isbn == '' ? 'not available' : widget.book.isbn}\n',
                       style: Theme.of(context).textTheme.caption.copyWith(
                             fontSize: 14,
                             fontWeight: FontWeight.bold,

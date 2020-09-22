@@ -150,11 +150,11 @@ class _HomeScreenState extends State<HomeScreen>
                               builder: (context, snapshot) {
                                 if (snapshot.hasError) print(snapshot.error);
                                 var books = snapshot.data;
-                                return snapshot.hasData
+                                return snapshot.hasData &&
+                                        snapshot.data.length != 0
                                     ? buildCarousel(
                                         autoPlay: true,
-                                        items:
-                                            books.length == 0 ? quotes : books,
+                                        items: books,
                                         itemBuilder: (context, index) =>
                                             Transform(
                                               transform: myMatrix,
@@ -164,7 +164,51 @@ class _HomeScreenState extends State<HomeScreen>
                                                 animation: depthAnimation,
                                               ),
                                             ))
-                                    : Container();
+                                    : FadeIn(
+                                        child: Transform(
+                                          transform: myMatrix,
+                                          child: Neumorphic(
+                                            margin: EdgeInsets.only(
+                                                top: 8,
+                                                bottom: 8,
+                                                left: 20,
+                                                right: 20),
+                                            style: kNeumorphicStyle.copyWith(
+                                              boxShape:
+                                                  NeumorphicBoxShape.roundRect(
+                                                BorderRadius.circular(25),
+                                              ),
+                                              depth: depthAnimation.value,
+                                              shadowLightColor: Colors.white60,
+                                            ),
+                                            child: Container(
+                                              padding: EdgeInsets.all(30),
+                                              decoration: BoxDecoration(
+                                                color: kLightBackgroundColor,
+                                                borderRadius:
+                                                    BorderRadius.circular(25),
+                                              ),
+                                              child: SizedBox(
+                                                height: 110,
+                                                child: Center(
+                                                  child: Text(
+                                                    'Hmm.. Looks empty. Why don\'t you read a book?',
+                                                    textAlign: TextAlign.center,
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .headline6
+                                                        .copyWith(
+                                                          color: Colors.black26,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      );
                               })
                           : SpinkitWidget(),
                       user != null
