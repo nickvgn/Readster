@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -35,6 +36,7 @@ class _ProgressModalContentState extends State<ProgressModalContent> {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+    var user = Provider.of<FirebaseUser>(context);
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -114,11 +116,11 @@ class _ProgressModalContentState extends State<ProgressModalContent> {
           children: [
             buildConfirmationButton('Finished', context, () {
               Navigator.of(context).push(buildReadConfirmModal(
-                context,
-                'This book will be added to your \'Read\' collection.',
-                READ,
-                widget.book,
-              ));
+                  context,
+                  'This book will be added to your \'Read\' collection.',
+                  READ,
+                  widget.book,
+                  user));
             }, color: kLightBackgroundColor, textColor: kSecondaryColor),
             buildConfirmationButton('Save', context, () {
               Provider.of<FirestoreController>(context, listen: false)

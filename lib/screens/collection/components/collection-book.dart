@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
@@ -44,6 +45,7 @@ class _CollectionBookState extends State<CollectionBook> {
     sliderValue =
         ((widget.book.pageRead / widget.book.pageCount) * 10).toDouble();
     readStatus = widget.book.readStatus;
+    var user = Provider.of<FirebaseUser>(context);
 
     return SizedBox(
       height: 200,
@@ -204,13 +206,13 @@ class _CollectionBookState extends State<CollectionBook> {
                     ReadUpdateButton(
                       title: 'Start Reading',
                       press: () {
-                        dynamic isAdded =
-                            Navigator.of(context).push(buildReadConfirmModal(
-                          context,
-                          'This book will be added to your \'Reading\' collection.',
-                          READING,
-                          widget.book,
-                        ));
+                        dynamic isAdded = Navigator.of(context).push(
+                            buildReadConfirmModal(
+                                context,
+                                'This book will be added to your \'Reading\' collection.',
+                                READING,
+                                widget.book,
+                                user));
                         if (isAdded != null && isAdded == true) {
                           setState(() {
                             readStatus = READING;
@@ -222,13 +224,13 @@ class _CollectionBookState extends State<CollectionBook> {
                     ReadUpdateButton(
                       title: 'Read Again',
                       press: () {
-                        dynamic isAdded =
-                            Navigator.of(context).push(buildReadConfirmModal(
-                          context,
-                          'This book will be added to your \'Reading\' collection.',
-                          READING,
-                          widget.book,
-                        ));
+                        dynamic isAdded = Navigator.of(context).push(
+                            buildReadConfirmModal(
+                                context,
+                                'This book will be added to your \'Reading\' collection.',
+                                READING,
+                                widget.book,
+                                user));
                         if (isAdded != null && isAdded == true) {
                           setState(() {
                             readStatus = READING;

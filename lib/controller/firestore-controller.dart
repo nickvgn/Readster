@@ -151,12 +151,16 @@ class FirestoreController extends ChangeNotifier {
   }
 
   static Future<DocumentSnapshot> _getDocument(Book book) async {
+    var uid = await AuthService().getUserId;
     QuerySnapshot items = await db.collection('books').getDocuments();
 
     for (var item in items.documents) {
       final id = item.data['id'];
+      final ownerId = item.data['uid'];
       if (id.toString() == book.id) {
-        return item;
+        if (ownerId.toString() == uid) {
+          return item;
+        }
       }
     }
     return null;
@@ -181,7 +185,7 @@ class FirestoreController extends ChangeNotifier {
     notifyListeners();
   }
 
-  void updateBookStatus(String readStatus, Book book) async {
+  void updateBookStatus(String readStatus, Book book, String uid) async {
     DocumentSnapshot bookToUpdate = await _getDocument(book);
     await db.collection('books').document(bookToUpdate.documentID).updateData({
       'readStatus': readStatus,
@@ -189,7 +193,7 @@ class FirestoreController extends ChangeNotifier {
     });
 
     if (readStatus == READ) {
-      addFinishedReadingDate(readStatus, book);
+      addFinishedReadingDate(readStatus, book, uid);
     }
 
     notifyListeners();
@@ -204,7 +208,7 @@ class FirestoreController extends ChangeNotifier {
     notifyListeners();
   }
 
-  void addFinishedReadingDate(String readStatus, Book book) async {
+  void addFinishedReadingDate(String readStatus, Book book, String uid) async {
     DocumentSnapshot bookToUpdate = await _getDocument(book);
     DocumentSnapshot userToUpdate = await getUserDocument();
 
@@ -219,8 +223,18 @@ class FirestoreController extends ChangeNotifier {
       temp = value.data['booksFinished${DateTime.now().year}'];
     });
 
-    await db.collection('user').document(userToUpdate.documentID).updateData(
-        {'booksFinished${DateTime.now().year}': temp == null ? 1 : (temp + 1)});
+    var finishedDate = await db
+        .collection('books')
+        .document(bookToUpdate.documentID)
+        .snapshots()
+        .first
+        .then((value) => value.data['finishedDate']);
+
+    if (finishedDate == null) {
+      await db.collection('user').document(userToUpdate.documentID).updateData({
+        'booksFinished${DateTime.now().year}': temp == null ? 1 : (temp + 1)
+      });
+    }
 
     await db.collection('books').document(bookToUpdate.documentID).updateData({
       'finishedDate': DateTime.now(),

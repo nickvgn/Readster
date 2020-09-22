@@ -106,19 +106,13 @@ class _CollectionScreenState extends State<CollectionScreen> {
                     tabs: [
                       Tab(
                           text:
-                              'Reading (${snapshot?.data
-                                  ?.where((book) => book?.readStatus == READING)
-                                  ?.length ?? 0})'),
+                              'Reading (${snapshot?.data?.where((book) => book?.readStatus == READING)?.length ?? 0})'),
                       Tab(
                           text:
-                              'Read Later (${snapshot?.data
-                                  ?.where((book) => book.readStatus == TOREAD)
-                                  ?.length ?? 0})'),
+                              'Read Later (${snapshot?.data?.where((book) => book.readStatus == TOREAD)?.length ?? 0})'),
                       Tab(
                           text:
-                              'Read (${snapshot?.data
-                                  ?.where((book) => book.readStatus == READ)
-                                  ?.length ?? 0})'),
+                              'Read (${snapshot?.data?.where((book) => book.readStatus == READ)?.length ?? 0})'),
                     ],
                   ),
                 );

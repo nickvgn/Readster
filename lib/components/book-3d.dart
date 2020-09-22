@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_flip_view/flutter_flip_view.dart';
@@ -76,6 +77,8 @@ class _Book3DState extends State<Book3D> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    var user = Provider.of<FirebaseUser>(context);
+
     return FlipView(
       animationController: curvedAnimation,
       back: FittedBox(
@@ -154,11 +157,11 @@ class _Book3DState extends State<Book3D> with SingleTickerProviderStateMixin {
                     onPressed: () {
                       Navigator.of(context).push(
                         buildReadConfirmModal(
-                          context,
-                          'This book will be added to your \'Reading\' collection.',
-                          READING,
-                          widget.book,
-                        ),
+                            context,
+                            'This book will be added to your \'Reading\' collection.',
+                            READING,
+                            widget.book,
+                            user),
                       );
                       animationController.reverse();
                     },
