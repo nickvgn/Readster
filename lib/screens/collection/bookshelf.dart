@@ -2,7 +2,6 @@ import 'package:fading_edge_scrollview/fading_edge_scrollview.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_fadein/flutter_fadein.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:provider/provider.dart';
 import 'package:untitled_goodreads_project/components/book-3d.dart';

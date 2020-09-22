@@ -13,7 +13,6 @@ import 'package:untitled_goodreads_project/components/spinkit-widget.dart';
 import 'package:untitled_goodreads_project/constants.dart';
 import 'package:untitled_goodreads_project/controller/firestore-controller.dart';
 import 'package:untitled_goodreads_project/models/book.dart';
-import 'package:untitled_goodreads_project/models/quote.dart';
 import 'package:untitled_goodreads_project/screens/home/components/home-app-bar.dart';
 import 'package:untitled_goodreads_project/screens/home/components/my-books-card.dart';
 import 'package:untitled_goodreads_project/screens/home/components/progress-grid-view.dart';
