@@ -1,12 +1,16 @@
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:untitled_goodreads_project/components/bottom-nav-bar.dart';
 import 'package:untitled_goodreads_project/constants.dart';
+import 'package:untitled_goodreads_project/controller/book-controller.dart';
 import 'package:untitled_goodreads_project/screens/collection/collection-screen.dart';
 import 'package:untitled_goodreads_project/screens/home/home-screen.dart';
+import 'package:untitled_goodreads_project/services/shared.dart';
 
 class IndexScreen extends StatefulWidget {
   @override
@@ -28,6 +32,7 @@ class _IndexScreenState extends State<IndexScreen> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
     return Scaffold(
       body: _screens[_selectedItemPosition],
       bottomNavigationBar: Neumorphic(
@@ -61,6 +66,10 @@ class _IndexScreenState extends State<IndexScreen> {
               padding: EdgeInsets.only(top: 5, bottom: 5, left: 230),
               currentIndex: _selectedItemPosition,
               onPositionChanged: (index) {
+                if (index == 1) {
+                  Provider.of<BookController>(context, listen: false)
+                      .updateBookView(sharedPrefs.bookView);
+                }
                 setState(() {
                   _selectedItemPosition = index;
                 });

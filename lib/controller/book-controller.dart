@@ -2,11 +2,13 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:untitled_goodreads_project/constants.dart';
 import 'package:untitled_goodreads_project/models/book.dart';
 import 'package:untitled_goodreads_project/models/genre.dart';
 import 'package:untitled_goodreads_project/services/text-helper.dart';
+import 'package:untitled_goodreads_project/services/shared.dart';
 
 const apiKey = 'JmM6U8MTKLUf6QYSfvtBIA';
 const goodReadsUrlShowBook = 'https://www.goodreads.com/book/show';
@@ -171,10 +173,10 @@ class BookController with ChangeNotifier {
   String apiType = GOODREADS;
   bool isLoading = false;
   String readStatus = TOREAD;
-  String bookView = LIST;
+  bool bookView = true;
   double sliderValue = 0.5;
   String currentScreen = HOME;
-  int index = 0;
+//  int index = 1;
   List<String> statuses = [ALL, TOREAD, READING, READ];
   List<String> views = [LIST, SHELF];
 
@@ -213,9 +215,13 @@ class BookController with ChangeNotifier {
     notifyListeners();
   }
 
-  void updateBookView() {
-    bookView = views[index];
-    index == 1 ? index = 0 : index++;
+  void updateBookView(newBookView) async {
+//    var index = await Shared.getBookViewIndex();
+//    sharedPrefs.bookView = !sharedPrefs.bookView;
+    bookView = newBookView;
+    print(bookView);
+//    index == 1 ? index = 0 : index++;
+//    Shared.persistBookViewIndex(index);
     notifyListeners();
   }
 

@@ -9,6 +9,7 @@ import 'package:untitled_goodreads_project/constants.dart';
 import 'package:untitled_goodreads_project/screens/index/index.dart';
 import 'package:untitled_goodreads_project/screens/login/login-screen.dart';
 import 'package:untitled_goodreads_project/services/auth.dart';
+import 'package:flutter/services.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -31,7 +32,7 @@ class _SplashScreenState extends State<SplashScreen>
     onDoneLoading();
 
     controller = AnimationController(
-      duration: Duration(seconds: 1),
+      duration: Duration(milliseconds: 800),
       lowerBound: 0,
       vsync: this,
     );
@@ -48,7 +49,7 @@ class _SplashScreenState extends State<SplashScreen>
         ColorTween(begin: kLightBackgroundColor, end: kPrimaryColor).animate(
             CurvedAnimation(
                 parent: controller,
-                curve: Interval(0.6, 1, curve: Curves.easeInOutCirc)));
+                curve: Interval(0.75, 1, curve: Curves.easeInOutCirc)));
     depthAnimation = Tween<double>(begin: 0, end: 15).animate(
         CurvedAnimation(parent: controller, curve: Curves.easeInOutExpo));
 
@@ -84,7 +85,7 @@ class _SplashScreenState extends State<SplashScreen>
               context,
               PageTransition(
 //                duration: Duration(seconds: 2),
-                type: PageTransitionType.fade,
+                type: PageTransitionType.rightToLeftWithFade,
                 child: IndexScreen(),
               ),
             ),
@@ -95,7 +96,7 @@ class _SplashScreenState extends State<SplashScreen>
             () => Navigator.pushReplacement(
               context,
               PageTransition(
-                type: PageTransitionType.fade,
+                type: PageTransitionType.rightToLeftWithFade,
                 child: LoginScreen(),
               ),
             ),
@@ -107,6 +108,7 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setEnabledSystemUIOverlays([]);
     return Scaffold(
       body: Neumorphic(
         style: NeumorphicStyle(

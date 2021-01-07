@@ -13,6 +13,7 @@ import 'package:untitled_goodreads_project/models/book.dart';
 import 'package:untitled_goodreads_project/screens/collection/booklist.dart';
 import 'package:untitled_goodreads_project/screens/collection/bookshelf.dart';
 import 'package:untitled_goodreads_project/screens/collection/components/book-search.dart';
+import 'package:untitled_goodreads_project/services/shared.dart';
 
 class CollectionScreen extends StatefulWidget {
   @override
@@ -25,7 +26,6 @@ class _CollectionScreenState extends State<CollectionScreen> {
   @override
   Widget build(BuildContext context) {
     var user = Provider.of<FirebaseUser>(context);
-
     return DefaultTabController(
       length: 3,
       child: Column(
@@ -74,13 +74,14 @@ class _CollectionScreenState extends State<CollectionScreen> {
                 splashColor: kPrimaryColor,
                 color: kPrimaryColor,
                 icon: Icon(
-                  Provider.of<BookController>(context).bookView == SHELF
-                      ? MdiIcons.viewList
-                      : MdiIcons.viewGrid,
+                  Provider.of<BookController>(context).bookView
+                      ? MdiIcons.viewGrid
+                      : MdiIcons.viewList,
                 ),
                 onPressed: () {
                   Provider.of<BookController>(context, listen: false)
-                      .updateBookView();
+                      .updateBookView(!sharedPrefs.bookView);
+                  sharedPrefs.bookView = !sharedPrefs.bookView;
                 },
               ),
               SizedBox(width: 14)
@@ -122,13 +123,13 @@ class _CollectionScreenState extends State<CollectionScreen> {
               return TabBarView(
                 physics: BouncingScrollPhysics(),
                 children: [
-                  bookController.bookView == LIST
+                  bookController.bookView
                       ? BookList(status: READING)
                       : Bookshelf(status: READING),
-                  bookController.bookView == LIST
+                  bookController.bookView
                       ? BookList(status: TOREAD)
                       : Bookshelf(status: TOREAD),
-                  bookController.bookView == LIST
+                  bookController.bookView
                       ? BookList(status: READ)
                       : Bookshelf(status: READ),
                 ],

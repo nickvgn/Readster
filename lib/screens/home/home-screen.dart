@@ -127,114 +127,129 @@ class _HomeScreenState extends State<HomeScreen>
             ),
           ),
         ),
-        SafeArea(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              HomeAppBar(
-                user: user,
-                fadeController: fadeController,
-              ),
-              Expanded(
-                child: FadingEdgeScrollView.fromScrollView(
-                  child: ListView(
-                    controller: scrollController,
-                    physics: BouncingScrollPhysics(),
-                    children: [
-                      user != null
-                          ? StreamBuilder<List<Book>>(
-                              stream: FirestoreController.streamBooksByStatus(
-                                  user.uid, READING),
-                              builder: (context, snapshot) {
-                                if (snapshot.hasError) print(snapshot.error);
-                                var books = snapshot.data;
-                                return snapshot.hasData &&
-                                        snapshot.data.length != 0
-                                    ? buildCarousel(
-                                        autoPlay: true,
-                                        items: books,
-                                        itemBuilder: (context, index) =>
-                                            Transform(
+        SizedBox(
+          width: size.width,
+          child: SafeArea(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                HomeAppBar(
+                  user: user,
+                  fadeController: fadeController,
+                ),
+                Expanded(
+                  child: SizedBox(
+                    width: size.width,
+                    child: FadingEdgeScrollView.fromScrollView(
+                      child: ListView(
+                        controller: scrollController,
+                        physics: BouncingScrollPhysics(),
+                        children: [
+                          user != null
+                              ? StreamBuilder<List<Book>>(
+                                  stream:
+                                      FirestoreController.streamBooksByStatus(
+                                          user.uid, READING),
+                                  builder: (context, snapshot) {
+                                    if (snapshot.hasError)
+                                      print(snapshot.error);
+                                    var books = snapshot.data;
+                                    return snapshot.hasData &&
+                                            snapshot.data.length != 0
+                                        ? buildCarousel(
+                                            autoPlay: true,
+                                            items: books,
+                                            itemBuilder: (context, index) =>
+                                                Transform(
+                                                  transform: myMatrix,
+                                                  child: MyBooksCard(
+                                                    book: books[index],
+                                                    isFadeIn: isFadeIn,
+                                                    animation: depthAnimation,
+                                                  ),
+                                                ))
+                                        : FadeIn(
+                                            child: Transform(
                                               transform: myMatrix,
-                                              child: MyBooksCard(
-                                                book: books[index],
-                                                isFadeIn: isFadeIn,
-                                                animation: depthAnimation,
-                                              ),
-                                            ))
-                                    : FadeIn(
-                                        child: Transform(
-                                          transform: myMatrix,
-                                          child: Neumorphic(
-                                            margin: EdgeInsets.only(
-                                                top: 8,
-                                                bottom: 8,
-                                                left: 20,
-                                                right: 20),
-                                            style: kNeumorphicStyle.copyWith(
-                                              boxShape:
-                                                  NeumorphicBoxShape.roundRect(
-                                                BorderRadius.circular(25),
-                                              ),
-                                              depth: depthAnimation.value,
-                                              shadowLightColor: Colors.white60,
-                                            ),
-                                            child: Container(
-                                              padding: EdgeInsets.all(30),
-                                              decoration: BoxDecoration(
-                                                color: kLightBackgroundColor,
-                                                borderRadius:
+                                              child: Neumorphic(
+                                                margin: EdgeInsets.only(
+                                                    top: 8,
+                                                    bottom: 8,
+                                                    left: 20,
+                                                    right: 20),
+                                                style:
+                                                    kNeumorphicStyle.copyWith(
+                                                  boxShape: NeumorphicBoxShape
+                                                      .roundRect(
                                                     BorderRadius.circular(25),
-                                              ),
-                                              child: SizedBox(
-                                                height: 110,
-                                                child: Center(
-                                                  child: Text(
-                                                    'Hmm.. Looks empty. Why don\'t you read a book?',
-                                                    textAlign: TextAlign.center,
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .headline6
-                                                        .copyWith(
-                                                          color: Colors.black26,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                        ),
+                                                  ),
+                                                  depth: depthAnimation.value,
+                                                  shadowLightColor:
+                                                      Colors.white60,
+                                                ),
+                                                child: Container(
+                                                  padding: EdgeInsets.all(30),
+                                                  decoration: BoxDecoration(
+                                                    color:
+                                                        kLightBackgroundColor,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            25),
+                                                  ),
+                                                  child: SizedBox(
+                                                    height: 110,
+                                                    child: Center(
+                                                      child: Text(
+                                                        'Hmm.. Looks empty. Why don\'t you read a book?',
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .headline6
+                                                            .copyWith(
+                                                              color: Colors
+                                                                  .black26,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                            ),
+                                                      ),
+                                                    ),
                                                   ),
                                                 ),
                                               ),
                                             ),
-                                          ),
-                                        ),
-                                      );
-                              })
-                          : SpinkitWidget(),
-                      user != null
-                          ? ProgressGridView(
-                              user: user,
-                              matrix2: myMatrix2,
-                              matrix3: myMatrix3,
-                              animation: depthAnimation,
-                            )
-                          : Container(),
-                      Transform(
-                        transform: myMatrix,
-                        child: AspectRatio(
-                          aspectRatio: 1.7,
-                          child: WeeklyChartCard(
-                            size: size,
-                            user: user,
-                            depthAnimation: depthAnimation,
+                                          );
+                                  })
+                              : SpinkitWidget(),
+                          user != null
+                              ? ProgressGridView(
+                                  user: user,
+                                  matrix2: myMatrix2,
+                                  matrix3: myMatrix3,
+                                  animation: depthAnimation,
+                                )
+                              : Container(),
+                          Transform(
+                            transform: myMatrix,
+                            child: AspectRatio(
+                              aspectRatio: 1.7,
+                              child: WeeklyChartCard(
+                                size: size,
+                                user: user,
+                                depthAnimation: depthAnimation,
+                              ),
+                            ),
                           ),
-                        ),
+                          SizedBox(height: size.height * .02),
+                        ],
                       ),
-                      SizedBox(height: size.height * .02),
-                    ],
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ],

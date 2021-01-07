@@ -76,32 +76,31 @@ class HomeAppBar extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(
-            width: size.width * .6,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                FittedBox(
-                  child: AppBarTitle(),
-                ),
-                FittedBox(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 15),
-                    child: FadeIn(
-                      controller: fadeController,
-                      duration: Duration(milliseconds: 800),
-                      child: Text(
-                        'What are we reading today?',
-                        textAlign: TextAlign.start,
-                        style: Theme.of(context).textTheme.subtitle2.copyWith(
-                            color: kLightBackgroundColor, fontSize: 16),
-                      ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              FittedBox(
+                child: AppBarTitle(),
+              ),
+              FittedBox(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 15),
+                  child: FadeIn(
+                    controller: fadeController,
+                    duration: Duration(milliseconds: 800),
+                    child: Text(
+                      'What are we reading today?',
+                      textAlign: TextAlign.start,
+                      style: Theme.of(context)
+                          .textTheme
+                          .subtitle2
+                          .copyWith(color: kLightBackgroundColor, fontSize: 16),
                     ),
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
           Spacer(),
           PopUpSettings(

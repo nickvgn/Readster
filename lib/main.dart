@@ -13,12 +13,15 @@ import 'package:untitled_goodreads_project/controller/firestore-controller.dart'
 import 'package:untitled_goodreads_project/controller/weekday-controller.dart';
 import 'package:untitled_goodreads_project/screens/splash/splash-screen.dart';
 import 'package:untitled_goodreads_project/services/auth.dart';
+import 'package:untitled_goodreads_project/services/shared.dart';
 
 FirebaseAnalytics analytics;
 FirebasePerformance performance;
 
-void main() {
+Future<void> main() async {
   analytics = FirebaseAnalytics();
+  WidgetsFlutterBinding.ensureInitialized();
+  await sharedPrefs.init();
   runApp(MyApp());
 }
 
