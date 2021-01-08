@@ -87,6 +87,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     return Stack(
       clipBehavior: Clip.none,
       children: [
@@ -96,7 +97,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               SizedBox(
-                width: 200,
+                width: size.width * .47,
                 child: Neumorphic(
                   style: kNeumorphicStyle.copyWith(
                     color: Colors.transparent,

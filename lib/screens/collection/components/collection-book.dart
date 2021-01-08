@@ -187,7 +187,7 @@ class _CollectionBookState extends State<CollectionBook> {
                   Spacer(),
                   if (readStatus == READING)
                     SizedBox(
-                      width: size.width * .55,
+                      width: size.width > 480 ? size.width * .67 : size.width * .55,
                       child: Hero(
                         tag: 'slider${widget.book.id}',
                         child: NeumorphicProgress(

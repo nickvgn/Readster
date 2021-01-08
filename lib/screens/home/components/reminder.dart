@@ -44,7 +44,7 @@ class _ReminderState extends State<Reminder> {
     var iOS = IOSNotificationDetails();
     var platform = NotificationDetails(android, iOS);
     await flutterLocalNotificationsPlugin.schedule(
-        0, 'Let\'s read!', '', dateTime, platform);
+        0, 'Time to read!', '', dateTime, platform);
   }
 
   @override
@@ -63,138 +63,151 @@ class _ReminderState extends State<Reminder> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        SizedBox(height: 10),
-        RichText(
-          textAlign: TextAlign.center,
-          text: TextSpan(children: [
-            TextSpan(
-              text: 'Remind me to read',
-              style: Theme.of(context).textTheme.subtitle1,
+    return StreamBuilder<List<Book>>(
+        stream: FirestoreController.streamBooksByStatus(
+            widget.user.uid, READING),      builder: (context, snapshot) {
+      var readingBooks = snapshot.data;
+      return snapshot.hasData && readingBooks.length > 0 ?
+        Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            SizedBox(height: 10),
+              RichText(
+              textAlign: TextAlign.center,
+              text: TextSpan(children: [
+                TextSpan(
+                  text: 'Remind me to read',
+                  style: Theme.of(context).textTheme.subtitle1,
+                ),
+                TextSpan(
+                  text: ' $bookTitle',
+                  style: Theme.of(context).textTheme.subtitle1.copyWith(
+                      fontWeight: FontWeight.bold, color: kSecondaryColor),
+                ),
+                TextSpan(
+                  text: ' at',
+                  style: Theme.of(context).textTheme.subtitle1,
+                ),
+                TextSpan(
+                  text: ' ${DateFormat().add_jm().format(dateTime)}',
+                  style: Theme.of(context).textTheme.subtitle1.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: kSecondaryColor,
+                      ),
+                ),
+                TextSpan(
+                  text: ' $day.',
+                  style: Theme.of(context).textTheme.subtitle1,
+                ),
+              ]),
             ),
-            TextSpan(
-              text: ' $bookTitle',
-              style: Theme.of(context).textTheme.subtitle1.copyWith(
-                  fontWeight: FontWeight.bold, color: kSecondaryColor),
-            ),
-            TextSpan(
-              text: ' at',
-              style: Theme.of(context).textTheme.subtitle1,
-            ),
-            TextSpan(
-              text: ' ${DateFormat().add_jm().format(dateTime)}',
-              style: Theme.of(context).textTheme.subtitle1.copyWith(
-                    fontWeight: FontWeight.bold,
-                    color: kSecondaryColor,
-                  ),
-            ),
-            TextSpan(
-              text: ' $day.',
-              style: Theme.of(context).textTheme.subtitle1,
-            ),
-          ]),
-        ),
-        Spacer(),
-        if (widget.user != null)
-          StreamBuilder<List<Book>>(
-              stream: FirestoreController.streamBooksByStatus(
-                  widget.user.uid, READING),
-              builder: (context, snapshot) {
-                var readingBooks = snapshot.data;
-                return snapshot.hasData
-                    ? CarouselSlider.builder(
-                        itemCount: readingBooks.length,
-                        itemBuilder: (context, index) => Container(
-                          margin: EdgeInsets.symmetric(vertical: 10),
-                          height: 300,
-                          child: Neumorphic(
-                            style: kNeumorphicStyle.copyWith(
-                              depth: 3,
-                              boxShape: NeumorphicBoxShape.roundRect(
-                                BorderRadius.circular(5),
+            Spacer(),
+            if (widget.user != null)
+            CarouselSlider.builder(
+                            itemCount: readingBooks.length,
+                            itemBuilder: (context, index) => Container(
+                              margin: EdgeInsets.symmetric(vertical: 10),
+                              height: 300,
+                              child: Neumorphic(
+                                style: kNeumorphicStyle.copyWith(
+                                  depth: 3,
+                                  boxShape: NeumorphicBoxShape.roundRect(
+                                    BorderRadius.circular(5),
+                                  ),
+                                ),
+                                padding: EdgeInsets.zero,
+                                child: FadeInImage.memoryNetwork(
+                                  image: readingBooks[index].imageUrl,
+                                  placeholder: kTransparentImage,
+                                  fit: BoxFit.fill,
+                                ),
                               ),
                             ),
-                            padding: EdgeInsets.zero,
-                            child: FadeInImage.memoryNetwork(
-                              image: readingBooks[index].imageUrl,
-                              placeholder: kTransparentImage,
-                              fit: BoxFit.fill,
+                            options: CarouselOptions(
+                              onPageChanged: (val, reason) {
+                                if (readingBooks != null) {
+                                  setState(() {
+                                    bookTitle = readingBooks[val].title;
+                                    imageUrl = readingBooks[val].imageUrl;
+                                  });
+                                }
+                              },
+                              height: 180,
+                              enlargeStrategy: CenterPageEnlargeStrategy.height,
+                              enlargeCenterPage: true,
+                              autoPlayAnimationDuration:
+                                  Duration(milliseconds: 800),
+                              autoPlayInterval: Duration(seconds: 10),
+                              autoPlayCurve: Curves.easeInOutSine,
+                              pauseAutoPlayOnManualNavigate: true,
+                              initialPage: 0,
+                              viewportFraction: 0.35,
                             ),
                           ),
-                        ),
-                        options: CarouselOptions(
-                          onPageChanged: (val, reason) {
-                            if (readingBooks != null) {
-                              setState(() {
-                                bookTitle = readingBooks[val].title;
-                                imageUrl = readingBooks[val].imageUrl;
-                              });
-                            }
-                          },
-                          height: 180,
-                          enlargeStrategy: CenterPageEnlargeStrategy.height,
-                          enlargeCenterPage: true,
-                          autoPlayAnimationDuration:
-                              Duration(milliseconds: 800),
-                          autoPlayInterval: Duration(seconds: 10),
-                          autoPlayCurve: Curves.easeInOutSine,
-                          pauseAutoPlayOnManualNavigate: true,
-                          initialPage: 0,
-                          viewportFraction: 0.35,
-                        ),
-                      )
-                    : Center(
-                        child: Text(
-                          'You currently have no books in your \'Reading\' collection.',
-                          style: Theme.of(context).textTheme.headline6.copyWith(
-                              color: Colors.black26,
-                              fontWeight: FontWeight.w900),
-                          textAlign: TextAlign.center,
-                        ),
-                      );
-              }),
-        Spacer(),
-        SizedBox(
-          height: 70,
-          child: CupertinoDatePicker(
-            minimumDate: DateTime.now(),
-            maximumDate: DateTime.now().add(Duration(days: 1)),
-            onDateTimeChanged: (DateTime datetime) {
-              setState(() {
-                dateTime = datetime;
-                dateTime.day == DateTime.now().day
-                    ? day = 'today'
-                    : day = 'tomorrow';
-              });
-            },
-          ),
-        ),
-        SizedBox(height: 30),
-        buildConfirmationButton('Save', context, () {
-          if (bookTitle == 'a book') {
-            Fluttertoast.showToast(
-              backgroundColor: kPrimaryColor,
-              msg: "Select a book by sliding the carousel",
-              toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.TOP,
-              timeInSecForIosWeb: 1,
-            );
-          } else {
-            showNotification(bookTitle, dateTime);
-            Fluttertoast.showToast(
-              backgroundColor: kPrimaryColor,
-              msg: "Done",
-              toastLength: Toast.LENGTH_LONG,
-              gravity: ToastGravity.TOP,
-              timeInSecForIosWeb: 1,
-            );
-            Navigator.pop(context);
-          }
-        }),
-        SizedBox(height: 10)
-      ],
+
+
+            Spacer(),
+              SizedBox(
+              height: 70,
+              child: CupertinoDatePicker(
+                minimumDate: DateTime.now(),
+                maximumDate: DateTime.now().add(Duration(days: 1)),
+                onDateTimeChanged: (DateTime datetime) {
+                  setState(() {
+                    dateTime = datetime;
+                    dateTime.day == DateTime.now().day
+                        ? day = 'today'
+                        : day = 'tomorrow';
+                  });
+                },
+              ),
+            ),
+              SizedBox(height: 30),
+            buildConfirmationButton('Save', context, () {
+              if (bookTitle == 'a book') {
+                Fluttertoast.showToast(
+                  backgroundColor: kPrimaryColor,
+                  msg: "Select a book by sliding the carousel",
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.TOP,
+                  timeInSecForIosWeb: 1,
+                );
+              } else {
+                showNotification(bookTitle, dateTime);
+                Fluttertoast.showToast(
+                  backgroundColor: kPrimaryColor,
+                  msg: "Done",
+                  toastLength: Toast.LENGTH_LONG,
+                  gravity: ToastGravity.TOP,
+                  timeInSecForIosWeb: 1,
+                );
+                Navigator.pop(context);
+              }
+            }),
+            SizedBox(height: 10)
+          ],
+        )  : Column(
+          children: [
+            Spacer(),
+            Center(
+            child: Text(
+              'You currently have no books in your \'Reading\' collection.',
+              style: Theme.of(context).textTheme.headline6.copyWith(
+                  color: Colors.black26,
+                  fontWeight: FontWeight.w900),
+              textAlign: TextAlign.center,
+            ),
+      ),
+            Spacer(),
+            SizedBox(height: 30),
+            buildConfirmationButton('Go Back', context, () {
+                Navigator.pop(context);
+              }
+            ),
+            SizedBox(height: 10)
+          ],
+        );
+      }
     );
   }
 }

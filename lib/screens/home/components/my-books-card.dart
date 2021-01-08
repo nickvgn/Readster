@@ -43,11 +43,12 @@ class MyBooksCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var width = MediaQuery.of(context).size.width;
     return Stack(
       alignment: Alignment.centerRight,
       children: [
         Neumorphic(
-          margin: EdgeInsets.only(top: 45, bottom: 8, left: 10, right: 10),
+          margin: EdgeInsets.only(top: 45, bottom: 8, left: width > 480 ? 5 : 10, right: width > 480 ? 5 : 10),
           style: kNeumorphicStyle.copyWith(
             boxShape: NeumorphicBoxShape.roundRect(
               BorderRadius.circular(25),

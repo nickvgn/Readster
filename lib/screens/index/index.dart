@@ -32,6 +32,7 @@ class _IndexScreenState extends State<IndexScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
     return Scaffold(
       body: _screens[_selectedItemPosition],
@@ -63,7 +64,8 @@ class _IndexScreenState extends State<IndexScreen> {
               backgroundColor: kLightBackgroundColor,
               showUnselectedLabels: false,
               showSelectedLabels: false,
-              padding: EdgeInsets.only(top: 5, bottom: 5, left: 230),
+              // left used to be 230
+              padding: EdgeInsets.only(top: 5, bottom: 5, left: size.width * 0.55),
               currentIndex: _selectedItemPosition,
               onPositionChanged: (index) {
                 if (index == 1) {

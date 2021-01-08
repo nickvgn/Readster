@@ -13,15 +13,16 @@ class CircularProgressWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     return SleekCircularSlider(
       appearance: CircularSliderAppearance(
         spinnerDuration: 500,
-        size: 100,
+        size: size.width * 0.25,
         startAngle: 270,
         angleRange: 365,
         customWidths: CustomSliderWidths(
-          progressBarWidth: 12,
-          trackWidth: 12,
+          progressBarWidth: 15,
+          trackWidth: 15,
         ),
         customColors: CustomSliderColors(
             progressBarColors: [kPrimaryColor, kPrimaryColor],

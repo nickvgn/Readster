@@ -58,7 +58,7 @@ class _BookshelfState extends State<Bookshelf> {
                                   vertical: 0, horizontal: 15),
                               gridDelegate:
                                   SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 4,
+                                crossAxisCount: size.width > 480 ? 5 : 4,
                                 mainAxisSpacing: 20,
                                 crossAxisSpacing: 0,
                                 childAspectRatio: .50,

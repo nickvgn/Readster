@@ -62,8 +62,9 @@ class ProgressGridView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
     return SizedBox(
-      height: 200,
+      height: size.width * .49,
       child: StreamBuilder<User>(
           stream: FirestoreController.streamUserData(user.uid),
           builder: (context, snapshot) {
