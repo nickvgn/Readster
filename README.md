@@ -1,6 +1,6 @@
 # Readster
 
-A minimal reading tracker app that aims to keep the bloat out and focus on what matters; your reading habit. Keep a virtual library of all your favourite books to sort through and update your reading progress as you go. Readster will do the rest.
+A minimal digital bookmark app that aims to keep the bloat out and focus on what matters; your reading habit. Keep a virtual library of all your favourite books to sort through and update your reading progress as you go. Readster will do the rest.
 
 ##### This app was built using Flutter
 
