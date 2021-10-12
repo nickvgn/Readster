@@ -4,7 +4,7 @@ A minimal reading tracker app that aims to keep the bloat out and focus on what 
 
 ##### This app was built using Flutter
 
-## Screenshots (as of Sep 06)
+## Screenshots (as of Sep 06, 2020)
 
 ## Library
 
